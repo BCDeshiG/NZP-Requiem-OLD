@@ -289,7 +289,7 @@ void() PollPlayerPoints =
 		}
 		
 		
-		UpdatePlayerPoints(i, pollent.points, pollent.netname);
+		UpdatePlayerPoints(i, pollent.points, pollent.netname, pollent);
 	}
 }
 
@@ -381,6 +381,7 @@ void() PlayerSpawn =
 	}
 	
 	PollPlayerPoints();
+	PromptLevelChange(self.nextthink + 3, 1, self);
 };
 
 void() SpectatorSpawn =
@@ -405,7 +406,11 @@ void() PutClientInServer =
 {
 	bprint(PRINT_HIGH, self.netname);
 	bprint(PRINT_HIGH, " has joined the game.\n");
-	PlayerSpawn();
+	
+	if (spawn_time > time || !rounds)
+		PlayerSpawn();
+	else 
+		SpectatorSpawn();
 	
 	/*stuffcmd(self, "promptjoin\n");
 	SpectatorSpawn();*/

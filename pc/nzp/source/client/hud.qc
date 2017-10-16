@@ -988,13 +988,27 @@ void() HUD_Endgame = {
 
 float oldfade_alpha;
 void() HUD_Fade = 
-{    
-	float alpha = sin(((fade_time - time) * 2));
-	if (oldfade_alpha > 0.95)
-		alpha = 1;
-	        
-	drawfill ([0, 0, 0], [g_width, g_height, 0], [0, 0, 0], alpha);	// background
-	oldfade_alpha = alpha;
+{  
+	float alpha;
+	
+	if (fade_type == 1) {
+		alpha = cos(fade_time - time);
+			if (oldfade_alpha > 0.95)
+			alpha = 1;
+			
+			alpha = invertfloat(alpha);
+						
+		drawfill ([0, 0, 0], [g_width, g_height, 0], [0, 0, 0], alpha);	// background
+		oldfade_alpha = alpha;
+	}
+	else if (fade_type == 2) {
+		alpha = sin(((fade_time - time) * 2));
+		if (oldfade_alpha > 0.95)
+			alpha = 1;
+				
+		drawfill ([0, 0, 0], [g_width, g_height, 0], [0, 0, 0], alpha);	// background
+		oldfade_alpha = alpha;
+	}
 }
 
 /*******************
@@ -1032,7 +1046,7 @@ void(float width, float height) HUD_Draw =
 	if (broadcast_time > time)
 		HUD_Broadcast();
 	
-	if (getstatf(STAT_HEALTH) <= 10 && getstatf(STAT_SPECTATING))
+	if (getstatf(STAT_HEALTH) <= 10 && getstatf(STAT_SPECTATING) && !find(world, classname, "ai_zombie"))
 		HUD_Endgame();
 		
 	if (score_show)
