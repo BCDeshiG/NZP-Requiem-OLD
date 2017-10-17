@@ -31,8 +31,8 @@ void() EndRound =
 {
 	rounds_change = 4;
 	SetUpdate(self, UT_ROUNDS_CHANGE, rounds_change, 0, 0);
-	playSoundAtPlayers("sounds/rounds/eround.wav");
-	round_changetime = time + 5;
+	playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/eround.wav"));
+	round_changetime = time + 8;
 }
 
 void() PlayerSpawn;
@@ -63,7 +63,7 @@ void() NewRound =
 	}
 	if (rounds != 0)
 	{
-		playSoundAtPlayers("sounds/rounds/nround.wav");
+		playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/nround.wav"));
 		rounds_change = 6;
 		SetUpdate(self, UT_ROUNDS_CHANGE, rounds_change, 0, 0);
 		blink_return = time + 2;

@@ -327,3 +327,7 @@ waypoint_ai waypoints[MAX_WAYPOINTS];
 
 //Misc patch definitions
 .string teddyremovetarget;
+
+//MOTO - Customizations
+.float roundsnd;
+string roundstr;

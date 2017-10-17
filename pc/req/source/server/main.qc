@@ -6,7 +6,6 @@
 void() main =
 {
 	localcmd("echo Server starting...\n");
-
 }
 
 //called for each frame that QC runs
@@ -44,6 +43,16 @@ void() StartFrame =
 //called when map loaded
 void() worldspawn =
 {
+	//MOTO - Round Customization
+	switch (world.roundsnd)
+	{
+		case 0: roundstr = "demo"; break;
+		case 1: roundstr = "beta"; break;
+		case 2: roundstr = "req"; break;
+		case 3: roundstr = "waw"; break;
+		case 4: roundstr = "mob"; break;
+		case 5: roundstr = "kdt"; break;
+	}
 	precache_model ("models/player.mdl");
 	precache_model ("models/v_morphine.mdl");
 	precache_model ("progs/Sprites/revive.spr");
@@ -94,9 +103,9 @@ void() worldspawn =
 	precache_sound("sounds/weapons/knife/knife.wav");
 	precache_sound("sounds/weapons/knife/knife_hit.wav");
 	
-	precache_sound("sounds/rounds/eround.wav");
-	precache_sound("sounds/rounds/nround.wav");
-	precache_sound("sounds/rounds/splash.wav");
+	precache_sound(strcat("sounds/rounds/", roundstr, "/eround.wav"));
+	precache_sound(strcat("sounds/rounds/", roundstr, "/nround.wav"));
+	precache_sound(strcat("sounds/rounds/", roundstr, "/splash.wav"));
 	precache_sound("sounds/music/end.wav");
 	precache_sound("sounds/null.wav");
 

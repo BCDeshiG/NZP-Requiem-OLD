@@ -377,7 +377,7 @@ void() PlayerSpawn =
 		self.playernum = player_count + 1;
 
 	if (rounds < 1) {
-		sound (self, CHAN_AUTO, "sounds/rounds/splash.wav", 1, ATTN_NONE);//temporarily here.
+		sound (self, CHAN_AUTO, strcat("sounds/rounds/", roundstr, "/splash.wav"), 1, ATTN_NONE);//temporarily here.
 	}
 	
 	PollPlayerPoints();
