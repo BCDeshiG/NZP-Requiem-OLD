@@ -1,24 +1,16 @@
 # Compiled Object files
 *conhistory.txt
 
-pc/nzp/source/fteqcc\.log
-
-pc/nzp/qwprogs.lno
-
-pc/nzp/qwprogs.dat
-
-pc/nzp/csprogs.dat
-
-pc/nzp/csprogs\.lno
+pc/req/source/fteqcc\.log
 
 pc/conhistory.txt
 
-pc/nzp/iplog.txt
+pc/req/iplog.txt
 
 *.dat
 
 # Map ignores
-pc/nzp/maps/*.map
+pc/req/maps/*.map
 *.max
 *.rmx
 *.lin

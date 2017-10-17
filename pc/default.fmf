@@ -1,4 +1,4 @@
 game nzp
-name "Nazi Zombies Portable"
-basegame nzp
+name "Requiem"
+basegame req
 disablehomedir 1
