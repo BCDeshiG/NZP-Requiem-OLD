@@ -141,6 +141,8 @@ const float EVENT_BLACKOUT = 26;
 #define STAT_X2		        	62
 #define STAT_SPECTATING			63
 #define STAT_PLAYERNUM			64
+#define STAT_CREWTYPE 			65
+#define STAT_CHARACTER 			66
 
 //
 // invert float takes in float value between 0 and 1, inverts position

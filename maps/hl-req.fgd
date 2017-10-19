@@ -20,6 +20,15 @@
 		4: "Mob of the Dead"
 		5: "Kino der Toten (Chronicles)"
 	]
+	chartype(choices) : "Crew" : 0 =
+	[
+		0: "Ultimus/Primus"
+		1: "Pentagon"
+		2: "Romero's Playthings"
+		3: "Victus"
+		4: "Alcatraz"
+		5: "The Cursed"
+	]
 ]
 
 //

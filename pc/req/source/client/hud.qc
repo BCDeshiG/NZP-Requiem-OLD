@@ -1011,6 +1011,108 @@ void() HUD_Fade =
 	}
 }
 
+//==- HUD_PlayerName -==//
+
+//==- TODO -==//
+/*
+	1. Re-do scaling
+	2. Change offset values
+*/
+//==- By: MotoLegacy -==//
+
+void(float width, float height) HUD_PlayerName =
+{
+	local float playername, plroffset, p1o, p2o, p3o, p4o;
+	local string pname, p1, p2, p3, p4;
+	float playernum = getstatf(STAT_CHARACTER);
+
+	switch(getstatf(STAT_CREWTYPE))
+	{
+		case 0:
+			p1 = "Dempsey";
+			p1o = 0.720;
+			p2 = "Nikolai";
+			p2o = 0.715;
+			p3 = "Takeo";
+			p3o = 0.750;
+			p4 = "Richtofen";
+			p4o = 0.700;
+			break;
+		case 1:
+			p1 = "Kennedy";
+			p1o = 0.720;
+			p2 = "McNamara";
+			p2o = 0.715;
+			p3 = "Nixon";
+			p3o = 0.750;
+			p4 = "Castro";
+			p4o = 0.700; 
+			break;
+		case 2:
+			p1 = "Gellar";
+			p1o = 0.720;
+			p2 = "Englund";
+			p2o = 0.715;
+			p3 = "Trejo";
+			p3o = 0.750;
+			p4 = "Rooker";
+			p4o = 0.700; 
+			break;
+		case 3:
+			p1 = "Stuhlinger";
+			p1o = 0.720;
+			p2 = "Marlton";
+			p2o = 0.715;
+			p3 = "Misty";
+			p3o = 0.750;
+			p4 = "Russman";
+			p4o = 0.700; 
+			break;
+		case 4:
+			p1 = "Finn";
+			p1o = 0.720;
+			p2 = "Weasel";
+			p2o = 0.715;
+			p3 = "DeLuca";
+			p3o = 0.750;
+			p4 = "Billy";
+			p4o = 0.700; 
+			break;
+		case 5:
+			p1 = "Campbell";
+			p1o = 0.720;
+			p2 = "Rose";
+			p2o = 0.715;
+			p3 = "Nero";
+			p3o = 0.750;
+			p4 = "Vincent";
+			p4o = 0.700; 
+			break;
+	}
+
+	switch(getstatf(STAT_CHARACTER))
+	{
+		case 0:
+			pname = p1;
+			plroffset = p1o;
+			break;
+		case 1:
+			pname = p2;
+			plroffset = p2o;
+			break;
+		case 2:
+			pname = p3;
+			plroffset = p3o;
+			break;
+		case 3:
+			pname = p4;
+			plroffset = p4o;
+			break;
+	}
+
+	drawstring([plroffset*width, 0.725*height, 0], pname, [0.015*width, 0.015*width, 0], [1, 1, 1], 1, 1);
+} 
+
 /*******************
 *     HUD Draw     *
 *******************/
@@ -1033,6 +1135,7 @@ void(float width, float height) HUD_Draw =
 			HUD_Ammo(width, height);
 			HUD_Grenades(width, height);
 			HUD_Weaponstring(width, height);
+			HUD_PlayerName(width, height);
 		}
 			
 		if (useprint_time > time) 

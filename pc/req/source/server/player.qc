@@ -92,6 +92,30 @@ void() playgetup8		=[	9,		playgetup9		] {self.frame = 46;}
 void() playgetup9		=[	10,		playgetup10		] {self.frame = 47;}
 void() playgetup10		=[	11,		playgetup10		] {self.frame = 48;}
 
+//MOTO - Choose our character, but check if they're already in the game, 
+//if so, choose someone else
+void() ChooseCharacter =
+{
+	local float charc;
+	charc = random();
+
+	if (charc < 0.250) {
+		self.character = 0;
+		return;
+	}
+	else if (charc < 0.500) {
+		self.character = 1;
+		return;
+	}
+	else if (charc < 0.750) {
+		self.character = 2;
+		return;
+	}
+	else {
+		self.character = 3;
+		return;
+	}
+}
 
 void() PlayerJump =
 {
@@ -372,6 +396,9 @@ void() PlayerSpawn =
 	self.stamina = 3;
 	self.reviving = 0;
 	self.weaponnum = 0;
+
+	//MOTO - Customization
+	self.chartype = 0;
 	
 	if (!self.playernum)
 		self.playernum = player_count + 1;
@@ -382,6 +409,7 @@ void() PlayerSpawn =
 	
 	PollPlayerPoints();
 	PromptLevelChange(self.nextthink + 3, 1, self);
+	ChooseCharacter();
 };
 
 void() SpectatorSpawn =
