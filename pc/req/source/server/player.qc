@@ -398,7 +398,7 @@ void() PlayerSpawn =
 	self.weaponnum = 0;
 
 	//MOTO - Customization
-	self.chartype = 0;
+	self.chartype = world.chartype;
 	
 	if (!self.playernum)
 		self.playernum = player_count + 1;
