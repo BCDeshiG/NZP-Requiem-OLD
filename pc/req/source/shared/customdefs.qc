@@ -74,6 +74,8 @@ const float EVENT_BLACKOUT = 26;
 
 #define W_TESLA  56
 
+#define AL 			   99
+
 
 #define BASE_FRAME			1
 #define FIRE_START 			2

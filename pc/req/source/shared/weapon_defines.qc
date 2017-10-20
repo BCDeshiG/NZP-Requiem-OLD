@@ -210,6 +210,8 @@ float(float wep) GetFiretype =
 		case W_TYPE:
 		case W_SAMURAI:
 			return 0;
+		case AL:
+			return 1;
     }
 
     return 0;
@@ -309,6 +311,8 @@ float(float wep) getWeaponMag =
 			return 30;
 		case W_SAMURAI:
 			return 60;
+		case AL:
+			return 999;
 	}
 	return 0;
 }
@@ -977,6 +981,8 @@ float(float wep, float delaytype) getWeaponDelay =
 				return 2.3;
 			else if (delaytype == FIRE)
 				return 0.065;
+		case AL:
+			return 1;
     }
 
     return 0;
@@ -2094,6 +2100,8 @@ string(float wep, float gorvmodel) GetWeaponModel =
 				return ("models/weapons/type/g_type.mdl");
 			else
 				return ("models/weapons/type/v_type.mdl");
+		case AL:
+			return ("models/weapons/afterlife/al.mdl");
     }
 
     return "";

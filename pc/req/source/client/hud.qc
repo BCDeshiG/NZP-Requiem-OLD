@@ -35,6 +35,11 @@ void(float width, float height) HUD_Health =
 	
 }
 
+void(float width, float height) HUD_ALBlue =
+{
+	drawfill ([0, 0, 0], [g_width, g_height, 0], [0, 102, 255], 0.2);
+}
+
 /*******************
 *    HUD_Ammo      *
 *******************/
@@ -708,6 +713,12 @@ void(float width, float height) HUD_Useprint =
 			case 13://revive
 				usestring = strcat("Hold ",usebutton, " to revive player");
 				break;
+			case 14:
+				usestring = strcat("Hold ",usebutton, " to enter Afterlife");
+				break;
+			case 15:
+				usestring = strcat("Hold ",usebutton, " to revive yourself");
+				break;
 			default:
 				usestring = "This should not happen you dum fuck";
 				break;
@@ -870,7 +881,7 @@ void() Draw_Crosshair =
 		}
     }
 
-	if (getstatf(STAT_ACTIVEWEAPON) == W_M2)
+	if (getstatf(STAT_ACTIVEWEAPON) == W_M2 || getstatf(STAT_ACTIVEWEAPON) == AL)
 	{
 		drawstring([(g_width/2 - g_width*0.0175/2), (g_height/2 - g_height*0.0175/2), 0], "O", [0.0175*g_width, 0.0175*g_width, 0], [1, 1, 1], 1, 1);
 	}
@@ -1122,15 +1133,21 @@ void(float width, float height) HUD_Draw =
 	if (!getstatf(STAT_SPECTATING) && (getstatf(STAT_HEALTH) > 10) && !score_show)
 	{
 		Draw_Crosshair();
-		HUD_Health(width, height);
-		HUD_Points(width, height);
-		HUD_Rounds(width, height);
-		HUD_Perks(width, height);
+
+		if (getstatf(STAT_ACTIVEWEAPON) == AL)
+			HUD_ALBlue(width, height);
+
+		if (getstatf(STAT_ACTIVEWEAPON) != AL) {
+			HUD_Health(width, height);
+			HUD_Points(width, height);
+			HUD_Rounds(width, height);
+			HUD_Perks(width, height);
+			HUD_Powerups();
+			HUD_AmmoString();
+		}
 		HUD_Progressbar(width, height);
-		HUD_Powerups();
-		HUD_AmmoString();
 	
-		if (HUD_Change_time > time)
+		if (HUD_Change_time > time && getstatf(STAT_ACTIVEWEAPON) != AL)
 		{
 			HUD_Ammo(width, height);
 			HUD_Grenades(width, height);

@@ -137,6 +137,18 @@
 ]
 
 //
+// MOTO - Afterlife
+//
+
+@PointClass size(-16 -16 -32, 16 16 56) base(Item, Appearflags) color(107 29 20) studio("models/machines/albox.mdl") = 
+	al_voltmeter : "Voltmeter" 
+[
+	spawnflags(Flags) =
+	[
+	]
+]
+
+//
 //NZP Perk Machines
 //
 
@@ -565,6 +577,11 @@
 		64 : "Requires Power" : 0
 		128: "Dont Remove" : 0
 	]
+]
+
+@SolidClass base(Appearflags, Targetname, Target) = func_al_wall : "al door" 
+[
+
 ]
 
 @SolidClass base(Targetname, Appearflags) = func_wall : "Wall" 

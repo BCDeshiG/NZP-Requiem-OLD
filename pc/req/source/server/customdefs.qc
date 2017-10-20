@@ -328,6 +328,11 @@ waypoint_ai waypoints[MAX_WAYPOINTS];
 //Misc patch definitions
 .string teddyremovetarget;
 
+//MOTO - Backup V2
+.float backupweapon, backupweapon2;
+.float backupmag, backupmag2;
+.float backupammo, backupammo2;
+
 //MOTO - Customizations
 .float roundsnd;
 string roundstr;
@@ -335,3 +340,7 @@ string roundstr;
 //MOTO - Player Name
 .float character, iam, chartype;
 //float ex0, ex1, ex2, ex3;
+
+//MOTO - Afterlife
+#define MAX_ALCOUNT 		3
+.float alcount, isrevivingal;

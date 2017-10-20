@@ -117,6 +117,31 @@ void() ChooseCharacter =
 	}
 }
 
+void() backupWeapon =
+{
+	self.backupweapon = self.weapon;
+	self.backupmag = self.currentmag;
+	self.backupammo = self.currentammo;
+
+	self.backupweapon2 = self.secondaryweapon;
+	self.backupmag2 = self.secondarymag;
+	self.backupammo2 = self.secondaryammo;
+}
+
+void() returnWeapon =
+{
+	self.weapon = self.backupweapon;
+	self.currentmag = self.backupmag;
+	self.currentammo = self.backupammo;
+
+	self.secondaryweapon = self.backupweapon2;
+	self.secondarymag = self.backupmag2;
+	self.secondaryammo = self.backupammo2;
+
+	self.weaponmodel = GetWeaponModel(self.weapon, 0);
+	SwitchWeapon(self.weapon);
+}
+
 void() PlayerJump =
 {
 	if (!(self.flags & FL_ONGROUND) 
@@ -410,6 +435,8 @@ void() PlayerSpawn =
 	PollPlayerPoints();
 	PromptLevelChange(self.nextthink + 3, 1, self);
 	ChooseCharacter();
+
+	self.alcount = 1;
 };
 
 void() SpectatorSpawn =
