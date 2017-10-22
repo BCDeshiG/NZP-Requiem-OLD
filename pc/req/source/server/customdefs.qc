@@ -132,6 +132,8 @@ vector	VEC_HULL_MAX = '16 16 40';
 vector	VEC_HULL2_MIN = '-32 -32 -24';
 vector	VEC_HULL2_MAX = '32 32 64';
 vector  VEC_VIEW_OFS  = '0 0 40';
+vector	VEC_VIEW_CROUCH = '0 0 20';
+vector	VEC_VIEW_PRONE = '0 0 -10';
 vector	trace_plane_normal;
 
 
@@ -344,3 +346,7 @@ string roundstr;
 //MOTO - Afterlife
 #define MAX_ALCOUNT 		3
 .float alcount, isrevivingal;
+
+//MOTO - Stance Changing
+.float hasprone;
+.float moneyclaimed;

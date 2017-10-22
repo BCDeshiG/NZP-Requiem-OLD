@@ -1177,6 +1177,36 @@ void() W_Grenade =
 void() CheckButtonOne = {if (self.weaponnum == 1){W_PutOut();}}		// weapon switch to two if 1
 void() CheckButtonTwo = {if (self.weaponnum == 0) {W_PutOut();}}	// weapon switch to one if 2
 
+void() CrouchSet =
+{
+	if (self.sprinting) {
+		//Dive();
+		return;
+	}
+	if (self.view_ofs == VEC_VIEW_OFS) {
+		self.view_ofs = VEC_VIEW_CROUCH;
+		self.hasprone = 0;
+		return;
+	}
+
+	if (self.view_ofs == VEC_VIEW_CROUCH) {
+		if (self.hasprone == 0) {
+			self.view_ofs = VEC_VIEW_PRONE;
+			return;
+		}
+		else {
+			self.view_ofs = VEC_VIEW_OFS;
+			return;
+		}
+	}
+
+	if (self.view_ofs == VEC_VIEW_PRONE) {
+		self.view_ofs = VEC_VIEW_CROUCH;
+		self.hasprone = 1;
+		return;
+	}
+}
+
 void () Impulse_Functions =
 {
 	if (!self.impulse)
@@ -1197,12 +1227,16 @@ void () Impulse_Functions =
 		case 25:
 			switch_nade();
 			break;
+		case 26:
+			centerprint(self, "running");
+			CrouchSet();
+			break;
 		case 110:
 			CheckButtonOne();
 			break;
 		case 111:
 			CheckButtonTwo();
-			break;		
+			break;	
 		default:
 			bprint(PRINT_HIGH, "Unknown impulse: ", ftos(self.impulse));
 			break;

@@ -96,6 +96,13 @@ void() touch_perk =
 {  
 	if (other.classname != "player" || other.downed || other.isBuying == true)
 		return;
+
+	if (self.moneyclaimed == 0 && other.view_ofs == VEC_VIEW_PRONE)
+	{
+		sound(other, 0,"sounds/misc/ching.wav", 1, 1);
+		addmoney(other, 100, 0);
+		self.moneyclaimed = 1;
+	}
 	  
 	if (self.requirespower == true && !isPowerOn)
 	{
