@@ -29,6 +29,7 @@
 		4: "Alcatraz"
 		5: "The Cursed"
 	]
+	limit(integer) : "Perk Limit (0 for no limit)"
 ]
 
 //

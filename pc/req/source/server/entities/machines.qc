@@ -85,7 +85,8 @@ void DrinkPerk(float perk) {
 	if (self.sprinting)
 		W_SprintStop();
 	
-	self.knife_delay = self.reload_delay2 = self.fire_delay2 = self.fire_delay = self.reload_delay = 4.5 + time;		
+	self.knife_delay = self.reload_delay2 = self.fire_delay2 = self.fire_delay = self.reload_delay = 4.5 + time;
+	self.limit --;		
 	Set_W_Frame (0, 22, 0, 0, PERK, func, "models/machines/v_perk.mdl", true, S_RIGHT);
 	self = tempe;
 	sound (other, CHAN_ITEM, "sounds/machines/perk_drink.wav", 1, ATTN_NORM);
@@ -109,10 +110,14 @@ void() touch_perk =
 		useprint (other, 8, 0, 0);
 		return;
 	}
-	  if (other.weaponskin == 0)
-      backupWepSkin = 0;
+
+	if (other.limit == 0)
+		return;
+
+	if (other.weaponskin == 0)
+    	backupWepSkin = 0;
     else 
-      backupWepSkin = 1;
+    	backupWepSkin = 1;
 
 	
 	if (self.classname == "perk_revive" && !(other.perks & P_REVIVE) && other.fire_delay < time)

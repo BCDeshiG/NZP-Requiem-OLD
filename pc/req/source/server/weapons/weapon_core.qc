@@ -1228,7 +1228,6 @@ void () Impulse_Functions =
 			switch_nade();
 			break;
 		case 26:
-			centerprint(self, "running");
 			CrouchSet();
 			break;
 		case 110:

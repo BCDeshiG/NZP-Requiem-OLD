@@ -421,6 +421,11 @@ void() PlayerSpawn =
 	self.stamina = 3;
 	self.reviving = 0;
 	self.weaponnum = 0;
+	self.limit = world.limit;
+	
+	if (self.limit == 0) {
+		self.limit = 99;
+	}
 
 	//MOTO - Customization
 	self.chartype = world.chartype;
@@ -435,8 +440,6 @@ void() PlayerSpawn =
 	PollPlayerPoints();
 	PromptLevelChange(self.nextthink + 3, 1, self);
 	ChooseCharacter();
-
-	self.alcount = 1;
 };
 
 void() SpectatorSpawn =

@@ -336,7 +336,7 @@ waypoint_ai waypoints[MAX_WAYPOINTS];
 .float backupammo, backupammo2;
 
 //MOTO - Customizations
-.float roundsnd;
+.float roundsnd, limit;
 string roundstr;
 
 //MOTO - Player Name
