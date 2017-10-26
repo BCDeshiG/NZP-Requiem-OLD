@@ -1219,8 +1219,14 @@ void () Impulse_Functions =
 			rounds += 4;
 			break;
 		case 23:
-			W_SprintStart();
-			break;
+			if (self.view_ofs == VEC_VIEW_OFS) {
+				W_SprintStart();
+				break;
+			}
+			else {
+				self.view_ofs = VEC_VIEW_OFS;
+				break;
+			}
 		case 24:
 			W_SprintStop();
 			break;

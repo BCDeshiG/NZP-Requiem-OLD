@@ -171,6 +171,11 @@ void() PlayerPreThink =
 			self.maxspeed *= 0.5;
 		}
 
+		if (self.view_ofs == VEC_VIEW_CROUCH)
+			self.maxspeed *= 0.45;
+		if (self.view_ofs == VEC_VIEW_PRONE)
+			self.maxspeed *= 0.2;
+
 		self.maxspeed *= GetWeaponWalkSpeed(self.weapon);
 	}
 	if(self.isspec != 0 && !self.downed)
