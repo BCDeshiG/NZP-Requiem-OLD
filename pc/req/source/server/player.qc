@@ -347,6 +347,10 @@ void() PlayerSpawn =
 	local entity spawnpoint;
 	
 	spawnpoint = find(world, classname, "info_player_start");
+
+	if (spawnpoint.spawnflags & 4) {
+		self.spawnal = 1;
+	}
 	
 	self.isspec = FALSE;
 	self.classname = "player";
@@ -416,7 +420,8 @@ void() PlayerSpawn =
 	UpdateV2model("", 0);
 	stuffcmd(self, "cl_gunx 8;cl_guny 16;cl_gunz 25\n");
 
-	SetRound(self, rounds);
+	if (self.spawnal == 0)
+		SetRound(self, rounds);
 
 	self.stamina = 3;
 	self.reviving = 0;
@@ -433,13 +438,19 @@ void() PlayerSpawn =
 	if (!self.playernum)
 		self.playernum = player_count + 1;
 
-	if (rounds < 1) {
+	if (rounds < 1 && self.spawnal == 0) {
 		sound (self, CHAN_AUTO, strcat("sounds/rounds/", roundstr, "/splash.wav"), 1, ATTN_NONE);//temporarily here.
 	}
 	
 	PollPlayerPoints();
-	PromptLevelChange(self.nextthink + 3, 1, self);
+	if (self.spawnal == 0)
+		PromptLevelChange(self.nextthink + 3, 1, self);
 	ChooseCharacter();
+
+	if (self.spawnal == 1) {
+		self.classname = "player_al";
+		stage2();
+	}
 };
 
 void() SpectatorSpawn =

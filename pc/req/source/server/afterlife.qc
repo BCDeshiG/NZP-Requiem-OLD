@@ -2,6 +2,7 @@
 //=- By MotoLegacy -==//
 void() backupWeapon;
 void() returnWeapon;
+void() InitRounds;
 
 void() revertDoor =
 {
@@ -33,6 +34,13 @@ void() getUpAL =
 	self.movetype = MOVETYPE_WALK;
 	self.isrevivingal = false;
 	returnWeapon();
+
+	if (self.spawnal == 1 && self.hasentered == 0) {
+		SetRound(self, rounds);
+		PromptLevelChange(self.nextthink + 3, 1, self);
+		self.hasentered = 1;
+		sound (self, CHAN_AUTO, strcat("sounds/rounds/", roundstr, "/splash.wav"), 1, ATTN_NONE);
+	}
 }
 
 void() dummyRevive =

@@ -68,7 +68,13 @@
 @baseclass base(Appearflags) size(-16 -16 -32, 16 16 40) 
 	color(0 255 0) = PlayerClass []
 
-@PointClass base(PlayerClass) studio("models/player.mdl") = info_player_start : "Player 1 start" []
+@PointClass base(PlayerClass) studio("models/player.mdl") = info_player_start : "Player 1 start"
+[
+	spawnflags(Flags) =
+	[
+		4 : "Start in Afterlife" : 0
+	]
+]
 
 
 @PointClass base(PlayerClass) color(0 102 0) studio("models/player.mdl") = info_player_tank : "Tank Dempsey" []

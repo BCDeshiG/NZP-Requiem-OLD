@@ -33,7 +33,7 @@ void() StartFrame =
 				gotdog = 1;
 			else 
 				gotdog = 0;
-				
+			
 			InitRounds();
 		}
 	}

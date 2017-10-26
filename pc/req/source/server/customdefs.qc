@@ -345,7 +345,7 @@ string roundstr;
 
 //MOTO - Afterlife
 #define MAX_ALCOUNT 		3
-.float alcount, isrevivingal;
+.float alcount, isrevivingal, hasentered, spawnal;
 
 //MOTO - Stance Changing
 .float hasprone;
