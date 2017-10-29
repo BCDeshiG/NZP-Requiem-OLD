@@ -39,6 +39,14 @@ void() PlayerSpawn;
 
 void() NewRound =
 {		
+	local entity plr;
+	plr = find(world, classname, "player");
+	while(plr)
+	{
+		if (plr.alcount < 3 && plr.alcount != -1)
+			plr.alcount++;
+		plr = find(plr, classname, "player");
+	}
 	entity who = find(world,classname,"spectator");
 	while(who != world)
 	{

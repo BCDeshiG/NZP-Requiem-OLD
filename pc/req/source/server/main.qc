@@ -216,6 +216,7 @@ void() worldspawn =
 	clientstat(STAT_PLAYERNUM, EV_FLOAT, playernum);		// literally useless but will be kept in case
 	clientstat(STAT_CREWTYPE, EV_FLOAT, chartype);
 	clientstat(STAT_CHARACTER, EV_FLOAT, character);
+	clientstat(STAT_ALCOUNT, EV_FLOAT, alcount);
 
 	mappath = strcat("maps/", mapname);
 	mappath = strzone(mappath);

@@ -35,6 +35,22 @@ void(float width, float height) HUD_Health =
 	
 }
 
+/*===============
+   HUD_Afterlife
+  ===============*/
+
+void(float width, float height) HUD_ALCount =
+{
+	local float alcount;
+
+	alcount = getstatf(STAT_ALCOUNT);
+
+	if (alcount != -1) {
+		drawpic([0.875*width + 25, 0.58*height + 32, 0], "gfx/hud/alcount.tga", [50, 25, 0], [1,1,1], 1);
+		drawstring([0.925*width + 28, 0.6*height + 32, 0], ftos(alcount), [0.02*width, 0.02*width, 0], [1, 1, 1], 1, 1);
+	}
+}
+
 void(float width, float height) HUD_ALBlue =
 {
 	drawfill ([0, 0, 0], [g_width, g_height, 0], [0, 102, 255], 0.2);
@@ -1149,6 +1165,7 @@ void(float width, float height) HUD_Draw =
 	
 		if (HUD_Change_time > time && getstatf(STAT_ACTIVEWEAPON) != AL)
 		{
+			HUD_ALCount(width, height);
 			HUD_Ammo(width, height);
 			HUD_Grenades(width, height);
 			HUD_Weaponstring(width, height);

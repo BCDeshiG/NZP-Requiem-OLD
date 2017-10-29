@@ -427,6 +427,7 @@ void() PlayerSpawn =
 		
 	self.pri_grenade_state = 0; 		// defines that frag grenades are for player first, not betty
 	self.secondary_grenades = -1;		// shows that we both don't have betties AND shouldn't draw the image onscreen
+	self.alcount = -1;
 
 	/*self.secondaryweapon = W_KAR_SCOPE;
 	self.secondaryammo = getWeaponAmmo(self.secondaryweapon);
@@ -474,6 +475,7 @@ void() PlayerSpawn =
 
 	if (self.spawnal == 1) {
 		self.classname = "player_al";
+		self.alcount = 3;
 		stage2();
 	}
 };

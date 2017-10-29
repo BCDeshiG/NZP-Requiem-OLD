@@ -103,11 +103,13 @@ void() enterAfterlife =
 
 void() touch_voltmeter =
 {
-	if (other.classname != "player")
+	if (other.classname != "player" || other.alcount <= 0)
 		return;
 	useprint (other, 14, 0, 0);
-	if (other.button7 && other.alcount > 0)
+	if (other.button7 && other.alcount > 0) {
+		other.alcount--;
 		enterAfterlife();
+	}
 }
 
 void() al_voltmeter =
