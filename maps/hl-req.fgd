@@ -30,6 +30,38 @@
 		5: "The Cursed"
 	]
 	limit(integer) : "Perk Limit (0 for no limit)"
+	weapon(choices) : "Starting Weapon" : 1 = 
+	[
+		1: "M1911"
+		2: "Kar"
+		3: "Thompson"
+		4: "357"
+		5: "BAR"
+		6: "Ballistic knife"
+		7: "Browning"
+		8: "Double barrel"
+		9: "FG-42"
+		10: "Gewehr"
+		11: "Kars"
+		12: "M1 Garand"
+		13: "M1A1"
+		14: "M2 Flamer"
+		15: "MP40"
+		16: "MG-42"
+		17: "Panzer"
+		18: "PPSH"
+		19: "PTRS"
+		20: "Ray Gun"
+		21: "Sawnoff"
+		22: "Stg"
+		23: "Trench"
+		24: "type 100"
+		25: "Bowie"
+		26: "Grenade"
+		27: "Betty"
+	]
+	currentmag(integer) : "Starting Magazine" : 8
+	currentammo(integer) : "Starting Reserve Ammo" : 32
 ]
 
 //
@@ -72,7 +104,9 @@
 [
 	spawnflags(Flags) =
 	[
-		4 : "Start in Afterlife" : 0
+		1 : "Start in Afterlife" : 0
+		2 : "Start without Magazine" : 0
+		4 : "Start without Reserve Ammo" : 0
 	]
 ]
 

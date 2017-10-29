@@ -353,7 +353,7 @@ void() PlayerSpawn =
 	
 	spawnpoint = find(world, classname, "info_player_start");
 
-	if (spawnpoint.spawnflags & 4) {
+	if (spawnpoint.spawnflags & 1) {
 		self.spawnal = 1;
 	}
 	
@@ -397,9 +397,26 @@ void() PlayerSpawn =
 	setsize(self, [-16, -16, -24], [16, 16, 32]);
 	self.view_ofs = VEC_VIEW_OFS; // naievil -- set view_ofs to 32 to maintain half life (64) sizes
 
-	self.currentammo = 32;
-	self.currentmag = 8;
-	self.weapon = W_COLT;
+	self.weapon = world.weapon;
+
+	if (world.weapon == 0) {
+		self.weapon = W_COLT;
+	}
+
+	self.currentammo = world.currentammo;
+	self.currentmag = world.currentmag;
+
+	//This is for maps created before weapon customization, you don't want to spawn without a weapon..
+	if (self.currentmag == 0 && !(spawnpoint.spawnflags & 2)) {
+		self.currentmag = getWeaponMag(self.weapon);
+	}
+
+	if (self.currentammo == 0 && !(spawnpoint.spawnflags & 4)) {
+		if (self.weapon == W_COLT)
+			self.currentammo = 32;
+		else
+			self.currentammo = getWeaponAmmo(self.weapon);
+	}
 	
 	self.grenades = self.grenades | 1;  // add frag grenades to player inventory
 	
@@ -451,6 +468,9 @@ void() PlayerSpawn =
 	if (self.spawnal == 0)
 		PromptLevelChange(self.nextthink + 3, 1, self);
 	ChooseCharacter();
+
+	//Precache weapon sounds (for customs)
+	precache_extra(self.weapon);
 
 	if (self.spawnal == 1) {
 		self.classname = "player_al";
