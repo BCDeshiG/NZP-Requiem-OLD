@@ -90,6 +90,7 @@ void() stage2 =
 	self.weapon = AL;
 	self.currentmag = getWeaponMag(self.weapon);
 	self.weaponmodel = GetWeaponModel(self.weapon, 0);
+	self.secondaryweapon = 0;
 	SwitchWeapon(AL);
 }
 
