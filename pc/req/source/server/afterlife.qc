@@ -3,6 +3,7 @@
 void() backupWeapon;
 void() returnWeapon;
 void() InitRounds;
+void() turnpower1;
 
 void() revertDoor =
 {
@@ -101,7 +102,7 @@ void() enterAfterlife =
 	other.think = stage2;
 }
 
-void() touch_voltmeter =
+void() touch_panel =
 {
 	if (other.classname != "player" || other.alcount <= 0)
 		return;
@@ -112,15 +113,53 @@ void() touch_voltmeter =
 	}
 }
 
-void() al_voltmeter =
+void() al_panel =
 {
 	self.solid = SOLID_TRIGGER;
 	precache_model ("models/machines/albox.mdl");
 	setorigin (self, self.origin);
 	setmodel (self, "models/machines/albox.mdl");
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+	self.classname = "al_panel";
+	self.touch = touch_panel;
+}
+
+void(entity trg) AlLights =
+{
+	switch (trg.classname)
+	{
+		case "perk_speed":
+			trg.effects = EF_GREEN;
+			return;
+		case "perk_juggernog":
+			trg.effects = EF_RED;
+			return;
+		case "perk_revive":
+			trg.effects = EF_BLUE;
+			return;
+	}
+}
+
+void(entity attacker) activateVoltmeter =
+{
+	entity tr;
+	tr = find (world, targetname, self.target);
+	if (attacker.weapon != AL)
+		return;
+	turnpower1();
+	self.takedamage = DAMAGE_NO;
+	tr.requirespower = 0;
+	AlLights(tr);
+}
+
+void() al_voltmeter =
+{
+	self.solid = SOLID_BBOX;
+	precache_model("models/machines/power_switch.mdl");
+	setorigin(self, self.origin);
+	setmodel(self, "models/machines/power_switch.mdl");
+	setsize(self, VEC_HULL2_MIN, VEC_HULL2_MAX);
 	self.classname = "al_voltmeter";
-	self.touch = touch_voltmeter;
-	
-	self.nextthink = time + 0.1;
+	self.health = 300;
+	self.takedamage = DAMAGE_YES;
 }

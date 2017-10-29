@@ -483,6 +483,8 @@ void Parse_Damage () = // DO NOT TOUCH
 
 	while (ent) {
 		if (ent.classname == "ai_zombie" || ent.classname == "ai_dog") {
+			if (self.weapon == AL)
+				return;
 			total_dmg = ent.hitamount;
 			//Clear hit
 			ent.washit = 0;
@@ -590,9 +592,19 @@ void(float damage, vector dir, vector org, vector plane, entity hit_ent) TraceAt
 			barrel_hit ();
 			self = oldself;
 			return;
+		} else if (hit_ent.classname == "al_voltmeter") {
+			local entity al;
+			al = self;
+			hit_ent.enemy = self;
+			oldself  = self;
+			self = hit_ent;
+			self.health = self.health - damage;
+			activateVoltmeter(al);
+			self = oldself;
 		}
 		
-		SpawnBlood (org, vel, damage*10);
+		if (hit_ent.classname != "al_voltmeter")
+			SpawnBlood (org, vel, damage*10);
 		
 
 		f_damage = damage;

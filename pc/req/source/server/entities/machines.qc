@@ -227,6 +227,8 @@ void() setup_perk =
 		else
 			self.requirespower = true;
 	}
+	if (find (world, classname, "al_voltmeter"))
+		self.requirespower = true;
 	else
 	{
 		if (self.classname == "perk_revive")

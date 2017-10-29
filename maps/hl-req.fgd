@@ -182,6 +182,14 @@
 //
 
 @PointClass size(-16 -16 -32, 16 16 56) base(Item, Appearflags) color(107 29 20) studio("models/machines/albox.mdl") = 
+	al_panel : "High Voltage Panel" 
+[
+	spawnflags(Flags) =
+	[
+	]
+]
+
+@PointClass size(-16 -16 -32, 16 16 56) base(Item, Appearflags) color(107 29 20) studio("models/machines/power_switch.mdl") = 
 	al_voltmeter : "Voltmeter" 
 [
 	spawnflags(Flags) =
