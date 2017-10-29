@@ -159,6 +159,10 @@ void() rec_downed =
 
 void() GetDown =
 {
+	if (self.alcount > 0) {
+		DownAL();
+		return;
+	}
 	float startframe;
 	float endframe;
 	local string modelname;
@@ -185,7 +189,7 @@ void() GetDown =
 		self.health = 19;
 	}
 	
-	if (self.perks && P_REVIVE && !coop) {	
+	if ((self.perks & P_REVIVE) && !coop) {	
 		self.progress_bar = 10 + time;     
 		self.progress_bar_time = 10;
 		self.progress_bar_percent = 1;

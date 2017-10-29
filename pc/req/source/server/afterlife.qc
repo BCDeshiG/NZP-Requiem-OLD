@@ -97,9 +97,19 @@ void() enterAfterlife =
 {
 	other.movetype = MOVETYPE_NONE;
 	other.classname = "player_al";
-	other.view_ofs = '0 0 -10';
+	other.view_ofs = VEC_VIEW_PRONE;
 	other.nextthink = time + 2.5;
 	other.think = stage2;
+}
+
+void() DownAL =
+{
+	self.perks = 0;
+	self.movetype = MOVETYPE_NONE;
+	self.classname = "player_al";
+	self.view_ofs = VEC_VIEW_PRONE;
+	self.nextthink = time + 2.5;
+	self.think = stage2;
 }
 
 void() touch_panel =
