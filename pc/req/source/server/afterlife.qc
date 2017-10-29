@@ -105,6 +105,7 @@ void() enterAfterlife =
 void() DownAL =
 {
 	self.perks = 0;
+	self.alcount--;
 	self.movetype = MOVETYPE_NONE;
 	self.classname = "player_al";
 	self.view_ofs = VEC_VIEW_PRONE;
