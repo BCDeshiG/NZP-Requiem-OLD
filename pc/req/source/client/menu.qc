@@ -1,3 +1,65 @@
+//==-           Menu.qc           -==//
+//==- Menu Revamped By MotoLegacy -==//
+
+//float menuTime; //Used to prevent flickering
+
+/* ===========
+    Main Menu
+   =========== */
+
+/*var struct
+{
+	string text;
+} M_Menu_Main_String[] =
+{
+	"Solo",
+	"Cooperative",
+	"Achievements",
+	"Settings",
+	"Credits",
+	"Quit",
+};
+
+#define M_Menu_Main_CursorMax	1
+float M_Menu_Main_Cursor;
+
+void() M_Menu_Main_Draw =
+{
+	drawpic([0,0,0], "menu/bg", [g_width, g_height, 1], [1,1,1], 1);
+
+	drawstring([0.025*g_width, 0.100*g_height, 0] M_Menu_Main_String[0], [g_height * 0.03, g_height * 0.3, 1], [0.8, 0.8, 0.8], 1);
+	drawstring([0.025*g_width, 0.150*g_height, 0] M_Menu_Main_String[3], [g_height * 0.03, g_height * 0.3, 1], [0.8, 0.8, 0.8], 1);
+
+	switch(M_Menu_Main_Cursor) {
+		case 0: drawstring([0.025*g_width, 0.100*g_height, 0] M_Menu_Main_String[0], [g_height * 0.03, g_height * 0.3, 1], [1, 0, 0], 1); break;
+		case 1: drawstring([0.025*g_width, 0.150*g_height, 0] M_Menu_Main_String[3], [g_height * 0.03, g_height * 0.3, 1], [1, 0, 0], 1); break;
+	}
+}
+
+void() M_Menu_Main_Keys =
+{
+	if (menuTime > time)
+		return;
+
+	if (K_DOWNARROW) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_Main_Cursor++;
+		if (M_Menu_Main_Cursor > M_Menu_Main_CursorMax)
+			M_Menu_Main_Cursor = 0;
+		menuTime = time + 0.2;
+	}
+
+	if (K_UPARROW) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_Main_Cursor--;
+		if (M_Menu_Main_Cursor == -1)
+			M_Menu_Main_Cursor = M_Menu_Main_CursorMax;
+		menuTime = time + 0.2;
+	}
+}*/
+
+
+
 //
 //	Menu stuff
 //
@@ -248,10 +310,6 @@ void() Draw_Menu =
 	{
 		case MENU_MAIN:
 			title = "MAIN MENU";
-			//drawfill ([0.025*g_width, 0.253*g_height + g_height*0.025 + 3, 0], [0.22*g_width, 0.0025*g_height, 0], [0.4, 0.4, 0.4], 1); //Play | Settings
-			//drawfill ([0.025*g_width, 0.323*g_height + g_height*0.025 + 3, 0], [0.22*g_width, 0.0025*g_height, 0], [0.4, 0.4, 0.4], 1); //Settings | Achievements
-			//drawfill ([0.025*g_width, 0.393*g_height + g_height*0.025 + 3, 0], [0.22*g_width, 0.0025*g_height, 0], [0.4, 0.4, 0.4], 1); //Achievements | Credits
-			//drawfill ([0.025*g_width, 0.463*g_height + g_height*0.025 + 3, 0], [0.22*g_width, 0.0025*g_height, 0], [0.4, 0.4, 0.4], 1); //Credits | Quit 
 			break;
 		case MENU_SINGLE:
 			title = "SOLO";

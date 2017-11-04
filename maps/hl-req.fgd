@@ -62,6 +62,7 @@
 	]
 	currentmag(integer) : "Starting Magazine" : 8
 	currentammo(integer) : "Starting Reserve Ammo" : 32
+	points(integer) : "Starting Points" : 500
 ]
 
 //
@@ -107,6 +108,7 @@
 		1 : "Start in Afterlife" : 0
 		2 : "Start without Magazine" : 0
 		4 : "Start without Reserve Ammo" : 0
+		8 : "Start without Points" : 0
 	]
 ]
 

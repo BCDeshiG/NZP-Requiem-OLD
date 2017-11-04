@@ -5,6 +5,7 @@ void() returnWeapon;
 void() InitRounds;
 void() turnpower1;
 void() GetDown;
+void() door_go_up;
 
 void() ALDie =
 {
@@ -131,8 +132,10 @@ void() al_panel =
 	self.touch = touch_panel;
 }
 
-void(entity trg) AlLights =
+void(entity trg) AlReact =
 {
+	entity old_self, starte;
+
 	switch (trg.classname)
 	{
 		case "perk_speed":
@@ -144,6 +147,14 @@ void(entity trg) AlLights =
 		case "perk_revive":
 			trg.effects = EF_BLUE;
 			return;
+		case "door_nzp":
+			old_self = self;
+			self = trg;
+			starte = self;
+			door_go_up();
+			trg.classname = "door_open";
+			trg = find (trg, targetname, "door_nzp");
+			self = old_self;
 	}
 }
 
@@ -156,7 +167,7 @@ void(entity attacker) activateVoltmeter =
 	turnpower1();
 	self.takedamage = DAMAGE_NO;
 	tr.requirespower = 0;
-	AlLights(tr);
+	AlReact(tr);
 }
 
 void() al_voltmeter =
