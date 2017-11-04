@@ -4,27 +4,16 @@ void() backupWeapon;
 void() returnWeapon;
 void() InitRounds;
 void() turnpower1;
+void() GetDown;
 
-void() revertDoor =
+void() ALDie =
 {
-	local entity ald;
-	ald = find(world, classname, "func_al_wall");
-
-	ald.velocity_z *= -100;
-}
-
-void() ALdoor =
-{
-	local entity ald;
-	ald = find(world, classname, "func_al_wall");
-
-	ald.velocity_z *= 100;
+	self.aldowned = 1;
+	GetDown();
 }
 
 void() getUpAL =
 {
-	//revertDoor();
-
 	local entity dummy;
 	dummy = find(world, classname, "dummy_al");
 	setorigin(self, dummy.origin);
@@ -46,6 +35,10 @@ void() getUpAL =
 
 void() dummyRevive =
 {
+	//So we don't die out.
+	other.nextthink = time + 0.1;
+	other.think = SUB_Null;
+
 	other.movetype = MOVETYPE_NONE;
 	other.isrevivingal = true;
 	Set_W_Frame (63, 79, 0, 0, 0, SUB_Null, GetWeaponModel(self.weapon, 0), false, S_BOTH);
@@ -79,7 +72,6 @@ void() placeDummy =
 
 void() stage2 =
 {
-	//ALdoor();
 
 	placeDummy();
 	self.movetype = MOVETYPE_WALK;
@@ -92,6 +84,9 @@ void() stage2 =
 	self.weaponmodel = GetWeaponModel(self.weapon, 0);
 	self.secondaryweapon = 0;
 	SwitchWeapon(AL);
+
+	/*self.nextthink = time + 60;
+	self.think = ALDie;*/
 }
 
 void() enterAfterlife =
@@ -174,4 +169,27 @@ void() al_voltmeter =
 	self.classname = "al_voltmeter";
 	self.health = 300;
 	self.takedamage = DAMAGE_YES;
+}
+
+/* =================
+    AFTERLIFE WALLS
+   =================*/
+
+void() touch_al_wall =
+{
+	switch(other.classname) {
+		case "player": self.solid = SOLID_BSP; break;
+		case "player_al": self.solid = SOLID_NOT; break;
+		default: self.solid = SOLID_BSP; break;
+	}
+}
+
+void() func_al_wall =
+{
+	self.solid = SOLID_BSP;
+	self.movetype = MOVETYPE_PUSH;
+	setorigin (self, self.origin);	
+	setmodel (self, self.model);
+	self.classname = "func_al_wall";
+	self.touch = touch_al_wall;
 }

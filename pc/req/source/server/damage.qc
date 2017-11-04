@@ -159,7 +159,7 @@ void() rec_downed =
 
 void() GetDown =
 {
-	if (self.alcount > 0) {
+	if (self.alcount > 0 && self.aldowned == 0) {
 		DownAL();
 		return;
 	}
