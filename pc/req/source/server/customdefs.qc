@@ -287,6 +287,8 @@ float sounds_playing;
 
 float rounds;
 float rounds_change;
+float rndtime;
+.float roundtime;
 
 //Waypoints
 void () Waypoint_Logic;

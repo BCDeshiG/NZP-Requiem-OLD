@@ -481,6 +481,12 @@ void() PlayerSpawn =
 		self.alcount = 3;
 		stage2();
 	}
+
+	rndtime = world.roundtime;
+
+	if (world.roundtime == 0) {
+		rndtime = 8;
+	}
 };
 
 void() SpectatorSpawn =

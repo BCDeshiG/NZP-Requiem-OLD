@@ -31,8 +31,9 @@ void() EndRound =
 {
 	rounds_change = 4;
 	SetUpdate(self, UT_ROUNDS_CHANGE, rounds_change, 0, 0);
-	playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/eround.wav"));
-	round_changetime = time + 8;
+	if (rndtime != 0.1)
+		playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/eround.wav"));
+	round_changetime = time + rndtime;
 }
 
 void() PlayerSpawn;
