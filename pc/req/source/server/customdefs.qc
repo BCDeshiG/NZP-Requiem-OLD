@@ -340,6 +340,7 @@ waypoint_ai waypoints[MAX_WAYPOINTS];
 //MOTO - Customizations
 .float roundsnd, limit;
 string roundstr;
+.float hudtype;
 
 //MOTO - Player Name
 .float character, iam, chartype;

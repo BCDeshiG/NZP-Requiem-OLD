@@ -487,6 +487,8 @@ void() PlayerSpawn =
 	if (world.roundtime == 0) {
 		rndtime = 8;
 	}
+
+	self.hudtype = world.hudtype;
 };
 
 void() SpectatorSpawn =

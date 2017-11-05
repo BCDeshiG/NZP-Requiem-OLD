@@ -12,6 +12,14 @@
 	WaveHeight(string) : "Default Wave Height"
 	chaptertitle(string) : "Chapter Title Message"
 	roundtime(integer) : "Time Between Rounds (0.1 for instant)" : 8
+	hudtype(choices) : "Perk Shader Design" : 0 =
+	[
+		0: "NZ:P Demo"
+		1: "NZ:P Beta"
+		2: "World at War/Black Ops"
+		3: "Black Ops II"
+		4: "Black Ops III"
+	]
 	roundsnd(choices) : "Round Sound Style" : 0 = 
 	[
 		0: "NZ:P Demo"

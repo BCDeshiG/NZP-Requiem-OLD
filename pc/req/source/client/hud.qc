@@ -757,6 +757,16 @@ void(float width, float height) HUD_Perks =
 	
 	int i, s;
 	int y = height - 100 - 22/*sb_round[1]->height - 22 //(round height minus perk icon height)*/;	
+	string directory, subdir;
+	switch(getstatf(STAT_HUDTYPE)) {
+		case 0: subdir = "demo"; break;
+		case 1: subdir = "beta"; break;
+		case 2: subdir = "bo1"; break;
+		case 3: subdir = "bo2"; break;
+		case 4: subdir = "bo3"; break;
+	}
+
+	directory = strcat("gfx/hud/", subdir, "/");
 
 	//drawstring([0.01*width, 0.10*height, 0], ftos(perks), [0.03*width, 0.03*width, 0], [1, 1, 1], 1, 1);
 			
@@ -766,32 +776,32 @@ void(float width, float height) HUD_Perks =
 		{
 			if (perk_order[i] == P_JUG)
 			{
-				drawpic([2,y,0], "gfx/hud/jug.tga", [20, 20, 1], [1,1,1], 1);
+				drawpic([2,y,0], strcat(directory, "jug.tga"), [20, 20, 1], [1,1,1], 1);
 				y = y - 22;
 			}
 			else if (perk_order[i] == P_DOUBLE)
 			{
-				drawpic([2,y,0], "gfx/hud/double.tga", [20, 20, 1], [1,1,1], 1);
+				drawpic([2,y,0], strcat(directory, "double.tga"), [20, 20, 1], [1,1,1], 1);
 				y = y - 22;
 			}
 			else if (perk_order[i] == P_SPEED)
 			{
-				drawpic([2,y,0], "gfx/hud/speed.tga", [20, 20, 1], [1,1,1], 1);
+				drawpic([2,y,0], strcat(directory, "speed.tga"), [20, 20, 1], [1,1,1], 1);
 				y = y - 22;
 			}
 			else if (perk_order[i] == P_REVIVE)
 			{
-				drawpic([2,y,0], "gfx/hud/revive.tga", [20, 20, 1], [1,1,1], 1);
+				drawpic([2,y,0], strcat(directory, "revive.tga"), [20, 20, 1], [1,1,1], 1);
 				y = y - 22;
 			}
 			else if (perk_order[i] == P_FLOP)
 			{
-				drawpic([2,y,0], "gfx/hud/flopper.tga", [20, 20, 1], [1,1,1], 1);
+				drawpic([2,y,0], strcat(directory, "flopper.tga"), [20, 20, 1], [1,1,1], 1);
 				y = y - 22;
 			}
 			else if (perk_order[i] == P_STAMIN)
 			{
-				drawpic([2,y,0], "gfx/hud/stamin.tga", [20, 20, 1], [1,1,1], 1);
+				drawpic([2,y,0], strcat(directory, "stamin.tga"), [20, 20, 1], [1,1,1], 1);
 				y = y - 22;
 			}
 		}
