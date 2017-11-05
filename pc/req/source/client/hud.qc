@@ -1057,23 +1057,23 @@ void(float width, float height) HUD_PlayerName =
 	{
 		case 0:
 			p1 = "Dempsey";
-			p1o = 0.720;
+			p1o = 0.700;
 			p2 = "Nikolai";
-			p2o = 0.715;
+			p2o = 0.710;
 			p3 = "Takeo";
-			p3o = 0.750;
+			p3o = 0.725;
 			p4 = "Richtofen";
-			p4o = 0.700;
+			p4o = 0.675;
 			break;
 		case 1:
 			p1 = "Kennedy";
-			p1o = 0.720;
+			p1o = 0.700;
 			p2 = "McNamara";
-			p2o = 0.715;
+			p2o = 0.700;
 			p3 = "Nixon";
-			p3o = 0.750;
+			p3o = 0.730;
 			p4 = "Castro";
-			p4o = 0.700; 
+			p4o = 0.725; 
 			break;
 		case 2:
 			p1 = "Gellar";
@@ -1081,35 +1081,35 @@ void(float width, float height) HUD_PlayerName =
 			p2 = "Englund";
 			p2o = 0.715;
 			p3 = "Trejo";
-			p3o = 0.750;
+			p3o = 0.730;
 			p4 = "Rooker";
-			p4o = 0.700; 
+			p4o = 0.725; 
 			break;
 		case 3:
 			p1 = "Stuhlinger";
-			p1o = 0.720;
+			p1o = 0.675;
 			p2 = "Marlton";
 			p2o = 0.715;
 			p3 = "Misty";
-			p3o = 0.750;
+			p3o = 0.730;
 			p4 = "Russman";
 			p4o = 0.700; 
 			break;
 		case 4:
 			p1 = "Finn";
-			p1o = 0.720;
+			p1o = 0.760;
 			p2 = "Weasel";
 			p2o = 0.715;
 			p3 = "DeLuca";
-			p3o = 0.750;
+			p3o = 0.725;
 			p4 = "Billy";
-			p4o = 0.700; 
+			p4o = 0.730; 
 			break;
 		case 5:
 			p1 = "Campbell";
-			p1o = 0.720;
+			p1o = 0.700;
 			p2 = "Rose";
-			p2o = 0.715;
+			p2o = 0.750;
 			p3 = "Nero";
 			p3o = 0.750;
 			p4 = "Vincent";
