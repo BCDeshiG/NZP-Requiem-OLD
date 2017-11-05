@@ -12,6 +12,8 @@
 	WaveHeight(string) : "Default Wave Height"
 	chaptertitle(string) : "Chapter Title Message"
 	roundtime(integer) : "Time Between Rounds (0.1 for instant)" : 8
+	runround(integer) : "Round Zombies Begin Running" : 4
+	puchance(integer) : "Powerup Rareity" : 0.02
 	hudtype(choices) : "Perk Shader Design" : 0 =
 	[
 		0: "NZ:P Demo"

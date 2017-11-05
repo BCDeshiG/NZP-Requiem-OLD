@@ -489,6 +489,15 @@ void() PlayerSpawn =
 	}
 
 	self.hudtype = world.hudtype;
+	runrnd = world.runround;
+	if (runrnd == 0) {
+		runrnd = 4;
+	}
+
+	puc = world.puchance;
+	if (world.puchance == 0) {
+		world.puchance = 0.02;
+	}
 };
 
 void() SpectatorSpawn =

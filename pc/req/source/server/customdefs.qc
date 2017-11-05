@@ -341,6 +341,9 @@ waypoint_ai waypoints[MAX_WAYPOINTS];
 .float roundsnd, limit;
 string roundstr;
 .float hudtype;
+.float runround;
+.float puchance;
+float runrnd, puc;
 
 //MOTO - Player Name
 .float character, iam, chartype;

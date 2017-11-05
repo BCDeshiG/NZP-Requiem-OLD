@@ -323,7 +323,7 @@ void()	zombie_run10		=[	$run10,	Zombie_Walk_Setup	] 	{Zombie_Walk(15); self.fram
 
 void() Zombie_Walk_Setup = 
 {
-	if(Remaining_Zombies == 1 && rounds >= 4)
+	if(Remaining_Zombies == 1 && rounds >= runrnd)
 	{
 		self.walktype = 5;
 	}
@@ -850,7 +850,7 @@ void() Zombie_Death =
 				Spawn_Powerup(self.origin + '0 0 12', 0);
 				total_powerup_points = total_powerup_points - powerup_activate;
 			}
-			else if (random () <= 0.02)
+			else if (random () <= puc)
 				Spawn_Powerup(self.origin + '0 0 12', 0);
 		}
 	}
@@ -914,6 +914,10 @@ void(entity szombie) SetZombieWalk =
 		szombie.walktype = 4;
 	}
 	else szombie.walktype = 5;
+
+	if (rounds >= runrnd && runrnd != 4) {
+		szombie.walktype = 5;
+	}
 };
 
 /////////////////////ZOMBIE SPAWNING/////////////////////
