@@ -496,7 +496,7 @@ void() PlayerSpawn =
 
 	puc = world.puchance;
 	if (world.puchance == 0) {
-		world.puchance = 0.02;
+		puc = 0.02;
 	}
 };
 
