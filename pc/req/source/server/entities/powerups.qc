@@ -376,6 +376,9 @@ void(vector where, float type) Spawn_Powerup =
 	} else if (type == 1) {
 		setmodel(new_powerup,"progs/Misc/maxammo!.mdl");
 		new_powerup.zombie_drop_id = 1;
+	} else if (type == 2) {
+		setmodel(new_powerup,"progs/Misc/instakill!.mdl");
+		new_powerup.zombie_drop_id = 3;
 	}
 	last_pu = new_powerup.zombie_drop_id;
 	new_powerup.touch = powerup_touch;

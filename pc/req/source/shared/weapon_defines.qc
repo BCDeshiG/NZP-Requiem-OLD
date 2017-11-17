@@ -112,6 +112,25 @@ string(float wep) GetWeaponName =
 	}
 }
 
+string(float gum) getGumName =
+{
+	switch (gum)
+	{
+		case G_SWORD:
+			return "Sword Flay";
+		case G_ROBBIN:
+			return "Round Robbin'";
+		case G_INPLAIN:
+			return "In Plain Sight";
+		case G_KILLJOY:
+			return "Kill Joy";
+		case G_PERK:
+			return "Perkaholic";
+		default:
+			return "NULL";
+	}
+}
+
 string(float perk) GetPerkName =
 {
 	switch (perk)
@@ -128,6 +147,8 @@ string(float perk) GetPerkName =
 			return "Stamin-Up";
 		case 6:
 			return "PhD Flopper";
+		case 7:
+			return "Mule Kick";
 		default:
 			return "NULL";
 	}

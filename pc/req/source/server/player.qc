@@ -498,6 +498,9 @@ void() PlayerSpawn =
 	if (world.puchance == 0) {
 		puc = 0.02;
 	}
+
+	//MOTO - gum
+	self.meleedamage = 150;
 };
 
 void() SpectatorSpawn =

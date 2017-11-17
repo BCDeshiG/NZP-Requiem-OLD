@@ -203,6 +203,9 @@ void() GetDown =
 	self.currentammobk = self.currentammo;
 	self.currentmagbk = self.currentmag;
 	self.currentmagbk2 = self.currentmag2;
+	self.thirdweapon = 0;
+	self.thirdammo = 0;
+	self.thirdmag = 0;
 	
 	if (self.weapon == W_BIATCH || self.secondaryweapon == W_BIATCH || self.progress_bar_percent > 0) {
 		self.weapon = W_BIATCH;

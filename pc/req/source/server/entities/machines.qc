@@ -1,4 +1,4 @@
-
+//Any changes made before release should be followed by a (FIXME)
 float backupWepSkin;
 float sound_perk_delay; 
 void() W_Switch;
@@ -24,6 +24,10 @@ void GivePerk(float perk) {
 		case P_DOUBLE:
 			self.perks = self.perks | 2;
 			break;
+		case P_MULE:
+			self.perks = self.perks | 64;
+			centerprint(self, "ok");
+			break;
 		default:
 			print("Unknown perk type, wtf?\n");
 	}
@@ -44,6 +48,7 @@ void() give_doubletap = { GivePerk(P_DOUBLE); }
 void() give_speedcola = { GivePerk(P_SPEED); }
 void() give_flopper = { GivePerk(P_FLOP); }
 void() give_staminup = { GivePerk(P_STAMIN); }
+void() give_mulekick = { GivePerk(P_MULE); }
 
 
 void DrinkPerk(float perk) {
@@ -74,6 +79,10 @@ void DrinkPerk(float perk) {
 		case P_DOUBLE:
 			other.weaponskin = 0;	
 			func = give_doubletap;
+			break;
+		case P_MULE:
+			other.weaponskin = 2;		//Moto (FIXME) - Perk skin
+			func = give_mulekick;
 			break;
 		default:
 			print("Unknown perk type, wtf?\n");
@@ -216,6 +225,19 @@ void() touch_perk =
 			centerprint (other, "Not enough points\n");
 		}
 	}
+	if (self.classname == "perk_mulekick" && !(other.perks & P_MULE) && self.fire_delay < time)
+	{
+		useprint (other, 9, 4000, 7);
+		if (other.points >= 4000 && other.button7)
+		{
+			addmoney(other, -4000, 0);
+			DrinkPerk(P_MULE);
+		}
+		else if (other.button7)
+		{
+			centerprint (other, "Not enough points\n");
+		}
+	}
 }
 
 void() setup_perk =
@@ -243,6 +265,8 @@ void() setup_perk =
 			self.effects = EF_GREEN;
 		/*else if (self.classname == "perk_double")
 			self.effects = EF_ORANGELIGHT;*/
+		else if (self.classname == "perk_mulekick")
+			self.effects = EF_GREEN;
 	} 
 	
 		// naievil (FIXME) light effects 
@@ -343,6 +367,22 @@ void() perk_double =
 	self.nextthink = time + 0.1;
 };
 
+void() perk_mulekick =
+{
+	self.solid = SOLID_TRIGGER;
+	precache_model ("models/machines/mule.mdl");
+	precache_model ("models.machines/v_perk.mdl");
+	precache_sound ("sounds/machines/perk_drink.wav");
+	setorigin (self, self.origin);
+	setmodel (self, "models/machines/mule.mdl");
+	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+	self.classname = "perk_mulekick";
+	self.touch = touch_perk;
+
+	self.think = setup_perk;
+	self.nextthink = time + 0.1;
+}
+
 void()	turnpower1	=[	1,		turnpower2	] {self.frame = 1;};
 void()	turnpower2	=[	2,		turnpower3	] {self.frame = 2;};
 void()	turnpower3	=[	3,		turnpower4	] {self.frame = 3;};
@@ -365,6 +405,8 @@ void() Turn_Lights =
 			tempe.effects = EF_GREEN;
 		/*else if (tempe.classname == "perk_double")
 			tempe.effects = EF_ORANGELIGHT;*/
+		else if (tempe.classname == "perk_mulekick")
+			tempe.effects = EF_GREEN;
       
 		tempe = findfloat (tempe, requirespower, 1);// trigger all paired doors
 	}  // naievil (FIXME) redo light effects 

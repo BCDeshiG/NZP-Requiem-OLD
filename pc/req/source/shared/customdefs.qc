@@ -13,6 +13,13 @@ const float EVENT_BROADCAST = 24;
 const float EVENT_POINTUPDATE = 25;
 const float EVENT_BLACKOUT = 26;
 
+//Moto - gobblegum
+#define G_SWORD 	   	0		//Sword Flay
+#define G_ROBBIN		1		//Round Robbin'
+#define G_INPLAIN 		2		//In Plain Sight
+#define G_KILLJOY 		3 		//Kill Joy
+#define G_PERK 			4 		//Perkaholic
+
 //nzp weapon defines
 //id list
 #define W_NOWEP        0
@@ -127,6 +134,7 @@ const float EVENT_BLACKOUT = 26;
 #define 	P_REVIVE	8
 #define 	P_FLOP		16
 #define 	P_STAMIN	32
+#define 	P_MULE 		64
 
 #define STAT_CURRENTMAG         50
 #define STAT_CURRENTMAG2        51

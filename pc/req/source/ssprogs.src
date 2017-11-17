@@ -19,6 +19,7 @@ server/entities/lights.qc
 server/entities/doors.qc
 server/entities/window.qc
 server/entities/machines.qc
+server/entities/gobble.qc
 
 server/weapons/frames_core.qc
 server/weapons/weapon_core.qc

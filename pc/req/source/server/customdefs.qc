@@ -64,14 +64,18 @@ void Weapon_Logic();
 .float currentmagbk2;
 .float currentammobk;
 .float secondaryammo;
+.float thirdammo;
 .float semi;
 .float semi2;
 .float semiuse;
 .float semiswitch;
 .float semireload;
 .float secondarymag;
+.float thirdmag;
 .float secondarymag2;
+.float thirdmag2;
 .float secondaryweapon;
+.float thirdweapon;
 .float NeedLoad;
 .string weapon2model;
 .float weapon2frame;
@@ -356,3 +360,7 @@ float runrnd, puc;
 //MOTO - Stance Changing
 .float hasprone;
 .float moneyclaimed;
+
+//MOTO - Gum
+float gumcache;
+.float holdgum, gumcount, gumnum, meleedamage, gumtime, machinewait, machinebuy;

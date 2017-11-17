@@ -103,10 +103,45 @@ void W_SprintStart () {
 	self.reload_delay2 = self.fire_delay2 = self.reload_delay = self.fire_delay = 0;
 }
 
+void() W_MuleSwitch =
+{
+	centerprint(self, "running other one");
+	float tempf,tempf1,tempf2;
+	float startframe;
+	float endframe;
+	string modelname;
+		
+	tempf = self.currentammo;
+	self.currentammo = self.secondaryammo;
+	self.secondaryammo = tempf;
+
+	tempf1 = self.currentmag;
+	self.currentmag = self.secondarymag;
+	self.secondarymag = tempf1;
+
+	tempf1 = self.currentmag2;
+	self.currentmag2 = self.secondarymag2;
+	self.secondarymag2 = tempf1;
+
+	tempf2 = self.weapon;
+	self.weapon = self.secondaryweapon;
+	self.secondaryweapon = tempf2;
+
+	startframe = GetFrame(self.weapon,TAKE_OUT_START);
+	endframe = GetFrame(self.weapon,TAKE_OUT_END);
+	modelname = GetWeaponModel(self.weapon, 0);
+
+	SwitchWeapon(self.weapon);
+
+	Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, false, S_BOTH);//FIXME
+		
+	self.reload_delay2 = self.fire_delay2 = self.reload_delay = self.fire_delay = 0;
+}
+
 void() W_Switch =
 {
 	if (self.secondaryweapon && self.secondaryweapon !=0 && !self.new_anim_stop && !other.button7)
-	{      
+	{    
 		float tempf,tempf1,tempf2;
 		float startframe;
 		float endframe;
@@ -532,7 +567,7 @@ void() LungeKnifeHit =
 		else if (self.weapon == W_BK)
 			f_damage = 500;
 		else
-			f_damage = 150;
+			f_damage = self.meleedamage;
 					
 		if (trace_ent.classname == "ai_zombie_head")
 		{
@@ -1189,6 +1224,21 @@ void() W_Grenade =
 void() CheckButtonOne = {if (self.weaponnum == 1){W_PutOut();}}		// weapon switch to two if 1
 void() CheckButtonTwo = {if (self.weaponnum == 0) {W_PutOut();}}	// weapon switch to one if 2
 
+void(float gum) setSpecial =
+{
+	switch(gum) {
+		case G_KILLJOY:
+			self.holdgum = G_KILLJOY;
+			self.gumcount = 2;
+			break;
+		case G_ROBBIN:
+			self.holdgum = G_ROBBIN;
+			break;
+		default:
+			break;
+	}
+}
+
 void() CrouchSet =
 {
 	if (self.sprinting) {
@@ -1251,6 +1301,8 @@ void () Impulse_Functions =
 		case 110:
 			CheckButtonOne();
 			break;
+		case 104:
+			activateGobble();
 		case 111:
 			CheckButtonTwo();
 			break;	
@@ -1333,6 +1385,7 @@ void() CheckPlayer =
 {
 	CheckPowerups(self);
 	CheckRevive(self);
+	CheckGum(self);
 	
 	entity ent;
 	ent = findradius(self.origin, 70);
