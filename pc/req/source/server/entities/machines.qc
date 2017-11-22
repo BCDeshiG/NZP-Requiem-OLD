@@ -145,6 +145,8 @@ void() touch_perk =
 
 			addmoney (other, -500, 0);
 			DrinkPerk(P_REVIVE);
+			if (world.hudtype != 0 && world.hudtype != 1)
+				sound(self, 0,"sounds/music/sting/revive.wav", 1, 1);
 
 			other.revivesoda++;
 			if (other.revivesoda == 3)
@@ -154,6 +156,9 @@ void() touch_perk =
 		{
 			addmoney (other, -1500, 0);
 			DrinkPerk(P_REVIVE);
+			if (world.hudtype != 0 && world.hudtype != 1)
+				sound(self, 0,"sounds/music/sting/revive.wav", 1, 1);
+
 		}
 		else if (other.button7)
 		{
@@ -167,6 +172,8 @@ void() touch_perk =
 		{
 			addmoney (other, -2000, 0);
 			DrinkPerk(P_FLOP);
+			if (world.hudtype != 0 && world.hudtype != 1)
+				sound(self, 0,"sounds/music/sting/flopper.wav", 1, 1);
 		}
 		else if (other.button7)
 		{
@@ -180,6 +187,9 @@ void() touch_perk =
 		{
 			addmoney (other, -2500, 0);
 			DrinkPerk(P_JUG);
+			if (world.hudtype != 0 && world.hudtype != 1)
+				sound(self, 0,"sounds/music/sting/jug.wav", 1, 1);
+
 		}
 		else if (other.button7)
 		{
@@ -193,6 +203,8 @@ void() touch_perk =
 		{
 			addmoney (other, -2000, 0);
 			DrinkPerk(P_STAMIN);
+			if (world.hudtype != 0 && world.hudtype != 1)
+				sound(self, 0,"sounds/music/sting/stamin.wav", 1, 1);
 		}
 		else if (other.button7)
 		{
@@ -206,6 +218,9 @@ void() touch_perk =
 		{
 			addmoney (other, -3000, 0);
 			DrinkPerk(P_SPEED);
+			if (world.hudtype != 0 && world.hudtype != 1)
+				sound(self, 0,"sounds/music/sting/speed.wav", 1, 1);
+
 		}
 		else if (other.button7)
 		{
@@ -219,6 +234,9 @@ void() touch_perk =
 		{
 			addmoney (other, -2000, 0);
 			DrinkPerk(P_DOUBLE);
+			if (world.hudtype != 0 && world.hudtype != 1)
+				sound(self, 0,"sounds/music/sting/dt.wav", 1, 1);
+
 		}
 		else if (other.button7)
 		{
@@ -232,6 +250,9 @@ void() touch_perk =
 		{
 			addmoney(other, -4000, 0);
 			DrinkPerk(P_MULE);
+			if (world.hudtype != 0 && world.hudtype != 1)
+				sound(self, 0,"sounds/music/sting/mule.wav", 1, 1);
+
 		}
 		else if (other.button7)
 		{
@@ -1432,7 +1453,10 @@ void PapUpgrade(entity pap, entity buyer) {
 
 	self.fire_delay = self.reload_delay = 4.0 + time;
 	Set_W_Frame (0, 39, 0, 0, 0, SUB_Null, "models/machines/v_pap.mdl", true, S_BOTH);
-	sound(self,CHAN_WEAPON,"sounds/machines/papsound.wav",1,ATTN_NONE);
+	if (world.hudtype != 0 && world.hudtype != 1)
+		sound(self, 0,"sounds/music/sting/pap.wav", 1, 1);
+	else
+		sound(self,CHAN_WEAPON,"sounds/machines/papsound.wav",1,ATTN_NONE);
 
 	pap.weapon = self.weapon;
 
