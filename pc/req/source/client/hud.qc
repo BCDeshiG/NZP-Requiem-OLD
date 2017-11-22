@@ -818,6 +818,14 @@ void(float width, float height) HUD_Perks =
 					drawpic([2,y,0], strcat(directory, "mule.tga"), [20, 20, 1], [1,1,1], 1);
 				y = y - 22;
 			}
+			else if (perk_order[i] == P_DEAD)
+			{
+				if (directory == "demo" || directory == "beta")	//Moto (FIXME) - Make Deadshot themed icons for beta
+					drawpic([2,y,0], "gfx/hud/bo1/dead.tga", [20, 20, 1], [1,1,1], 1);
+				else
+					drawpic([2,y,0], strcat(directory, "dead.tga"), [20, 20, 1], [1,1,1], 1);
+				y = y - 22;
+			}
 		}
 	}
 }
@@ -936,9 +944,13 @@ void() Draw_Crosshair =
          crosshair_offset = CrossHairWeapon(getstatf(STAT_ACTIVEWEAPON)) + cur_spread;
         
 		if (CrossHairMaxSpread(getstatf(STAT_ACTIVEWEAPON)) < crosshair_offset || croshhairmoving)
+		{
 			crosshair_offset = CrossHairMaxSpread(getstatf(STAT_ACTIVEWEAPON));
+		}
 
 		crosshair_offset_step += (crosshair_offset - crosshair_offset_step) * 0.5;
+		if (perks & P_DEAD)
+			crosshair_offset_step *= 0.65;
 
 		x_value = ((480 - 8)/2 - crosshair_offset_step)*(g_width/480);
 		y_value = ((272 - 8)/2)*g_height/272;
@@ -1254,6 +1266,11 @@ void UpdatePerks (float newperks) {
 		perk_order[current_perk_order] = P_MULE;
 		current_perk_order = current_perk_order + 1;
 	}
+	if (newperks & P_DEAD && !(perks & P_DEAD))
+	{
+		perk_order[current_perk_order] = P_DEAD;
+		current_perk_order = current_perk_order + 1;
+	}
 	if (perks & P_JUG && !(newperks & P_JUG))
 	{
 		for (s = 0; s < 10; s++)
@@ -1361,6 +1378,23 @@ void UpdatePerks (float newperks) {
 		for (s = 0; s < 10; s++)
 		{
 			if (perk_order[s] == P_MULE)
+			{
+				perk_order[s] = 0;
+				while (perk_order[s+1])
+				{
+					perk_order[s] = perk_order[s+1];
+					perk_order[s+1] = 0;
+				}
+				break;
+			}
+		}
+		current_perk_order = current_perk_order - 1;
+	}
+	if (perks & P_DEAD && !(newperks & P_DEAD))
+	{
+		for (s = 0; s < 10; s++)
+		{
+			if (perk_order[s] == P_DEAD)
 			{
 				perk_order[s] = 0;
 				while (perk_order[s+1])

@@ -963,7 +963,7 @@ void() spawnAllZombEnts =
 {
 	local float i;
 	i = 0;
-	while(i <12)//IMPORTANT VALUE, max zombies allowed in map
+	while(i < 24)//IMPORTANT VALUE, max zombies allowed in map
 	{
 		spawnSingleZombEnt(i);
 		i++;

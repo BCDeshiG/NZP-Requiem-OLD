@@ -123,6 +123,7 @@ void() worldspawn =
 	precache_sound("sounds/music/sting/mule.wav");
 	precache_sound("sounds/music/sting/stamin.wav");
 	precache_sound("sounds/music/sting/flopper.wav");
+	precache_sound("sounds/music/sting/dead.wav");
 	precache_sound("sounds/music/sting/pap.wav");
 
 	precache_model ("models/weapons/m1911/v_colt.mdl");

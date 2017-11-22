@@ -26,7 +26,9 @@ void GivePerk(float perk) {
 			break;
 		case P_MULE:
 			self.perks = self.perks | 64;
-			centerprint(self, "ok");
+			break;
+		case P_DEAD:
+			self.perks = self.perks | 128;
 			break;
 		default:
 			print("Unknown perk type, wtf?\n");
@@ -49,6 +51,7 @@ void() give_speedcola = { GivePerk(P_SPEED); }
 void() give_flopper = { GivePerk(P_FLOP); }
 void() give_staminup = { GivePerk(P_STAMIN); }
 void() give_mulekick = { GivePerk(P_MULE); }
+void() give_deadshot = { GivePerk(P_DEAD); }
 
 
 void DrinkPerk(float perk) {
@@ -83,6 +86,10 @@ void DrinkPerk(float perk) {
 		case P_MULE:
 			other.weaponskin = 2;		//Moto (FIXME) - Perk skin
 			func = give_mulekick;
+			break;
+		case P_DEAD:
+			other.weaponskin = 1;
+			func = give_deadshot;
 			break;
 		default:
 			print("Unknown perk type, wtf?\n");
@@ -252,11 +259,25 @@ void() touch_perk =
 			DrinkPerk(P_MULE);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/mule.wav", 1, 1);
-
 		}
 		else if (other.button7)
 		{
 			centerprint (other, "Not enough points\n");
+		}
+	}
+	if (self.classname == "perk_deadshot" && !(other.perks & P_DEAD) && self.fire_delay < time)
+	{
+		useprint (other, 9, 1500, 8);
+		if (other.points >= 1500 && other.button7)
+		{
+			addmoney(other, -1500, 0);
+			DrinkPerk(P_DEAD);
+			if (world.hudtype != 0 && world.hudtype != 1)
+				sound(self, 0,"sounds/music/sting/dead.wav", 1, 1);
+		}
+		else if (other.button7)
+		{
+			centerprint(other, "Not enough points\n");
 		}
 	}
 }
@@ -274,20 +295,16 @@ void() setup_perk =
 		self.requirespower = true;
 	else
 	{
-		if (self.classname == "perk_revive")
-			self.effects = EF_BLUE;
-		/*else if (self.classname == "perk_flopper")
-			self.effects = EF_PURPLELIGHT;*/
-		else if (self.classname == "perk_juggernog")
-			self.effects = EF_RED;
-		/*else if (self.classname == "perk_staminup")
-			self.effects = EF_ORANGELIGHT;*/
-		else if (self.classname == "perk_speed")
-			self.effects = EF_GREEN;
-		/*else if (self.classname == "perk_double")
-			self.effects = EF_ORANGELIGHT;*/
-		else if (self.classname == "perk_mulekick")
-			self.effects = EF_GREEN;
+		switch(self.classname) {
+			case "perk_revive":
+				self.effects = EF_BLUE;
+			case "perk_juggernog":
+				self.effects = EF_RED;
+			case "perk_mulekick":
+			case "perk_deadshot":
+			case "perk_speed":
+				self.effects = EF_GREEN;
+		}
 	} 
 	
 		// naievil (FIXME) light effects 
@@ -404,6 +421,22 @@ void() perk_mulekick =
 	self.nextthink = time + 0.1;
 }
 
+void() perk_deadshot =
+{
+	self.solid = SOLID_TRIGGER;
+	precache_model ("models/machines/deadshot.mdl");
+	precache_model ("models.machines/v_perk.mdl");
+	precache_sound ("sounds/machines/perk_drink.wav");
+	setorigin (self, self.origin);
+	setmodel (self, "models/machines/deadshot.mdl");
+	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+	self.classname = "perk_deadshot";
+	self.touch = touch_perk;
+
+	self.think = setup_perk;
+	self.nextthink = time + 0.1;
+}
+
 void()	turnpower1	=[	1,		turnpower2	] {self.frame = 1;};
 void()	turnpower2	=[	2,		turnpower3	] {self.frame = 2;};
 void()	turnpower3	=[	3,		turnpower4	] {self.frame = 3;};
@@ -427,6 +460,8 @@ void() Turn_Lights =
 		/*else if (tempe.classname == "perk_double")
 			tempe.effects = EF_ORANGELIGHT;*/
 		else if (tempe.classname == "perk_mulekick")
+			tempe.effects = EF_GREEN;
+		else if (tempe.classname == "perk_deadshot")
 			tempe.effects = EF_GREEN;
       
 		tempe = findfloat (tempe, requirespower, 1);// trigger all paired doors
@@ -1456,7 +1491,7 @@ void PapUpgrade(entity pap, entity buyer) {
 	if (world.hudtype != 0 && world.hudtype != 1)
 		sound(self, 0,"sounds/music/sting/pap.wav", 1, 1);
 	else
-		sound(self,CHAN_WEAPON,"sounds/machines/papsound.wav",1,ATTN_NONE);
+		sound(pap,CHAN_WEAPON,"sounds/machines/papsound.wav",1,ATTN_NONE);
 
 	pap.weapon = self.weapon;
 

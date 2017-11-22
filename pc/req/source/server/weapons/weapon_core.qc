@@ -796,6 +796,8 @@ void(float side) W_Fire =
     soundname = GetWeaponSound(self.weapon);
 	delay = getWeaponDelay(self.weapon, FIRE);
 	spread = 1.5*GetWeaponSpread(self.weapon);
+	if (self.perks & P_DEAD)
+		spread *= 0.35;
 
 	if (self.zoom == 1) {
 		if (self.weapon == W_TRENCH ||
