@@ -107,6 +107,10 @@ string(float wep) GetWeaponName =
       		return "MP5K";
     	case W_TESLA:
       		return "Wunderwaffe DG-2";
+      	case W_M14:
+      		return "M14";
+      	case W_MNESIA:
+      		return "Mnesia";
 		default:
 			return " ";
 	}
@@ -231,6 +235,9 @@ float(float wep) GetFiretype =
 		case W_TYPE:
 		case W_SAMURAI:
 			return 0;
+		case W_M14:
+		case W_MNESIA:
+			return 1;
 		case AL:
 			return 1;
     }
@@ -332,6 +339,10 @@ float(float wep) getWeaponMag =
 			return 30;
 		case W_SAMURAI:
 			return 60;
+		case W_M14:
+			return 8;
+		case W_MNESIA:
+			return 16;
 		case AL:
 			return 999;
 	}
@@ -434,6 +445,10 @@ float(float wep) getWeaponAmmo =
 			return 160;
 		case W_SAMURAI:
 			return 220;
+		case W_M14:
+			return 96;
+		case W_MNESIA:
+			return 196;
 	}
 	return 0;
 }
@@ -532,6 +547,10 @@ float(float wep) getWeaponDamage =
 			return 100;
 		case W_SAMURAI:
 			return 200;
+		case W_M14:
+			return 150;
+		case W_MNESIA:
+			return 450;
     }
 
     return 0;
@@ -665,6 +684,11 @@ float(float wep, float penetration_times) getWeaponPenetration =
 			if (penetration_times >= 2)
 				return 0;
 			return 0.8;
+		case W_M14:
+		case W_MNESIA:
+			if (penetration_times >= 2)
+				return 0;
+			return 0.9;
 		default:
 			return 0;
     }
@@ -809,6 +833,7 @@ float(float wep) GetWeaponSpread =
 			Weapon_Spread = 5;
 			break;
 		case W_M14:
+		case W_MNESIA:
 			Weapon_Spread = 5;
 		break;
 	}
@@ -1002,6 +1027,12 @@ float(float wep, float delaytype) getWeaponDelay =
 				return 2.3;
 			else if (delaytype == FIRE)
 				return 0.065;
+		case W_MNESIA:
+		case W_M14:
+			if (delaytype == RELOAD)
+				return 3.8;
+			else if (delaytype == FIRE)
+				return 0.135;
 		case AL:
 			return 1;
     }
@@ -1109,6 +1140,10 @@ float GetWeaponWalkSpeed (int weapontype)
 		return 0.75;
 	else if(weapontype == W_WIDOW)
 		return 1;
+	else if(weapontype == W_M14)
+		return 0.9;
+	else if(weapontype == W_MNESIA)
+		return 0.9;
 	else
 		return 1;
 }
@@ -1172,6 +1207,10 @@ vector GetWeaponADSPos(float wep) {
 		case W_TYPE:
 		case W_SAMURAI:
 			return [0.41, 2.8, 1.34];
+		case W_M14:
+			return [-2.99, 2.77, 0.92];
+		case W_MNESIA:
+			return [-2.99, 2.77, 0.92];
 		default:
 			return [0, 0, 0];
 	}
@@ -1966,6 +2005,38 @@ float(float wep, float frametype) GetFrame =
 					return 27;
 			}
 			break;
+		case W_M14:
+		case W_MNESIA:
+			switch (frametype)
+			{
+				case FIRE_START:
+					return 1;
+				case FIRE_END:
+					return 2;
+				case RELOAD_START:
+					return 12;
+				case RELOAD_END:
+					return 30;
+				case SPRINT_IN_START:
+					return 33;
+				case SPRINT_IN_END:
+					return 34;
+				case SPRINT_OUT_START:
+					return 39;
+				case SPRINT_OUT_END:
+					return 40;
+				case TAKE_OUT_START:
+					return 7;
+				case TAKE_OUT_END:
+					return 9;
+				case PUT_OUT_START:
+					return 5;
+				case PUT_OUT_END:
+					return 6;
+				case RELOAD_CANCEL:
+					return 21;
+			}
+			break;
 	}
 
     return 0;
@@ -2121,6 +2192,12 @@ string(float wep, float gorvmodel) GetWeaponModel =
 				return ("models/weapons/type/g_type.mdl");
 			else
 				return ("models/weapons/type/v_type.mdl");
+		case W_M14:
+		case W_MNESIA:
+			if (gorvmodel)
+				return ("models/weapons/m1911/g_colt.mdl"); //FIXME
+			else
+				return ("models/weapons/m14/v_m14.mdl");
 		case AL:
 			return ("models/weapons/afterlife/al.mdl");
     }
@@ -2201,6 +2278,9 @@ string(float wep) GetWeaponSound =
 		case W_TYPE:
     	case W_SAMURAI:
 			return "sounds/weapons/type100/shoot.wav";
+		case W_M14:
+		case W_MNESIA:
+			return "sounds/weapons/m1carbine/shoot.wav"; //FIXME
     }
 
     return "";
@@ -2252,6 +2332,7 @@ float(float wep) IsPapWeapon = {
 		case W_SPATZ:
 		case W_GUT:
 		case W_SAMURAI:
+		case W_MNESIA:
 			return 1;
 		default:
 			return 0;
@@ -2324,7 +2405,7 @@ float(float wep)  EqualNonPapWeapon =
 			return W_TYPE;
 		case W_MP5:
 			return W_MP5;
-		case W_M14:
+		case W_MNESIA:
 			return W_M14;
 		default:
 			return 0;
@@ -2383,7 +2464,7 @@ float(float wep)  EqualPapWeapon =
 		case W_TESLA:
 			return W_BIATCH;
 		case W_M14:
-			return W_M14;
+			return W_MNESIA;
 		default:
 			return wep;
 	}
@@ -2678,6 +2759,16 @@ void (float wep, float anim_style, float dualwep, float curweaponframe)	PlayWeap
 				sound (self ,5, "sounds/weapons/colt/slide.wav", 1, ATTN_NORM);
 			}
 			break;
+		case W_M14:
+		case W_MNESIA:
+			if (curweaponframe == 15) {
+				sound(self,5, "sounds/weapons/m1carbine/magout.wav", 1, ATTN_NORM);
+			} else if (curweaponframe == 22) {
+				sound(self, 5, "sounds/weapons/m1carbine/magin.wav", 1, ATTN_NORM);
+			} else if (curweaponframe == 26) {
+				sound(self, 5, "sounds/weapons/m1carbine/bolt.wav", 1, ATTN_NORM);
+			}
+			break;
 	}
 }
 
@@ -2852,6 +2943,13 @@ void(float weptype) precache_extra =
 			precache_sound("sounds/weapons/type100/boltpull.wav");
 			precache_sound("sounds/weapons/type100/shoot.wav");
 			break;
+		case W_M14:
+		case W_MNESIA:
+			precache_sound("sounds/weapons/m1carbine/shoot.wav");
+			precache_sound("sounds/weapons/m1carbine/magout.wav");
+			precache_sound("sounds/weapons/m1carbine/magin.wav");
+			precache_sound("sounds/weapons/m1carbine/bolt.wav");
+			break;
 	}
 }
 
@@ -2996,6 +3094,10 @@ float(float wep) getWeaponRecoilReturn =
 			break;
 		case W_TESLA:
 			return 1813;
+			break;
+		case W_M14:
+		case W_MNESIA:
+			return 1500;
 			break;
 	}
 	return 0;
@@ -3143,6 +3245,9 @@ float(float weapon) CrossHairWeapon =
 		case W_TESLA:
 			return 0;
 			break;
+		case W_M14:
+		case W_MNESIA:
+			return 10;
 	}
 	return 0;	
 }
@@ -3290,6 +3395,10 @@ float(float weapon) CrossHairMaxSpread =
 		case W_TESLA:
 			return 0;
 			break;
+		case W_M14:
+		case W_MNESIA:
+			return 35;
+			break;
 	}
 	return 0;
 }
@@ -3343,6 +3452,8 @@ int(int weapon, int type) GetLowAmmo = // determine what ammo value you should h
 		case W_WIDDER: if (type) return 4; else return 30;
 		case W_KILLU: if (type) return 2; else return 20;
 		case W_TESLA: if (type) return 1; else return 6;
+		case W_M14: if (type) return 2; else return 16;
+		case W_MNESIA: if (type) return 5; else return  32;
 		case 0: if (type) return -1; else return -1;
 		default: return 0;
 	}

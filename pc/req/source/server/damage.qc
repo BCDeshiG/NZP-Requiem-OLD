@@ -44,7 +44,7 @@ void() EndGame =
 	}
 	
 	self.think = EndGame_FadePrompt;
-	self.nextthink = time + 33;
+	self.nextthink = time + 33; //33
 }
 
 // removes revive icon from downed player heads, used as a recursive think function

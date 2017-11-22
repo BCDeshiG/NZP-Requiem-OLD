@@ -77,9 +77,9 @@ const float EVENT_BLACKOUT = 26;
 #define W_WIDOW        52 //bar
 //#define W_KRAUS      53 //ballistic
 #define W_MP5          54
-#define W_M14          55
-
-#define W_TESLA  56
+#define W_TESLA		   55
+#define W_M14          56
+#define W_MNESIA 	   57 //m14
 
 #define AL 			   99
 

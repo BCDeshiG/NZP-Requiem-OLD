@@ -311,7 +311,7 @@ void() ContinueReload = //Special reloads
 
 	if (delay) {
 		if (self.perks & P_SPEED) {
-			delay *= 0.75;
+			delay *= 0.5; //MOTO - Changed to 50% instead of 75% (http://callofduty.wikia.com/wiki/Speed_Cola)
 		}
 		self.reload_delay = time + delay;
 		Set_W_Frame (startframe, endframe, delay, 0, RELOAD, endanimfunc, modelname, false, S_RIGHT);
@@ -414,7 +414,7 @@ void(float side) W_Reload =
 		}
 
 		if (self.perks & P_SPEED)
-			delay = delay*0.75;
+			delay = delay*0.5; //MOTO - Changed to 50% instead of 75% (http://callofduty.wikia.com/wiki/Speed_Cola)
 		
 		if (side == S_RIGHT) {
 			self.reload_delay = delay + time;
@@ -837,7 +837,7 @@ void(float side) W_Fire =
 	endframe = GetFrame(self.weapon,FIRE_END);
 
 	if (self.perks & P_DOUBLE) {
-		delay *=0.5;
+		delay *= 0.33; //MOTO - Changed to 33% instead of 50% (http://callofduty.wikia.com/wiki/Double_Tap_Root_Beer)
 	}
 
 	if (self.weapon == W_GUT || self.weapon == W_KAR_SCOPE || self.weapon == W_TRENCH || self.weapon == W_KAR || self.weapon == W_ARMAGEDDON || self.weapon == W_HEADCRACKER)
