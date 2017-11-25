@@ -298,12 +298,18 @@ void() setup_perk =
 		switch(self.classname) {
 			case "perk_revive":
 				self.effects = EF_BLUE;
+				break;
 			case "perk_juggernog":
 				self.effects = EF_RED;
+				break;
 			case "perk_mulekick":
 			case "perk_deadshot":
 			case "perk_speed":
 				self.effects = EF_GREEN;
+				break;
+			default:
+				self.effects = 0;
+				break;
 		}
 	} 
 	
