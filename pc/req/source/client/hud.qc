@@ -897,6 +897,7 @@ void() Draw_Crosshair =
 	switch (getstatf(STAT_WEAPONSTATUS)) {
 		case STATE_BUYING:
 		case STATE_RELOAD:
+		case STATE_MELEE:
 			return;
 		default:
 			break;
