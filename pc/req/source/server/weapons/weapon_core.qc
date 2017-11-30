@@ -1450,6 +1450,9 @@ void() CheckPlayer =
 		}
 		ent = ent.chain;
 	}
+
+	if (self.isBuying == true)
+		self.weaponstate = STATE_BUYING;
 }
 
 void () Weapon_Logic =

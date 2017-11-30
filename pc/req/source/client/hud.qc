@@ -893,8 +893,14 @@ float crosshair_offset_step;
 
 void() Draw_Crosshair =
 {
-	if (getstatf(STAT_WEAPONSTATUS) == STATE_RELOAD)
-		return;
+	//Don't draw the crosshair
+	switch (getstatf(STAT_WEAPONSTATUS)) {
+		case STATE_BUYING:
+		case STATE_RELOAD:
+			return;
+		default:
+			break;
+	}
 	
 	if (K_BACKDOWN || K_FORWARDDOWN || K_LEFTDOWN || K_RIGHTDOWN)
 		croshhairmoving = 1;

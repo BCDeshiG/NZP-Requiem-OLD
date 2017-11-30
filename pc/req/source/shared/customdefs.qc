@@ -160,6 +160,7 @@ const float EVENT_BLACKOUT = 26;
 
 //Weapon State
 #define STATE_RELOAD 			1
+#define STATE_BUYING 			2
 
 //
 // invert float takes in float value between 0 and 1, inverts position
