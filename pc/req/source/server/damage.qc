@@ -175,9 +175,9 @@ void() GetDown =
 	self.downed = true;
 	self.movetype = MOVETYPE_NONE;
 	
-	float gotalive = PollPlayersAlive();	
+	float gotalive = PollPlayersAlive();
 	
-	if ((!deathmatch && !coop && !(self.perks & P_REVIVE)) || !gotalive)
+	if (!(self.perks & P_REVIVE) || (coop && !gotalive))
 	{
 		EndGameSetup();
 		return;
@@ -199,6 +199,7 @@ void() GetDown =
 	BroadcastMessage(time + 3, 2);
 	
 	self.perks = 0;
+	SetPerk(self, self.perks);
 	self.weaponbk = self.weapon;
 	self.currentammobk = self.currentammo;
 	self.currentmagbk = self.currentmag;
@@ -225,6 +226,9 @@ void() GetDown =
 	startframe = GetFrame(self.weapon,TAKE_OUT_START);
 	endframe = GetFrame(self.weapon,TAKE_OUT_END);
 	Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, false, S_BOTH);
+
+	if (!coop)
+		return;
 	
 	local entity revive;
 	
