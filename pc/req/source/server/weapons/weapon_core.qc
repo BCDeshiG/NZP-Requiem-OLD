@@ -1241,10 +1241,46 @@ void(float gum) setSpecial =
 	}
 }
 
+/* ================
+   Dolphin Dive Code
+   ================*/
+void() Dolphin_dive =		//This was written by Naievil and used in the Unofficial Patch.
+{    
+ 	if (self.flags & FL_WATERJUMP)
+		return;
+	if (self.waterlevel >= 2)
+	{
+		if (self.watertype == CONTENT_WATER)
+			self.velocity_z = 100;
+		else if (self.watertype == CONTENT_SLIME)
+			self.velocity_z = 80;
+		else
+			self.velocity_z = 50;
+	}
+	if (!(self.flags & FL_ONGROUND))
+		return;
+		
+	if ( !(self.flags & FL_JUMPRELEASED) )
+		return;		// don't pogo stick
+		
+  
+	self.flags = self.flags - (self.flags & FL_JUMPRELEASED);
+	self.flags = self.flags - FL_ONGROUND;	// don't stairwalk
+	self.origin = self.origin + '0 0 15'; //MOTO -- This is new, just a little asthetic change so it looks like you're diving, not hopping.
+	makevectors (self.v_angle);
+    self.velocity = self.velocity * 1.2;		
+	self.velocity_z = self.velocity_z + 270;
+	
+	self.view_ofs = VEC_VIEW_PRONE;
+	self.button2 = 0;
+	W_SprintStop();
+}
+
+
 void() CrouchSet =
 {
 	if (self.sprinting) {
-		//Dive();
+		Dolphin_dive();
 		return;
 	}
 	if (self.view_ofs == VEC_VIEW_OFS) {
@@ -1283,14 +1319,8 @@ void () Impulse_Functions =
 			rounds += 4;
 			break;
 		case 23:
-			if (self.view_ofs == VEC_VIEW_OFS) {
-				W_SprintStart();
-				break;
-			}
-			else {
-				self.view_ofs = VEC_VIEW_OFS;
-				break;
-			}
+			W_SprintStart();
+			break;
 		case 24:
 			W_SprintStop();
 			break;
