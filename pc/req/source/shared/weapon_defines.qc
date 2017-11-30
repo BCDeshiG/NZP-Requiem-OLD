@@ -142,7 +142,7 @@ string(float perk) GetPerkName =
 		case 1:
 			return "Quick Revive";
 		case 2:
-			return "Juggernog";
+			return "Jugger-Nog";
 		case 3:
 			return "Speed Cola";
 		case 4:

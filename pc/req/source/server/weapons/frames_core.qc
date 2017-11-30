@@ -127,6 +127,7 @@ void () W_Frame_Update =
 		self.weapon_animduration = 0;
 		self.callfuncat = 0;
 		temp = self.animend;
+		self.weaponstate = 0;
 		self.animend = SUB_Null;
 		if (temp)
 			temp(S_RIGHT);
@@ -136,6 +137,11 @@ void () W_Frame_Update =
 void Set_W_Frame (float startframe, float endframe, float duration, float funccalledin, float animtype, void(optional float t) endanimfunc, string set_model, float dontstartnew, float side) =
 {
 	float math, reversed;
+
+	switch (animtype) {
+		case RELOAD: self.weaponstate = STATE_RELOAD; break;
+		default: break;
+	}
 
 	if (startframe >= endframe) {
 		reversed = true;

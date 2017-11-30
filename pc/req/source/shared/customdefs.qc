@@ -156,6 +156,10 @@ const float EVENT_BLACKOUT = 26;
 #define STAT_CHARACTER 			66
 #define STAT_ALCOUNT 			67
 #define STAT_HUDTYPE			68
+#define STAT_WEAPONSTATUS 		69
+
+//Weapon State
+#define STATE_RELOAD 			1
 
 //
 // invert float takes in float value between 0 and 1, inverts position

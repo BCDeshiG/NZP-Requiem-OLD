@@ -681,7 +681,7 @@ void(float width, float height) HUD_Useprint =
 {
 
 		string usestring, usebutton;
-		float print_width, x;
+		float print_width, x, back_width;
 		
 		tokenize(findkeysforcommand("+button7"));
 		usebutton = strtoupper(keynumtostring(stof(argv(0))));
@@ -745,10 +745,11 @@ void(float width, float height) HUD_Useprint =
 				usestring = "This should not happen you dum fuck";
 				break;
 		}
-			print_width = stringwidth (usestring, 0, [0.015*width, 0.015*width, 0]);
+			print_width = stringwidth (usestring, 0, [0.015625*width, 0.015625*width, 0]);
+			back_width = stringwidth (usestring, 0, [0.015625*width, 0.015625*width, 0]);
 			x = (width - print_width)/2;
-			drawstring([x, 0.67*height, 0], usestring, [0.015*width, 0.015*width, 0], [1, 1, 1], 1, 1);
-
+			drawfill ([x, 0.67*height, 0], [back_width, 0.015625*width, 0], [0, 0, 0], 0.4);
+			drawstring([x, 0.67*height, 0], usestring, [0.015625*width, 0.015625*width, 0], [1, 1, 1], 1, 1);
 }
 
 /*******************
@@ -892,6 +893,9 @@ float crosshair_offset_step;
 
 void() Draw_Crosshair =
 {
+	if (getstatf(STAT_WEAPONSTATUS) == STATE_RELOAD)
+		return;
+	
 	if (K_BACKDOWN || K_FORWARDDOWN || K_LEFTDOWN || K_RIGHTDOWN)
 		croshhairmoving = 1;
 	else
