@@ -520,7 +520,8 @@ void () W_LoadAmmo =
 	if (!self.currentmag)
 	{
 		W_Reload(S_RIGHT);
-		W_ReloadSecond();
+		if (IsDualWeapon(self.weapon))
+			W_ReloadSecond();
 		return;
 	}
 
@@ -1648,14 +1649,10 @@ void () Weapon_Logic =
 
 	if (self.button5 && !self.semireload)
 	{
-		if (self.reload_delay < time) {
-			W_Reload(S_RIGHT);
-			self.semireload = TRUE;
-		}
-		if (self.reload_delay2 < time) {
+		W_Reload(S_RIGHT);
+		if (IsDualWeapon(self.weapon))
 			W_ReloadSecond();
-			self.semireload = TRUE;
-		}
+		self.semireload = TRUE;
 	}
 	else if (!self.button5) {
 		self.semireload = FALSE;
