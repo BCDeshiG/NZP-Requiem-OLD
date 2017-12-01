@@ -318,6 +318,90 @@ void() ContinueReload = //Special reloads
 	}
 }
 
+void() W_ReloadSecond =
+{
+	if (self.reload_delay2 > time || self.new_anim2_stop || !self.currentammo || self.currentmag2 >= getWeaponMag(self.weapon))
+		return;
+
+	W_SprintStop();
+	float endframe, startframe, reloadcancelframe, delay;
+	string modelname;
+
+	modelname = GetLeftWeaponModel(self.weapon); 
+
+	if (self.currentammo)
+	{
+		playreload();
+		
+		startframe = GetFrame(self.weapon,RELOAD_START);
+		endframe = GetFrame(self.weapon,RELOAD_END);
+		reloadcancelframe = GetFrame(self.weapon,RELOAD_CANCEL);
+		delay = getWeaponDelay(self.weapon,RELOAD);
+		void(optional float t) endanimfunc = SUB_Null;
+
+		if (self.weapon == W_BROWNING || self.weapon ==  W_ACCELERATOR) {
+			if (!self.currentmag) {
+				startframe = 26;
+				endframe = 77;
+				reloadcancelframe = 45;
+				delay = 6;
+				endanimfunc = W_Give_Ammo;
+			} else if (self.currentmag > 0) {
+				startframe = 4;
+				endframe = 25;
+				reloadcancelframe = 0;
+				delay = 3.5;
+				endanimfunc = ContinueReload;
+			}
+		} else if (self.weapon == W_KAR_SCOPE || self.weapon == W_HEADCRACKER ){
+			startframe = 14;
+			endframe = 18;
+			reloadcancelframe = 0;
+			delay = 0.8;
+			endanimfunc = ContinueReload;
+		} else if (self.weapon == W_M1 || self.weapon == W_M1000) {
+			if (self.currentmag > 0) {
+				startframe = 4;
+				endframe = 44;
+				reloadcancelframe = 25;
+				delay = 3.9;
+				endanimfunc = W_Give_Ammo;
+			} else {
+				startframe = 8;
+				endframe = 44;
+				reloadcancelframe = 25;
+				delay = 3.6;
+				endanimfunc = W_Give_Ammo;
+			}
+		} else if (self.weapon == W_TRENCH || self.weapon == W_GUT) {
+			if (self.currentmag == 0) {
+				self.NeedLoad = true;
+			}
+			startframe = 14;
+			endframe = 17;
+			reloadcancelframe = 0;
+			delay = 0.8;
+			endanimfunc = ContinueReload;
+		} else {
+			endanimfunc = W_Give_Ammo;
+		}
+
+		if (self.perks & P_SPEED)
+			delay = delay*0.5; //MOTO - Changed to 50% instead of 75% (http://callofduty.wikia.com/wiki/Speed_Cola)
+
+		self.reload_delay2 = delay + time;
+		
+		self.zoom = false;
+		Set_W_Frame (startframe, endframe, delay, reloadcancelframe, RELOAD, endanimfunc, modelname, false, S_LEFT);
+	}
+	
+	if (self.weapon != W_TRENCH) {
+		self.NeedLoad = false;
+	}
+
+
+}
+
 void(float side) W_Reload =
 {
 	self.viewzoom = 1;
@@ -325,7 +409,8 @@ void(float side) W_Reload =
 	if (side == S_BOTH) {
 		W_Reload(S_RIGHT);
 		if (IsDualWeapon(self.weapon)) {
-			W_Reload(S_LEFT);
+			//MOTO - Reload function can't be run twice, so let's make a new function.
+			W_ReloadSecond();
 		}
 		return;
 	}
@@ -334,13 +419,6 @@ void(float side) W_Reload =
 		self.new_anim_stop ||
 		!self.currentammo || 
 		self.currentmag >= getWeaponMag(self.weapon))){
-		return;
-	}
-	if (side == S_LEFT &&
-		(self.reload_delay2 > time ||
-		self.new_anim2_stop || 
-		!self.secondaryammo ||
-		self.currentmag2 >= getWeaponMag(self.weapon))) {
 		return;
 	}
 	W_AimOut();
@@ -441,7 +519,8 @@ void () W_LoadAmmo =
 		return;
 	if (!self.currentmag)
 	{
-		W_Reload(S_BOTH);
+		W_Reload(S_RIGHT);
+		W_ReloadSecond();
 		return;
 	}
 
@@ -482,7 +561,7 @@ void () W_LoadAmmo =
 void () CheckReload = 
 {
 	if (!self.currentmag2 && IsDualWeapon(self.weapon)) {
-		W_Reload(S_LEFT);
+		W_ReloadSecond();
 	}
 	if (!self.currentmag && self.currentammo) {
 		W_Reload(S_RIGHT);
@@ -728,6 +807,30 @@ void (float shotcount, float sprd, float Damage/*, float headmulti, float legmul
 
 }
 
+void() Velocity_reduce;
+
+void() W_FireExplosive =
+{
+	local entity nade;
+	nade = spawn();
+	nade.owner = self;
+	nade.grenade_delay = nade.owner.grenade_delay;
+	nade.owner.grenade_delay = 0;
+	nade.movetype = MOVETYPE_BOUNCE;
+	nade.solid = SOLID_BBOX;
+	nade.classname = "explosive";
+	makevectors (self.v_angle);
+	nade.velocity = v_forward*5000;
+	nade.avelocity = '400 -400 400';
+	nade.angles = vectoangles(v_forward);
+	nade.angles_z -= 15;
+	nade.touch = Velocity_reduce;
+	setmodel (nade, "progs/GModels/g_grenade.mdl");
+	setsize (nade, '0 0 0', '0 0 0');
+	nade.origin = self.origin + self.view_ofs;
+	nade.origin += v_forward * 12;
+	setorigin (nade, nade.origin);
+}
 
 void(float side) W_Fire =
 {
@@ -771,7 +874,7 @@ void(float side) W_Fire =
 		return;
 	} else if (!self.currentmag2 && side == S_LEFT)
 	{
-		W_Reload(S_LEFT);
+		W_ReloadSecond();
 		return;
 	}
 
@@ -831,7 +934,10 @@ void(float side) W_Fire =
 		}
 	}
 
-	FireTrace(shotcount, spread, damage/* , self.weaponslot1.headx, self.weaponslot1.legx */);
+	if (self.weapon != W_BIATCH)
+		FireTrace(shotcount, spread, damage/* , self.weaponslot1.headx, self.weaponslot1.legx */);
+	else
+		W_FireExplosive();
 
 
 	//Play weapon animation and sound
@@ -1038,6 +1144,9 @@ void() Velocity_reduce =
 	self.velocity = self.velocity*0.5;
 	
 	NadeStraighten();
+
+	if (self.classname == "explosive")
+		GrenadeExplode();
 };
 
 void() betty_touch = 
@@ -1539,8 +1648,14 @@ void () Weapon_Logic =
 
 	if (self.button5 && !self.semireload)
 	{
-		W_Reload(S_BOTH);
-		self.semireload = TRUE;
+		if (self.reload_delay < time) {
+			W_Reload(S_RIGHT);
+			self.semireload = TRUE;
+		}
+		if (self.reload_delay2 < time) {
+			W_ReloadSecond();
+			self.semireload = TRUE;
+		}
 	}
 	else if (!self.button5) {
 		self.semireload = FALSE;
