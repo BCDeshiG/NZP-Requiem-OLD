@@ -3,6 +3,7 @@ void() W_PutOut;
 void() ReturnWeaponModel =
 {
 	self.weaponmodel = GetWeaponModel(self.weapon, 0);
+	self.weapon2model = GetLeftWeaponModel(self.weapon);
 	if (self.weapon == W_KAR_SCOPE || self.weapon == W_HEADCRACKER) {
 		self.weapon2model = "progs/VModels/v_karscope.mdl";
 		UpdateV2model(self.weapon2model, 0);

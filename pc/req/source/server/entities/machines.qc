@@ -4,6 +4,7 @@ float sound_perk_delay;
 void() W_Switch;
 void() mystery_touch;
 void() ReturnWeaponModel;
+void(string to, float skin) UpdateV2model;
 
 void GivePerk(float perk) {
 	switch(perk) {
@@ -36,6 +37,7 @@ void GivePerk(float perk) {
 	}
   	sound_perk_delay = time + 4.5;
 	self.isBuying = false;
+	self.weapon = self.perkweapon;
 	string modelname = GetWeaponModel(self.weapon, 0);
 	float startframe = GetFrame(self.weapon,TAKE_OUT_START);
 	float endframe = GetFrame(self.weapon,TAKE_OUT_END);
@@ -103,8 +105,12 @@ void DrinkPerk(float perk) {
 		W_SprintStop();
 	
 	self.knife_delay = self.reload_delay2 = self.fire_delay2 = self.fire_delay = self.reload_delay = 3.5 + time;
-	self.limit --;		
-	Set_W_Frame (0, 22, 0, 0, PERK, func, "models/machines/v_perk.mdl", true, S_RIGHT);
+	self.limit --;	
+	self.perkweapon = self.weapon;
+	self.weapon = 0;
+	self.weapon2model = "";
+	SwitchWeapon(self.weapon);
+	Set_W_Frame (0, 22, 0, 0, PERK, func, "models/machines/v_perk.mdl", true, S_BOTH);
 	self = tempe;
 	sound (other, CHAN_ITEM, "sounds/machines/perk_drink.wav", 1, ATTN_NORM);
 
