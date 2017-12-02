@@ -2,6 +2,10 @@ void() W_PutOut;
 
 void() ReturnWeaponModel =
 {
+	if (self.perkweapon) {
+		self.weapon = self.perkweapon;
+		self.perkweapon = 0;
+	}
 	self.weaponmodel = GetWeaponModel(self.weapon, 0);
 	self.weapon2model = GetLeftWeaponModel(self.weapon);
 	if (self.weapon == W_KAR_SCOPE || self.weapon == W_HEADCRACKER) {
@@ -12,6 +16,12 @@ void() ReturnWeaponModel =
 	}
 		
 	UpdateVmodel(self.weaponmodel, GetWepSkin(self.weapon));
+	self.weapon = self.weapon;
+	SwitchWeapon(self.weapon);
+	float startframe = GetFrame(self.weapon, TAKE_OUT_START);
+	float endframe = GetFrame(self.weapon, TAKE_OUT_END);
+	string modelname = GetWeaponModel(self.weapon, 0);
+	Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, true, S_BOTH);
 }
 
 void() W_AimIn =

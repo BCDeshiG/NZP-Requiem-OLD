@@ -38,16 +38,11 @@ void GivePerk(float perk) {
   	sound_perk_delay = time + 4.5;
 	self.isBuying = false;
 	self.weapon = self.perkweapon;
-	string modelname = GetWeaponModel(self.weapon, 0);
-	float startframe = GetFrame(self.weapon,TAKE_OUT_START);
-	float endframe = GetFrame(self.weapon,TAKE_OUT_END);
-	self.weaponskin = backupWepSkin;
-	self.perk_delay = self.fire_delay;
-	Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, false, S_BOTH);
+	SwitchWeapon(self.weapon);
 	SetPerk(self, self.perks);
 }
 
-void() give_revive = { GivePerk(P_REVIVE); }
+void() give_revive = { GivePerk(P_REVIVE); ReturnWeaponModel();}
 void() give_juggernog = { GivePerk(P_JUG); }
 void() give_doubletap = { GivePerk(P_DOUBLE); }
 void() give_speedcola = { GivePerk(P_SPEED); }
