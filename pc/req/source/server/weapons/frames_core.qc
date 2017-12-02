@@ -141,6 +141,7 @@ void Set_W_Frame (float startframe, float endframe, float duration, float funcca
 	switch (animtype) {
 		case RELOAD: self.weaponstate = STATE_RELOAD; break;
 		case KNIFE: self.weaponstate = STATE_MELEE; break;
+		case PAP: self.weaponstate = STATE_PAP; break;
 		default: break;
 	}
 

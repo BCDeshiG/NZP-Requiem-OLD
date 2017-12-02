@@ -119,6 +119,7 @@ const float EVENT_BLACKOUT = 26;
 #define PERK		8
 #define KNIFE2		9
 #define REVIVE		10
+#define PAP 		11
 
 #define S_HEADSHOT	1
 #define S_KNIFE		2
@@ -162,6 +163,7 @@ const float EVENT_BLACKOUT = 26;
 #define STATE_RELOAD 			1
 #define STATE_BUYING 			2
 #define STATE_MELEE				3
+#define STATE_PAP				4
 
 //
 // invert float takes in float value between 0 and 1, inverts position

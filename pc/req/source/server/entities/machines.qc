@@ -3,6 +3,7 @@ float backupWepSkin;
 float sound_perk_delay; 
 void() W_Switch;
 void() mystery_touch;
+void() ReturnWeaponModel;
 
 void GivePerk(float perk) {
 	switch(perk) {
@@ -101,7 +102,7 @@ void DrinkPerk(float perk) {
 	if (self.sprinting)
 		W_SprintStop();
 	
-	self.knife_delay = self.reload_delay2 = self.fire_delay2 = self.fire_delay = self.reload_delay = 4.5 + time;
+	self.knife_delay = self.reload_delay2 = self.fire_delay2 = self.fire_delay = self.reload_delay = 3.5 + time;
 	self.limit --;		
 	Set_W_Frame (0, 22, 0, 0, PERK, func, "models/machines/v_perk.mdl", true, S_RIGHT);
 	self = tempe;
@@ -1493,7 +1494,7 @@ void PapUpgrade(entity pap, entity buyer) {
 	////////////////////////////////////////
 
 	self.fire_delay = self.reload_delay = 4.0 + time;
-	Set_W_Frame (0, 39, 0, 0, 0, SUB_Null, "models/machines/v_pap.mdl", true, S_BOTH);
+	Set_W_Frame (0, 39, 0, 0, PAP, ReturnWeaponModel, "models/machines/v_pap.mdl", true, S_BOTH);
 	if (world.hudtype != 0 && world.hudtype != 1)
 		sound(self, 0,"sounds/music/sting/pap.wav", 1, 1);
 	else

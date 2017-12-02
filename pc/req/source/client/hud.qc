@@ -62,6 +62,15 @@ void(float width, float height) HUD_ALBlue =
 
 void(float width, float height) HUD_Ammo =
 {
+	if (getstatf(STAT_ACTIVEWEAPON) == 0)
+		return;
+
+	switch(getstatf(STAT_WEAPONSTATUS)) {
+		case STATE_BUYING:
+		case STATE_PAP:
+			return;
+	}
+
 	local float ammo, curmag, benis, benis2;
 	string ammostring, ammostring_1, ammostring_2;
 	vector color;
@@ -898,10 +907,14 @@ void() Draw_Crosshair =
 		case STATE_BUYING:
 		case STATE_RELOAD:
 		case STATE_MELEE:
+		case STATE_PAP:
 			return;
 		default:
 			break;
 	}
+
+	if (getstatf(STAT_ACTIVEWEAPON) == 0)
+		return;
 	
 	if (K_BACKDOWN || K_FORWARDDOWN || K_LEFTDOWN || K_RIGHTDOWN)
 		croshhairmoving = 1;
