@@ -349,53 +349,7 @@ void() W_ReloadSecond =
 		reloadcancelframe = GetFrame(self.weapon,RELOAD_CANCEL);
 		delay = getWeaponDelay(self.weapon,RELOAD);
 		void(optional float t) endanimfunc = SUB_Null;
-
-		if (self.weapon == W_BROWNING || self.weapon ==  W_ACCELERATOR) {
-			if (!self.currentmag) {
-				startframe = 26;
-				endframe = 77;
-				reloadcancelframe = 45;
-				delay = 6;
-				endanimfunc = W_Give_Ammo;
-			} else if (self.currentmag > 0) {
-				startframe = 4;
-				endframe = 25;
-				reloadcancelframe = 0;
-				delay = 3.5;
-				endanimfunc = ContinueReload;
-			}
-		} else if (self.weapon == W_KAR_SCOPE || self.weapon == W_HEADCRACKER ){
-			startframe = 14;
-			endframe = 18;
-			reloadcancelframe = 0;
-			delay = 0.8;
-			endanimfunc = ContinueReload;
-		} else if (self.weapon == W_M1 || self.weapon == W_M1000) {
-			if (self.currentmag > 0) {
-				startframe = 4;
-				endframe = 44;
-				reloadcancelframe = 25;
-				delay = 3.9;
-				endanimfunc = W_Give_Ammo;
-			} else {
-				startframe = 8;
-				endframe = 44;
-				reloadcancelframe = 25;
-				delay = 3.6;
-				endanimfunc = W_Give_Ammo;
-			}
-		} else if (self.weapon == W_TRENCH || self.weapon == W_GUT) {
-			if (self.currentmag == 0) {
-				self.NeedLoad = true;
-			}
-			startframe = 14;
-			endframe = 17;
-			reloadcancelframe = 0;
-			delay = 0.8;
-			endanimfunc = ContinueReload;
-		} else {
-			endanimfunc = W_Give_Ammo;
-		}
+		endanimfunc = W_Give_Ammo;
 
 		if (self.perks & P_SPEED)
 			delay = delay*0.5; //MOTO - Changed to 50% instead of 75% (http://callofduty.wikia.com/wiki/Speed_Cola)
@@ -405,12 +359,7 @@ void() W_ReloadSecond =
 		self.zoom = false;
 		Set_W_Frame (startframe, endframe, delay, reloadcancelframe, RELOAD, endanimfunc, modelname, false, S_LEFT);
 	}
-	
-	if (self.weapon != W_TRENCH) {
-		self.NeedLoad = false;
-	}
-
-
+	self.NeedLoad = false;
 }
 
 void(float side) W_Reload =
@@ -832,6 +781,7 @@ void() W_FireExplosive =
 	nade.movetype = MOVETYPE_BOUNCE;
 	nade.solid = SOLID_BBOX;
 	nade.classname = "explosive";
+	nade.dmg = 300000;
 	makevectors (self.v_angle);
 	nade.velocity = v_forward*5000;
 	nade.avelocity = '400 -400 400';
@@ -1136,7 +1086,7 @@ void() switch_nade =
 void() GrenadeExplode =
 {
 	sound (self, CHAN_WEAPON, "sounds/weapons/grenade/explode.wav", 1, ATTN_NORM);	
-	DamgageExplode (self, self.owner, 225, 75, 128);//was 256 inch radius, kicked it down to 128 because 21 feet exploding radius is... a bit overkill...	
+	DamgageExplode (self, self.owner, 225, self.dmg, 128);//was 256 inch radius, kicked it down to 128 because 21 feet exploding radius is... a bit overkill...	
 	te_explosionquad(self.origin);
 	SUB_Remove ();
 };
@@ -1187,6 +1137,7 @@ void() W_ThrowGrenade =
 		nade.movetype = MOVETYPE_BOUNCE;
 		nade.solid = SOLID_BBOX;
 		nade.classname = "grenade";
+		nade.dmg = 75;
 
 		// set nade speed	
 

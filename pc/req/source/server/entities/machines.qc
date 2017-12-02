@@ -42,14 +42,14 @@ void GivePerk(float perk) {
 	SetPerk(self, self.perks);
 }
 
-void() give_revive = { GivePerk(P_REVIVE); ReturnWeaponModel();}
-void() give_juggernog = { GivePerk(P_JUG); }
-void() give_doubletap = { GivePerk(P_DOUBLE); }
-void() give_speedcola = { GivePerk(P_SPEED); }
-void() give_flopper = { GivePerk(P_FLOP); }
-void() give_staminup = { GivePerk(P_STAMIN); }
-void() give_mulekick = { GivePerk(P_MULE); }
-void() give_deadshot = { GivePerk(P_DEAD); }
+void() give_revive = { GivePerk(P_REVIVE); ReturnWeaponModel(); }
+void() give_juggernog = { GivePerk(P_JUG); ReturnWeaponModel(); }
+void() give_doubletap = { GivePerk(P_DOUBLE); ReturnWeaponModel(); }
+void() give_speedcola = { GivePerk(P_SPEED); ReturnWeaponModel(); }
+void() give_flopper = { GivePerk(P_FLOP); ReturnWeaponModel(); }
+void() give_staminup = { GivePerk(P_STAMIN); ReturnWeaponModel(); }
+void() give_mulekick = { GivePerk(P_MULE); ReturnWeaponModel(); }
+void() give_deadshot = { GivePerk(P_DEAD); ReturnWeaponModel(); }
 
 
 void DrinkPerk(float perk) {

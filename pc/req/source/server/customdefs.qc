@@ -109,6 +109,7 @@ void Weapon_Logic();
 .float secondary_grenades;
 .float primary_grenades;
 .float throw_delay;
+.float dmg;
 
 //weapon frames
 void Set_W_Frame (float startframe, float endframe, float duration, float funccalledin, float animtype, void(optional float t) endanimfunc, string set_model, float dontstartnew, float side);
