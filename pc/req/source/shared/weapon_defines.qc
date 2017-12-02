@@ -166,8 +166,9 @@ float(float wep) GetFiretype =
 	switch (wep)
 	{
 		case W_COLT:
-		case W_BIATCH:
 			return 1;
+		case W_BIATCH:
+			return 3;
 		case W_KAR:
 			return 1;
     	case W_ARMAGEDDON:

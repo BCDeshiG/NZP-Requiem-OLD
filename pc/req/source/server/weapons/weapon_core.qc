@@ -921,7 +921,7 @@ void(float side) W_Fire =
 		playdownfire();
 
 	//Fire weapons
-	if (firetype == 1)
+	if (firetype == 1 || firetype == 3)
 	{
 		if (side == S_RIGHT) {
 			if (self.semi) {
@@ -936,11 +936,10 @@ void(float side) W_Fire =
 		}
 	}
 
-	if (self.weapon != W_BIATCH)
-		FireTrace(shotcount, spread, damage/* , self.weaponslot1.headx, self.weaponslot1.legx */);
-	else
-		W_FireExplosive();
-
+	switch(firetype) {
+		case 3: W_FireExplosive(); break;
+		default: FireTrace(shotcount, spread, damage/* , self.weaponslot1.headx, self.weaponslot1.legx */); break;
+	}
 
 	//Play weapon animation and sound
 	startframe = GetFrame(self.weapon,FIRE_START);
