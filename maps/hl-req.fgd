@@ -30,6 +30,7 @@
 		3: "World at War"
 		4: "Mob of the Dead"
 		5: "Kino der Toten (Chronicles)"
+		6: "Verruckt (Chronicles)"
 	]
 	chartype(choices) : "Crew" : 0 =
 	[

@@ -52,6 +52,7 @@ void() worldspawn =
 		case 3: roundstr = "waw"; break;
 		case 4: roundstr = "mob"; break;
 		case 5: roundstr = "kdt"; break;
+		case 6: roundstr = "ver"; break;
 	}
 	precache_model ("models/player.mdl");
 	precache_model ("models/v_morphine.mdl");
