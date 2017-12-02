@@ -553,7 +553,8 @@ void () W_LoadAmmo =
 	}	
 
 	if (delay) {
-		
+		if (self.perks & P_SPEED)
+			delay *= 0.5;
 		Set_W_Frame (startframe, endframe, delay, reloadcancelframe, FIRE, W_LoadAmmoDone, modelname, false, S_RIGHT);
 		self.fire_delay = delay + time;
 	}
