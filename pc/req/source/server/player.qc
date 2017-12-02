@@ -101,20 +101,19 @@ void() ChooseCharacter =
 
 	if (charc < 0.250) {
 		self.character = 0;
-		return;
 	}
 	else if (charc < 0.500) {
 		self.character = 1;
-		return;
 	}
 	else if (charc < 0.750) {
 		self.character = 2;
-		return;
 	}
 	else {
 		self.character = 3;
-		return;
 	}
+
+	if (self.spawnal == 0)
+		QuotePlay(Q_SPAWN);
 }
 
 void() backupWeapon =

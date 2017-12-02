@@ -6,6 +6,7 @@ void() InitRounds;
 void() turnpower1;
 void() GetDown;
 void() door_go_up;
+void(float which) QuotePlay;
 
 void() ALDie =
 {
@@ -31,6 +32,7 @@ void() getUpAL =
 		PromptLevelChange(self.nextthink + 3, 1, self);
 		self.hasentered = 1;
 		sound (self, CHAN_AUTO, strcat("sounds/rounds/", roundstr, "/splash.wav"), 1, ATTN_NONE);
+		QuotePlay(Q_SPAWN);
 	}
 }
 

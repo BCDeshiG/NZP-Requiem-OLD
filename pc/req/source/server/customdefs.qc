@@ -367,3 +367,7 @@ float runrnd, puc;
 //MOTO - Gum
 float gumcache;
 .float holdgum, gumcount, gumnum, meleedamage, gumtime, machinewait, machinebuy;
+
+//Moto - Quotes
+.float quoteplay;
+#define Q_SPAWN 	1

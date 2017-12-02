@@ -9,6 +9,7 @@ server/afterlife.qc
 server/dummys.qc
 server/rounds.qc
 server/main.qc
+server/quotes.qc
 server/player.qc
 server/damage.qc
 
