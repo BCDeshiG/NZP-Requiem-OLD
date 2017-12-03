@@ -31,8 +31,12 @@ void() EndRound =
 {
 	rounds_change = 4;
 	SetUpdate(self, UT_ROUNDS_CHANGE, rounds_change, 0, 0);
-	if (rndtime != 0.1)
-		playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/eround.wav"));
+	if (rndtime != 0.1) {
+		if (roundtype == 1)
+			playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/eround.wav"));
+		else
+			playSoundAtPlayers("sounds/rounds/dog_end.wav");
+	}
 	round_changetime = time + rndtime;
 }
 
@@ -72,13 +76,15 @@ void() NewRound =
 	}
 	if (rounds != 0)
 	{
-		playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/nround.wav"));
+		if (gotdog && (rounds == 4 || rounds == 9 || rounds == 14))
+			playSoundAtPlayers("sounds/rounds/dog_start.wav");
+		else
+			playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/nround.wav"));
 		rounds_change = 6;
 		SetUpdate(self, UT_ROUNDS_CHANGE, rounds_change, 0, 0);
 		blink_return = time + 2;
 	}
 	rounds = rounds + 1;
-
 	NotifyNewRound(rounds);
 	tempe = find(world, classname, "player");
 	while (tempe)

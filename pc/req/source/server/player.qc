@@ -428,9 +428,9 @@ void() PlayerSpawn =
 	self.secondary_grenades = -1;		// shows that we both don't have betties AND shouldn't draw the image onscreen
 	self.alcount = -1;
 
-	/*self.secondaryweapon = W_KAR_SCOPE;
+	self.secondaryweapon = W_THOMPSON;
 	self.secondaryammo = getWeaponAmmo(self.secondaryweapon);
-	self.secondarymag = getWeaponMag(self.secondaryweapon);*/
+	self.secondarymag = getWeaponMag(self.secondaryweapon);
 	//self.secondarymag2 = getWeaponMag(self.secondaryweapon);
 
 	if (!self.points) {

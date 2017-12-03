@@ -29,8 +29,11 @@ void() StartFrame =
 	
 		if (SpawnedIn) {
 			entity getdog = find(world, classname, "spawn_dog");
-			if (getdog)
+			if (getdog) {
 				gotdog = 1;
+				precache_sound("sounds/rounds/dog_start.wav");
+				precache_sound("sounds/rounds/dog_end.wav");
+			}
 			else 
 				gotdog = 0;
 			
