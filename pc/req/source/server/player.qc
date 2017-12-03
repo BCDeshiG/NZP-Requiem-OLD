@@ -300,10 +300,10 @@ void() PlayerPostThink =
 		if (self.stamina <= 0) {
 			W_SprintStop();
 		}
-	} else if (self.stamina < 3) 	{
+	} else if (self.stamina < 8) 	{
 		self.stamina = self.stamina + 10*frametime;
-		if (self.stamina > 3) {
-			self.stamina = 3;
+		if (self.stamina > 8) {
+			self.stamina = 8;
 		}
 	}
 

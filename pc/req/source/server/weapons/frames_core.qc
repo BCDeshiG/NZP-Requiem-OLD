@@ -71,7 +71,6 @@ void () W2_Frame_Update =
 };
 void () W_Frame_Update =
 {
-	W2_Frame_Update();
 	local void temp(optional float t);
 
 // note: call whenever weapon frames are called!

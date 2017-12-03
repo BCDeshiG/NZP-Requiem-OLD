@@ -335,29 +335,29 @@ void() W_ReloadSecond =
 		return;
 
 	W_SprintStop();
-	float endframe, startframe, reloadcancelframe, delay;
-	string modelname;
+	float end2frame, start2frame, reload2cancelframe, delay2;
+	string model2name;
 
-	modelname = GetLeftWeaponModel(self.weapon); 
+	model2name = GetLeftWeaponModel(self.weapon); 
 
 	if (self.currentammo)
 	{
 		playreload();
 		
-		startframe = GetFrame(self.weapon,RELOAD_START);
-		endframe = GetFrame(self.weapon,RELOAD_END);
-		reloadcancelframe = GetFrame(self.weapon,RELOAD_CANCEL);
-		delay = getWeaponDelay(self.weapon,RELOAD);
-		void(optional float t) endanimfunc = SUB_Null;
-		endanimfunc = W_Give_Ammo;
+		start2frame = GetFrame(self.weapon,RELOAD_START);
+		end2frame = GetFrame(self.weapon,RELOAD_END);
+		reload2cancelframe = GetFrame(self.weapon,RELOAD_CANCEL);
+		delay2 = getWeaponDelay(self.weapon,RELOAD);
+		void(optional float t) endanim2func = SUB_Null;
+		endanim2func = W_Give_Ammo;
 
 		if (self.perks & P_SPEED)
-			delay = delay*0.5; //MOTO - Changed to 50% instead of 75% (http://callofduty.wikia.com/wiki/Speed_Cola)
+			delay2 = delay2*0.5; //MOTO - Changed to 50% instead of 75% (http://callofduty.wikia.com/wiki/Speed_Cola)
 
-		self.reload_delay2 = delay + time;
+		self.reload_delay2 = delay2 + time;
 		
 		self.zoom = false;
-		Set_W_Frame (startframe, endframe, delay, reloadcancelframe, RELOAD, endanimfunc, modelname, false, S_LEFT);
+		Set_W_Frame (start2frame, end2frame, delay2, reload2cancelframe, RELOAD, endanim2func, model2name, false, S_LEFT);
 	}
 	self.NeedLoad = false;
 }
@@ -461,7 +461,7 @@ void(float side) W_Reload =
 		}
 		
 		self.zoom = false;
-		Set_W_Frame (startframe, endframe, delay, reloadcancelframe, RELOAD, endanimfunc, modelname, false, side);
+		Set_W_Frame (startframe, endframe, delay, reloadcancelframe, RELOAD, endanimfunc, modelname, false, S_RIGHT);
 	}
 	
 	if (self.weapon != W_TRENCH) {
@@ -1560,6 +1560,7 @@ void() CheckPlayer =
 void () Weapon_Logic =
 {
 	W_Frame_Update ();
+	W2_Frame_Update ();
 	Impulse_Functions();
 
 	if (IsDualWeapon(self.weapon)) { 
@@ -1612,8 +1613,9 @@ void () Weapon_Logic =
 	if (self.button5 && !self.semireload)
 	{
 		W_Reload(S_RIGHT);
-		if (IsDualWeapon(self.weapon))
+		if (IsDualWeapon(self.weapon)) {
 			W_ReloadSecond();
+		}
 		self.semireload = TRUE;
 	}
 	else if (!self.button5) {
