@@ -77,6 +77,7 @@ void Weapon_Logic();
 .float thirdmag2;
 .float secondaryweapon;
 .float thirdweapon;
+.float isthird;
 .float NeedLoad;
 .string weapon2model;
 .float weapon2frame;

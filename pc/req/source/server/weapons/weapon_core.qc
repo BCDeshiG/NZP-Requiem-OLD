@@ -116,12 +116,11 @@ void W_SprintStart () {
 
 void() W_MuleSwitch =
 {
-	centerprint(self, "running other one");
-	float tempf,tempf1,tempf2;
+	float tempf,tempf1,tempf2, tempf3, tempf4, tempf5;
 	float startframe;
 	float endframe;
 	string modelname;
-		
+			
 	tempf = self.currentammo;
 	self.currentammo = self.secondaryammo;
 	self.secondaryammo = tempf;
@@ -138,6 +137,22 @@ void() W_MuleSwitch =
 	self.weapon = self.secondaryweapon;
 	self.secondaryweapon = tempf2;
 
+	tempf3 = self.thirdammo;
+	self.thirdammo = self.secondaryammo;
+	self.secondaryammo = tempf3;
+
+	tempf4 = self.thirdmag;
+	self.thirdmag = self.secondarymag;
+	self.secondarymag = tempf4;
+
+	tempf4 = self.thirdmag2;
+	self.thirdmag2 = self.secondarymag2;
+	self.secondarymag2 = tempf4;
+
+	tempf5 = self.thirdweapon;
+	self.thirdweapon = self.secondaryweapon;
+	self.secondaryweapon = tempf5;
+
 	startframe = GetFrame(self.weapon,TAKE_OUT_START);
 	endframe = GetFrame(self.weapon,TAKE_OUT_END);
 	modelname = GetWeaponModel(self.weapon, 0);
@@ -153,6 +168,11 @@ void() W_Switch =
 {
 	if (self.secondaryweapon && self.secondaryweapon !=0 && !self.new_anim_stop && !other.button7)
 	{    
+		if (self.thirdweapon != 0 && (self.perks & P_MULE)) {
+			W_MuleSwitch();
+			return;
+		}
+		self.thirdweapon = 0;
 		float tempf,tempf1,tempf2;
 		float startframe;
 		float endframe;
@@ -1295,8 +1315,8 @@ void() W_Grenade =
    }    
 }
 
-void() CheckButtonOne = {if (self.weaponnum == 1){W_PutOut();}}		// weapon switch to two if 1
-void() CheckButtonTwo = {if (self.weaponnum == 0) {W_PutOut();}}	// weapon switch to one if 2
+void() CheckButtonOne = {if (self.weaponnum == 1){W_Switch();}}		// weapon switch to two if 1
+void() CheckButtonTwo = {if (self.weaponnum == 0) {W_Switch();}}	// weapon switch to one if 2
 
 void(float gum) setSpecial =
 {
@@ -1403,12 +1423,12 @@ void () Impulse_Functions =
 			CrouchSet();
 			break;
 		case 110:
-			CheckButtonOne();
+			W_Switch();
 			break;
 		case 104:
 			activateGobble();
 		case 111:
-			CheckButtonTwo();
+			W_Switch();
 			break;	
 		default:
 			bprint(PRINT_HIGH, "Unknown impulse: ", ftos(self.impulse));

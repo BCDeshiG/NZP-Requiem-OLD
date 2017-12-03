@@ -196,7 +196,7 @@ void() place_model =
 void () buy_weapon_touch =
 {
 	entity oldent;
-	local float tempf, tempf1, tempf2;
+	float tempf,tempf1,tempf2, tempf3, tempf4, tempf5;
 	local float startframe,endframe;
 	local string modelname;
 
@@ -351,6 +351,39 @@ void () buy_weapon_touch =
 			other.currentmag = 0;
 			other.weapon = 0;
 			
+		}
+		if (!other.thirdweapon && (other.perks & P_MULE)) {
+			tempf = self.currentammo;
+			self.currentammo = self.secondaryammo;
+			self.secondaryammo = tempf;
+
+			tempf1 = self.currentmag;
+			self.currentmag = self.secondarymag;
+			self.secondarymag = tempf1;
+
+			tempf1 = self.currentmag2;
+			self.currentmag2 = self.secondarymag2;
+			self.secondarymag2 = tempf1;
+
+			tempf2 = self.weapon;
+			self.weapon = self.secondaryweapon;
+			self.secondaryweapon = tempf2;
+
+			tempf3 = self.thirdammo;
+			self.thirdammo = self.secondaryammo;
+			self.secondaryammo = tempf3;
+
+			tempf4 = self.thirdmag;
+			self.thirdmag = self.secondarymag;
+			self.secondarymag = tempf4;
+
+			tempf4 = self.thirdmag2;
+			self.thirdmag2 = self.secondarymag2;
+			self.secondarymag2 = tempf4;
+
+			tempf5 = self.thirdweapon;
+			self.thirdweapon = self.secondaryweapon;
+			self.secondaryweapon = tempf5;
 		}
 		
 		/* insert here mule kick thingy*/

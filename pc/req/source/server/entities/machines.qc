@@ -261,6 +261,7 @@ void() touch_perk =
 			DrinkPerk(P_MULE);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/mule.wav", 1, 1);
+			other.thirdweapon = 0;
 		}
 		else if (other.button7)
 		{
@@ -1066,6 +1067,8 @@ void() mystery_touch =
 				self.owner = world;
 				if (other.weapon != self.boxweapon.weapon && other.secondaryweapon != self.boxweapon.weapon && other.secondaryweapon)
 				{		
+					if (other.weapon == other.isthird)
+						other.isthird = self.boxweapon.weapon;
 					other.weapon = self.boxweapon.weapon;
           			other.currentammo = getWeaponAmmo(self.boxweapon.weapon);
 					other.currentmag = getWeaponMag(self.boxweapon.weapon);
@@ -1088,6 +1091,15 @@ void() mystery_touch =
 					other.currentammo = getWeaponAmmo(self.boxweapon.weapon);
 					other.currentmag = getWeaponMag(self.boxweapon.weapon);
 					other.weaponskin = GetWepSkin(self.boxweapon.weapon);
+					other.isthird = 0;
+				}
+				if (other.thirdweapon == 0 && other.secondaryweapon && (other.perks & P_MULE)) {
+					other.thirdweapon = self.boxweapon.weapon;
+					other.thirdmag = getWeaponMag(other.thirdweapon);
+					other.thirdammo = getWeaponAmmo(other.thirdweapon);
+					other.isthird = other.thirdweapon;
+					WeaponSwitch(other);
+					WeaponSwitch(other);
 				}
 				sound(self, 0,"sounds/misc/ching.wav", 1, 1);
 				tempe = self;

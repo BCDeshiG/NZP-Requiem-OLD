@@ -204,9 +204,28 @@ void() GetDown =
 	self.currentammobk = self.currentammo;
 	self.currentmagbk = self.currentmag;
 	self.currentmagbk2 = self.currentmag2;
-	self.thirdweapon = 0;
-	self.thirdammo = 0;
-	self.thirdmag = 0;
+	/*switch (self.isthird) {
+		case self.weaponbk:
+			self.currentammobk = self.secondaryammo;
+			self.currentmagbk = self.secondarymag;
+			self.currentmag2 = self.secondarymag2;
+			self.weaponbk = self.secondaryweapon;
+			break;
+		case self.secondaryweapon:
+			self.secondaryammo = self.thirdammo;
+			self.secondarymag = self.thirdmag;
+			self.secondarymag2 = self.thirdmag2;
+			self.secondaryweapon = self.thirdweapon;
+			break;
+		case self.thirdweapon:
+			self.thirdammo = self.currentammobk;
+			self.thirdmag = self.currentmagbk;
+			self.thirdmag2 = self.currentmagbk2;
+			self.thirdweapon = self.weaponbk;
+			break;
+		default:
+			break;
+	}*/
 	
 	if (self.weapon == W_BIATCH || self.secondaryweapon == W_BIATCH || self.progress_bar_percent > 0) {
 		self.weapon = W_BIATCH;
