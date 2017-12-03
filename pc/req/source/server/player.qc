@@ -428,11 +428,6 @@ void() PlayerSpawn =
 	self.secondary_grenades = -1;		// shows that we both don't have betties AND shouldn't draw the image onscreen
 	self.alcount = -1;
 
-	self.secondaryweapon = W_THOMPSON;
-	self.secondaryammo = getWeaponAmmo(self.secondaryweapon);
-	self.secondarymag = getWeaponMag(self.secondaryweapon);
-	//self.secondarymag2 = getWeaponMag(self.secondaryweapon);
-
 	if (!self.points) {
 		addmoney(self, world.points, 0);
 		if (world.points == 0 && !(spawnpoint.spawnflags & 8))
@@ -500,6 +495,8 @@ void() PlayerSpawn =
 
 	//MOTO - gum
 	self.meleedamage = 150;
+
+	max_zomb = 24;
 };
 
 void() SpectatorSpawn =

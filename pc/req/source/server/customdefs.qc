@@ -236,6 +236,7 @@ float() spawn_a_zombieA;
 float() spawn_a_dogA;
 float gotdog;
 float z_health;
+float max_zomb;
 .float bleedingtime;
 .float time_to_die;
 

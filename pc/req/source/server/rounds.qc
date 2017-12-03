@@ -76,10 +76,14 @@ void() NewRound =
 	}
 	if (rounds != 0)
 	{
-		if (gotdog && (rounds == 4 || rounds == 9 || rounds == 14))
+		if (gotdog && (rounds == 4 || rounds == 9 || rounds == 14)) {
 			playSoundAtPlayers("sounds/rounds/dog_start.wav");
-		else
+			max_zomb = 2;
+		}
+		else {
 			playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/nround.wav"));
+			max_zomb = 24;
+		}
 		rounds_change = 6;
 		SetUpdate(self, UT_ROUNDS_CHANGE, rounds_change, 0, 0);
 		blink_return = time + 2;
