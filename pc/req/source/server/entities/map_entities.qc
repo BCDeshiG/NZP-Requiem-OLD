@@ -1,4 +1,5 @@
 string(float wep, float gorvmodel) GetWeaponModel;
+void(string s) playSoundAtPlayers;
 
 void() func_wall =
 {
@@ -723,3 +724,47 @@ void() teddy_spawn =
 	self.health = 0;
 	self.th_die = teddy_react;
 };
+
+
+
+
+// MOTO - Easter Egg Songs
+
+void() checkSong =
+{
+	if (songam == songcount) {
+		playSoundAtPlayers(world.song);
+		return;
+	}
+}
+
+void() touch_song =
+{
+	if (other.classname != "player")
+		return;
+
+	if (self.used == 0 && other.button7) {
+		self.used = 1;
+		songam++;
+		sound(self, 0,"sounds/misc/ching.wav", 1, 1);
+		self.think = checkSong;
+		self.nextthink = time + 1; //Add a small delay before song plays.
+	}
+}
+
+void() egg_music =
+{
+	self.classname = "egg_music";
+
+	precache_model(self.model);
+	precache_sound("sounds/misc/ching.wav");
+	precache_sound(world.song);
+	setmodel(self, self.model);
+
+	setmodel(self, self.model);
+	setsize(self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+
+	self.touch = touch_song;
+	self.solid = SOLID_TRIGGER;
+	songcount++;
+}

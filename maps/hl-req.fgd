@@ -75,6 +75,7 @@
 	currentmag(integer) : "Starting Magazine" : 8
 	currentammo(integer) : "Starting Reserve Ammo" : 32
 	points(integer) : "Starting Points" : 500
+	song(string) : "Easter Egg Song" : "sounds/"
 ]
 
 //
@@ -339,6 +340,11 @@
 	[
 		1 : "Fullbright" : 0
 	]
+]
+
+@PointClass color(114 224 172) studio() = egg_music : "Easter Egg Song" 
+[
+	model(studio) : "Model" : "progs/props/"
 ]
 
 

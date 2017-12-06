@@ -373,3 +373,8 @@ float gumcache;
 //Moto - Quotes
 .float quoteplay;
 #define Q_SPAWN 	1
+
+//Moto - Song
+.float used;
+.string song;
+float songam, songcount;
