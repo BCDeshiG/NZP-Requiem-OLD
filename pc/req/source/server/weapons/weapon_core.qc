@@ -349,35 +349,126 @@ void() ContinueReload = //Special reloads
 	}
 }
 
+// Naievil -- Dual reload help 12/6/2017
+
+float Secondary_frame;
+float Primary_frame;
+
+void() W_ReloadBoth = 
+{
+	if (!Secondary_frame && !Primary_frame) {
+		if (self.reload_delay2 > time || self.new_anim2_stop || self.currentmag2 >= getWeaponMag(self.weapon) || 
+			self.reload_delay > time || self.new_anim_stop || !self.currentammo || self.currentmag >= getWeaponMag(self.weapon))
+			return;
+			
+		/* Stop our player from sprinting and play our animations */
+		W_SprintStop();
+		playreload();
+	}
+	
+	if (self.sprinting) {
+		Secondary_frame = 0;
+		Primary_frame = 0;
+		return;
+	}
+		
+	float startframe_l = 0, startframe_r = 0, reloadcancelframe, delay;
+	string modelname_l = "";
+	string modelname_r = "";
+	
+	delay = getWeaponDelay(self.weapon,RELOAD);
+	reloadcancelframe = GetFrame(self.weapon,RELOAD_CANCEL);
+	void(optional float t) endanimfunc = W_ReloadBoth;
+	
+	modelname_l = GetLeftWeaponModel(self.weapon); 
+		if (Secondary_frame != GetFrame(self.weapon,RELOAD_END)) {
+			// reload our last frame
+			startframe_l = Secondary_frame;
+			
+			// If reload frame is at 0
+			if (GetFrame(self.weapon,RELOAD_START) && !Secondary_frame) {
+				startframe_l = GetFrame(self.weapon,RELOAD_START);
+			}
+			// If our frame is less than end frame
+			if (Secondary_frame < (GetFrame(self.weapon,RELOAD_END)-2)) {
+				startframe_l = startframe_l + 2;
+			}
+		
+			// first frame itr
+			if (self.reload_delay2 < time) 
+				self.reload_delay2 = delay + time;
+				
+			Secondary_frame = startframe_l;
+		} if (Secondary_frame >= GetFrame(self.weapon,RELOAD_END) - 1) {
+			Secondary_frame = 0;
+		}
+	
+	modelname_r = GetWeaponModel(self.weapon, 0); 
+		if (Primary_frame != GetFrame(self.weapon,RELOAD_END)) {
+			// reload our last frame
+			startframe_r = Primary_frame;
+			
+			// If reload frame is at 0
+			if (GetFrame(self.weapon,RELOAD_START) && !Primary_frame) {
+				startframe_r = GetFrame(self.weapon,RELOAD_START);
+			}
+			// If our frame is less than end frame
+			if (Primary_frame < (GetFrame(self.weapon,RELOAD_END)-2)) {
+				startframe_r = startframe_r + 2;
+				}
+		
+			// first frame itr
+			if (self.reload_delay < time) 
+				self.reload_delay = delay + time;
+				
+			Primary_frame = startframe_r;
+		} if (Primary_frame >= (GetFrame(self.weapon,RELOAD_END) - 1)){
+			Primary_frame = 0;
+			endanimfunc = W_Give_Ammo;
+		}
+		
+	if (self.perks & P_SPEED){delay = delay*0.5;}	
+	delay = delay / (0.5*(GetFrame(self.weapon,RELOAD_END) - GetFrame(self.weapon,RELOAD_START)));
+	
+	self.zoom = false;
+	
+	Set_W_Frame (startframe_l, startframe_l + 1, delay, reloadcancelframe, RELOAD, endanimfunc, modelname_l, false, S_LEFT);
+	Set_W_Frame (startframe_r, startframe_r + 1, delay, reloadcancelframe, RELOAD, endanimfunc, modelname_r, false, S_RIGHT);
+	
+	self.NeedLoad = false;
+} 
+
+// Naievil -- Dual reload help end 
+
 void() W_ReloadSecond =
 {
 	if (self.reload_delay2 > time || self.new_anim2_stop || !self.currentammo || self.currentmag2 >= getWeaponMag(self.weapon))
 		return;
 
 	W_SprintStop();
-	float end2frame, start2frame, reload2cancelframe, delay2;
-	string model2name;
+	float endframe, startframe, reloadcancelframe, delay;
+	string modelname;
 
-	model2name = GetLeftWeaponModel(self.weapon); 
+	modelname = GetLeftWeaponModel(self.weapon); 
 
 	if (self.currentammo)
 	{
 		playreload();
 		
-		start2frame = GetFrame(self.weapon,RELOAD_START);
-		end2frame = GetFrame(self.weapon,RELOAD_END);
-		reload2cancelframe = GetFrame(self.weapon,RELOAD_CANCEL);
-		delay2 = getWeaponDelay(self.weapon,RELOAD);
-		void(optional float t) endanim2func = SUB_Null;
-		endanim2func = W_Give_Ammo;
+		startframe = GetFrame(self.weapon,RELOAD_START);
+		endframe = GetFrame(self.weapon,RELOAD_END);
+		reloadcancelframe = GetFrame(self.weapon,RELOAD_CANCEL);
+		delay = getWeaponDelay(self.weapon,RELOAD);
+		void(optional float t) endanimfunc = SUB_Null;
+		endanimfunc = W_Give_Ammo;
 
 		if (self.perks & P_SPEED)
-			delay2 = delay2*0.5; //MOTO - Changed to 50% instead of 75% (http://callofduty.wikia.com/wiki/Speed_Cola)
+			delay = delay*0.5; //MOTO - Changed to 50% instead of 75% (http://callofduty.wikia.com/wiki/Speed_Cola)
 
-		self.reload_delay2 = delay2 + time;
+		self.reload_delay2 = delay + time;
 		
 		self.zoom = false;
-		Set_W_Frame (start2frame, end2frame, delay2, reload2cancelframe, RELOAD, endanim2func, model2name, false, S_LEFT);
+		Set_W_Frame (startframe, endframe, delay, reloadcancelframe, RELOAD, endanimfunc, modelname, false, S_LEFT);
 	}
 	self.NeedLoad = false;
 }
@@ -481,12 +572,17 @@ void(float side) W_Reload =
 		}
 		
 		self.zoom = false;
-		Set_W_Frame (startframe, endframe, delay, reloadcancelframe, RELOAD, endanimfunc, modelname, false, S_RIGHT);
+		Set_W_Frame (startframe, endframe, delay, reloadcancelframe, RELOAD, endanimfunc, modelname, false, side);
 	}
 	
 	if (self.weapon != W_TRENCH) {
 		self.NeedLoad = false;
 	}
+	
+	if (IsDualWeapon(self.weapon)) {
+			//MOTO - Reload function can't be run twice, so let's make a new function.
+			W_ReloadSecond();
+		}
 };
 
 void () W_LoadAmmoDone =
@@ -1632,10 +1728,17 @@ void () Weapon_Logic =
 
 	if (self.button5 && !self.semireload)
 	{
-		W_Reload(S_RIGHT);
 		if (IsDualWeapon(self.weapon)) {
-			W_ReloadSecond();
-		}
+			if ((self.currentmag != getWeaponMag(self.weapon)) && (self.currentmag2 != getWeaponMag(self.weapon)))
+				W_ReloadBoth();
+			else if (self.currentmag != getWeaponMag(self.weapon))
+				W_Reload(S_RIGHT);
+			else 
+				W_Reload(S_LEFT);
+		
+		} else 
+				W_Reload(S_RIGHT);
+
 		self.semireload = TRUE;
 	}
 	else if (!self.button5) {
