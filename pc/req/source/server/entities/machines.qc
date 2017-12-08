@@ -143,16 +143,16 @@ void() touch_perk =
 
 		if (!deathmatch && !coop)
 		{
-			useprint (other, 9, 500, 1);
+			useprint (other, 9, self.cost, 1);
 		}
 		else if ((coop || deathmatch))
 		{
-			useprint (other, 9, 1500, 1);
+			useprint (other, 9, self.cost2, 1);
 		}
-		if (!deathmatch && !coop && other.points >= 500 && other.button7)
+		if (!deathmatch && !coop && other.points >= self.cost && other.button7)
 		{
 
-			addmoney (other, -500, 0);
+			addmoney (other, -self.cost, 0);
 			DrinkPerk(P_REVIVE);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/revive.wav", 1, 1);
@@ -161,9 +161,9 @@ void() touch_perk =
 			if (other.revivesoda == 3)
 				remove (self);
 		}
-		else if ((coop || deathmatch) && other.points >= 1500 && other.button7)
+		else if ((coop || deathmatch) && other.points >= self.cost2 && other.button7)
 		{
-			addmoney (other, -1500, 0);
+			addmoney (other, -self.cost2, 0);
 			DrinkPerk(P_REVIVE);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/revive.wav", 1, 1);
@@ -176,10 +176,10 @@ void() touch_perk =
 	}
 	if (self.classname == "perk_flopper" && !(other.perks & P_FLOP) && self.fire_delay < time)
 	{
-		useprint (other, 9, 2000, 6);
-		if (other.points >= 2000 && other.button7)
+		useprint (other, 9, self.cost, 6);
+		if (other.points >= self.cost && other.button7)
 		{
-			addmoney (other, -2000, 0);
+			addmoney (other, -self.cost, 0);
 			DrinkPerk(P_FLOP);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/flopper.wav", 1, 1);
@@ -191,10 +191,10 @@ void() touch_perk =
 	}
 	if (self.classname == "perk_juggernog" && !(other.perks & P_JUG) && self.fire_delay < time)
 	{
-		useprint (other, 9, 2500, 2);
-		if (other.points >= 2500 && other.button7)
+		useprint (other, 9, self.cost, 2);
+		if (other.points >= self.cost && other.button7)
 		{
-			addmoney (other, -2500, 0);
+			addmoney (other, -self.cost, 0);
 			DrinkPerk(P_JUG);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/jug.wav", 1, 1);
@@ -207,10 +207,10 @@ void() touch_perk =
 	}
 	if (self.classname == "perk_staminup" && !(other.perks & P_STAMIN) && self.fire_delay < time)
 	{
-		useprint (other, 9, 2000, 5);
-		if (other.points >= 2000 && other.button7)
+		useprint (other, 9, self.cost, 5);
+		if (other.points >= self.cost && other.button7)
 		{
-			addmoney (other, -2000, 0);
+			addmoney (other, -self.cost, 0);
 			DrinkPerk(P_STAMIN);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/stamin.wav", 1, 1);
@@ -222,10 +222,10 @@ void() touch_perk =
 	}
 	if (self.classname == "perk_speed" && !(other.perks & P_SPEED) && self.fire_delay < time)
 	{
-		useprint (other, 9, 3000, 3);
-		if (other.points >= 3000 && other.button7)
+		useprint (other, 9, self.cost, 3);
+		if (other.points >= self.cost && other.button7)
 		{
-			addmoney (other, -3000, 0);
+			addmoney (other, -self.cost, 0);
 			DrinkPerk(P_SPEED);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/speed.wav", 1, 1);
@@ -238,10 +238,10 @@ void() touch_perk =
 	}
 	if (self.classname == "perk_double" && !(other.perks & P_DOUBLE) && self.fire_delay < time)
 	{
-		useprint (other, 9, 2000, 4);
-		if (other.points >= 2000 && other.button7)
+		useprint (other, 9, self.cost, 4);
+		if (other.points >= self.cost && other.button7)
 		{
-			addmoney (other, -2000, 0);
+			addmoney (other, -self.cost, 0);
 			DrinkPerk(P_DOUBLE);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/dt.wav", 1, 1);
@@ -254,10 +254,10 @@ void() touch_perk =
 	}
 	if (self.classname == "perk_mulekick" && !(other.perks & P_MULE) && self.fire_delay < time)
 	{
-		useprint (other, 9, 4000, 7);
-		if (other.points >= 4000 && other.button7)
+		useprint (other, 9, self.cost, 7);
+		if (other.points >= self.cost && other.button7)
 		{
-			addmoney(other, -4000, 0);
+			addmoney(other, -self.cost, 0);
 			DrinkPerk(P_MULE);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/mule.wav", 1, 1);
@@ -270,10 +270,10 @@ void() touch_perk =
 	}
 	if (self.classname == "perk_deadshot" && !(other.perks & P_DEAD) && self.fire_delay < time)
 	{
-		useprint (other, 9, 1500, 8);
-		if (other.points >= 1500 && other.button7)
+		useprint (other, 9, self.cost, 8);
+		if (other.points >= self.cost && other.button7)
 		{
-			addmoney(other, -1500, 0);
+			addmoney(other, -self.cost, 0);
 			DrinkPerk(P_DEAD);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/dead.wav", 1, 1);
@@ -333,6 +333,12 @@ void() perk_revive =
 
 	self.think = setup_perk;
 	self.nextthink = time + 0.1;
+
+	if (!self.cost)
+		self.cost = 500;
+
+	if (!self.cost2)
+		self.cost2 = 1500;
 };
 void() perk_flopper =
 {
@@ -348,6 +354,9 @@ void() perk_flopper =
 
 	self.think = setup_perk;
 	self.nextthink = time + 0.1;
+
+	if (!self.cost)
+		self.cost = 2000;
 };
 
 void() perk_juggernog =
@@ -364,6 +373,9 @@ void() perk_juggernog =
 
 	self.think = setup_perk;
 	self.nextthink = time + 0.1;
+
+	if (!self.cost)
+		self.cost = 2500;
 };
 
 void() perk_staminup =
@@ -380,6 +392,9 @@ void() perk_staminup =
 
 	self.think = setup_perk;
 	self.nextthink = time + 0.1;
+
+	if (!self.cost)
+		self.cost = 2000;
 };
 
 void() perk_speed =
@@ -396,6 +411,9 @@ void() perk_speed =
 
 	self.think = setup_perk;
 	self.nextthink = time + 0.1;
+
+	if (!self.cost)
+		self.cost = 3000;
 };
 
 void() perk_double =
@@ -412,6 +430,9 @@ void() perk_double =
 
 	self.think = setup_perk;
 	self.nextthink = time + 0.1;
+
+	if (!self.cost)
+		self.cost = 2000;
 };
 
 void() perk_mulekick =
@@ -428,6 +449,9 @@ void() perk_mulekick =
 
 	self.think = setup_perk;
 	self.nextthink = time + 0.1;
+
+	if (!self.cost)
+		self.cost = 4000;
 }
 
 void() perk_deadshot =
@@ -444,6 +468,9 @@ void() perk_deadshot =
 
 	self.think = setup_perk;
 	self.nextthink = time + 0.1;
+
+	if (!self.cost)
+		self.cost = 1500;
 }
 
 void()	turnpower1	=[	1,		turnpower2	] {self.frame = 1;};
@@ -1033,7 +1060,7 @@ void() mystery_touch =
 		return;
 		
 	if (!self.boxstatus) {
-		useprint (other, 6, 950, 0);
+		useprint (other, 6, self.cost, 0);
 	}
 	if (self.boxstatus == 2 && self.owner == other) {
 		useprint (other, 7, 0, 0);
@@ -1043,10 +1070,10 @@ void() mystery_touch =
 	{
 		if (!self.boxstatus)
 		{
-			if (other.points >= 950)
+			if (other.points >= self.cost)
 			{					
 				sound (self, CHAN_ITEM, "sounds/machines/mbox_open.wav", 1, ATTN_NORM);
-				addmoney(other, -950, FALSE);
+				addmoney(other, -self.cost, FALSE);
 				self.boxstatus = 1;
 				self.owner = other;
 				box_open1 ();
@@ -1414,6 +1441,8 @@ void() mystery_box =
 	}
 
 	self.touch = mystery_touch;
+	if (!self.cost)
+		self.cost = 950;
 }
 
 //PACK A PUNCH
@@ -1469,7 +1498,7 @@ void PapUpgrade(entity pap, entity buyer) {
 
 	tempe = self;
 	self = buyer;
-	addmoney (self, -5000, 0);
+	addmoney (self, -pap.cost, 0);
 
 	//////////WepModel IN Floating test////////    
 
@@ -1545,8 +1574,8 @@ void touch_pap() {
 		if (IsPapWeapon(other.weapon) == 1) {
 			return;
 		}
-		useprint (other, 12, 5000, 5);
-		if (other.points >= 5000 && other.button7 && other.weapon)
+		useprint (other, 12, self.cost, 5);
+		if (other.points >= self.cost && other.button7 && other.weapon)
 		{
 			PapUpgrade(self, other);
 		
@@ -1611,4 +1640,7 @@ void() perk_pap =
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
 	self.classname = "perk_pap";
 	self.touch = touch_pap;
+
+	if (!self.cost)
+		self.cost = 5000;
 }

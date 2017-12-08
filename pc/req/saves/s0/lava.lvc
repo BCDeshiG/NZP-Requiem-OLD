@@ -1,0 +1,865 @@
+513
+_______________________________________
+1
+1.000000
+0.000000
+0.000000
+0.000000
+lava
+1.300000
+255
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+maps/lava.bsp
+models/player.mdl
+models/v_morphine.mdl
+progs/Sprites/revive.spr
+progs/Sprites/revive_white.spr
+models/ai/zfull.mdl
+models/ai/zb#.mdl
+models/ai/zal(.mdl
+models/ai/zar(.mdl
+models/ai/zh^.mdl
+models/ai/zcfull.mdl
+models/ai/zbc#.mdl
+models/ai/zalc(.mdl
+models/ai/zarc(.mdl
+models/ai/zhc^.mdl
+models/ai/dog.mdl
+progs/Misc/maxammo!.mdl
+progs/Misc/x2!.mdl
+progs/Misc/instakill!.mdl
+progs/Misc/nuke!.mdl
+progs/Misc/carpenter!.mdl
+models/weapons/m1911/v_colt.mdl
+models/weapons/m1911/g_colt.mdl
+progs/VModels/v_nade.mdl
+progs/GModels/g_grenade.mdl
+progs/GModels/g_betty.mdl
+models/way/current_way.spr
+models/way/current_way_door.spr
+models/way/last_way.spr
+models/way/last_way_door.spr
+models/way/normal_way.spr
+models/way/normal_way_door.spr
+models/way/way_jump.spr
+models/way/way_land.spr
+progs/Sprites/sprkle.spr
+models/machines/quick_revive.mdl
+models/machines/v_perk.mdl
+models/machines/juggernog.mdl
+models/weapons/m1911/v_biatch_right.mdl
+models/weapons/kar/g_kar.mdl
+models/weapons/kar/v_kar.mdl
+models/weapons/kar/v_karscope.mdl
+models/weapons/db/g_db.mdl
+models/weapons/db/v_db.mdl
+models/weapons/mg/g_mg.mdl
+models/weapons/mg/v_mg.mdl
+models/weapons/ray/g_ray.mdl
+models/weapons/ray/v_ray.mdl
+models/weapons/thomp/g_thomp.mdl
+models/weapons/thomp/v_thomp.mdl
+models/weapons/m2flame/g_m2flame.mdl
+models/weapons/m2flame/v_m2flame.mdl
+models/weapons/ppsh/g_ppsh.mdl
+models/weapons/ppsh/v_ppsh.mdl
+models/weapons/sawnoff/g_sawnoff.mdl
+models/weapons/sawnoff/v_sawnoff.mdl
+models/weapons/m1carbine/g_m1a1.mdl
+models/weapons/m1carbine/v_m1a1.mdl
+models/weapons/gewehr/g_gewehr.mdl
+models/weapons/gewehr/v_gewehr.mdl
+models/weapons/fg42/g_fg.mdl
+models/weapons/fg42/v_fg.mdl
+models/weapons/browning/g_browning.mdl
+models/weapons/browning/v_browning.mdl
+models/weapons/kar/g_kars.mdl
+models/weapons/357/g_357.mdl
+models/weapons/357/v_357.mdl
+models/weapons/stg/g_stg.mdl
+models/weapons/stg/v_stg.mdl
+models/weapons/panzer/g_panzer.mdl
+models/weapons/panzer/v_panzer.mdl
+models/weapons/ptrs/g_ptrs.mdl
+models/weapons/ptrs/v_ptrs.mdl
+models/weapons/mp40/g_mp40.mdl
+models/weapons/mp40/v_mp40.mdl
+models/weapons/bar/g_bar.mdl
+models/weapons/bar/v_bar.mdl
+models/weapons/trench/g_trench.mdl
+models/weapons/trench/v_trench.mdl
+models/weapons/garand/g_m1.mdl
+models/weapons/garand/v_m1.mdl
+models/weapons/type/g_type.mdl
+models/weapons/type/v_type.mdl
+models/machines/mystery.mdl
+models/machines/mglow$.mdl
+progs/Misc/teddy.mdl
+models/machines/pap.mdl
+models/machines/v_pap.mdl
+
+sounds/player/footstep1.wav
+sounds/player/footstep2.wav
+sounds/player/footstep3.wav
+sounds/player/footstep4.wav
+sounds/player/footstep5.wav
+sounds/player/jump.wav
+sounds/player/land.wav
+sounds/items/health.wav
+sounds/items/respawn.wav
+sounds/weapons/colt/magin.wav
+sounds/weapons/colt/magout.wav
+sounds/weapons/colt/shoot.wav
+sounds/weapons/colt/slide.wav
+sounds/weapons/papfire.wav
+sounds/weapons/grenade/prime.wav
+sounds/weapons/grenade/throw.wav
+sounds/weapons/grenade/explode.wav
+sounds/weapons/knife/knife_hitbod.wav
+sounds/weapons/knife/knife.wav
+sounds/weapons/knife/knife_hit.wav
+sounds/rounds/kdt/eround.wav
+sounds/rounds/kdt/nround.wav
+sounds/rounds/kdt/splash.wav
+sounds/music/end.wav
+sounds/null.wav
+sounds/misc/buy.wav
+sounds/misc/wood_door.wav
+sounds/misc/debris.wav
+sounds/misc/denybuy.wav
+sounds/misc/what.wav
+sounds/music/sting/revive.wav
+sounds/music/sting/jug.wav
+sounds/music/sting/speed.wav
+sounds/music/sting/dt.wav
+sounds/music/sting/mule.wav
+sounds/music/sting/stamin.wav
+sounds/music/sting/flopper.wav
+sounds/music/sting/dead.wav
+sounds/music/sting/pap.wav
+sounds/zombie/w0.wav
+sounds/zombie/w1.wav
+sounds/zombie/w2.wav
+sounds/zombie/w3.wav
+sounds/zombie/w4.wav
+sounds/zombie/w5.wav
+sounds/zombie/w6.wav
+sounds/zombie/w7.wav
+sounds/zombie/w8.wav
+sounds/zombie/w9.wav
+sounds/zombie/r0.wav
+sounds/zombie/r1.wav
+sounds/zombie/r2.wav
+sounds/zombie/r3.wav
+sounds/zombie/r4.wav
+sounds/zombie/r5.wav
+sounds/zombie/r6.wav
+sounds/zombie/r7.wav
+sounds/zombie/r8.wav
+sounds/zombie/r9.wav
+sounds/zombie/a0.wav
+sounds/zombie/a1.wav
+sounds/zombie/a2.wav
+sounds/zombie/a3.wav
+sounds/zombie/a4.wav
+sounds/zombie/a5.wav
+sounds/zombie/a6.wav
+sounds/zombie/a7.wav
+sounds/zombie/d0.wav
+sounds/zombie/d1.wav
+sounds/zombie/d2.wav
+sounds/zombie/d3.wav
+sounds/zombie/d4.wav
+sounds/zombie/d5.wav
+sounds/zombie/d6.wav
+sounds/zombie/d7.wav
+sounds/zombie/t0.wav
+sounds/zombie/t1.wav
+sounds/zombie/t2.wav
+sounds/zombie/t3.wav
+sounds/zombie/t4.wav
+sounds/zombie/s0.wav
+sounds/zombie/s1.wav
+sounds/zombie/sc0.wav
+sounds/zombie/sc1.wav
+sounds/pu/pickup.wav
+sounds/pu/maxammo.wav
+sounds/pu/double_points.wav
+sounds/pu/insta_kill.wav
+sounds/pu/nuke.wav
+sounds/pu/powerup.wav
+sounds/pu/drop.wav
+sounds/machines/perk_drink.wav
+sounds/weapons/kar/boltup.wav
+sounds/weapons/kar/boltback.wav
+sounds/weapons/kar/boltforward.wav
+sounds/weapons/kar/boltdown.wav
+sounds/weapons/kar/clipin.wav
+sounds/weapons/kar/clipoff.wav
+sounds/weapons/kar/shoot.wav
+sounds/weapons/kar/insert.wav
+sounds/weapons/shotgun/open.wav
+sounds/weapons/shotgun/out.wav
+sounds/weapons/shotgun/in.wav
+sounds/weapons/shotgun/close.wav
+sounds/weapons/shotgun/shoot.wav
+sounds/weapons/mg42/magout.wav
+sounds/weapons/mg42/magin.wav
+sounds/weapons/mg42/charge.wav
+sounds/weapons/mg42/shoot.wav
+sounds/weapons/raygun/open.wav
+sounds/weapons/raygun/out.wav
+sounds/weapons/raygun/in.wav
+sounds/weapons/raygun/close.wav
+sounds/weapons/raygun/shoot.wav
+sounds/weapons/thomp/magout.wav
+sounds/weapons/thomp/magin.wav
+sounds/weapons/thomp/boltback.wav
+sounds/weapons/thomp/shoot.wav
+sounds/weapons/m2flame/flamethrower.wav
+sounds/weapons/ppsh/magout.wav
+sounds/weapons/ppsh/magin.wav
+sounds/weapons/ppsh/maghit.wav
+sounds/weapons/ppsh/boltback.wav
+sounds/weapons/ppsh/boltrelease.wav
+sounds/weapons/ppsh/shoot.wav
+sounds/weapons/m1carbine/shoot.wav
+sounds/weapons/m1carbine/magout.wav
+sounds/weapons/m1carbine/magin.wav
+sounds/weapons/m1carbine/maghit.wav
+sounds/weapons/m1carbine/bolt.wav
+sounds/weapons/gewehr/magout.wav
+sounds/weapons/gewehr/magin.wav
+sounds/weapons/gewehr/maghit.wav
+sounds/weapons/gewehr/boltrelease.wav
+sounds/weapons/gewehr/shoot.wav
+sounds/weapons/fg42/magout.wav
+sounds/weapons/fg42/magin.wav
+sounds/weapons/fg42/boltback.wav
+sounds/weapons/fg42/boltforward.wav
+sounds/weapons/fg42/shoot.wav
+sounds/weapons/browning/boltback.wav
+sounds/weapons/browning/topopen.wav
+sounds/weapons/browning/chainoff.wav
+sounds/weapons/browning/chainon.wav
+sounds/weapons/browning/chainplace.wav
+sounds/weapons/browning/topclose.wav
+sounds/weapons/browning/tophit.wav
+sounds/weapons/browning/boltforward.wav
+sounds/weapons/browning/shoot.wav
+sounds/weapons/357/open.wav
+sounds/weapons/357/out.wav
+sounds/weapons/357/in.wav
+sounds/weapons/357/close.wav
+sounds/weapons/357/shoot.wav
+sounds/weapons/stg/magout.wav
+sounds/weapons/stg/magin.wav
+sounds/weapons/stg/shoot.wav
+sounds/weapons/panzer/move.wav
+sounds/weapons/panzer/insert.wav
+sounds/weapons/panzer/shoot.wav
+sounds/weapons/ptrs/open.wav
+sounds/weapons/ptrs/maghit.wav
+sounds/weapons/ptrs/magin.wav
+sounds/weapons/ptrs/close.wav
+sounds/weapons/ptrs/shoot.wav
+sounds/weapons/mp40/shoot.wav
+sounds/weapons/mp40/magout.wav
+sounds/weapons/mp40/magin.wav
+sounds/weapons/bar/shoot.wav
+sounds/weapons/bar/magout.wav
+sounds/weapons/bar/magin.wav
+sounds/weapons/bar/maghit.wav
+sounds/weapons/shotgun/pump.wav
+sounds/weapons/shotgun/insert.wav
+sounds/weapons/garand/clipout.wav
+sounds/weapons/garand/clipin.wav
+sounds/weapons/garand/clippush.wav
+sounds/weapons/garand/boltrelease.wav
+sounds/weapons/garand/shoot.wav
+sounds/weapons/type100/magout.wav
+sounds/weapons/type100/magin.wav
+sounds/weapons/type100/boltpull.wav
+sounds/weapons/type100/shoot.wav
+sounds/machines/mbox_open.wav
+sounds/machines/mbox_close.wav
+sounds/machines/papsound.wav
+
+general {
+"maxprogs" "64"
+"numentities" "19"
+}
+progs 0 {
+"filename" "qwprogs.dat"
+"crc" "54730"
+}
+globals 0 {
+"time" "1.100000"
+"frametime" "0.100000"
+"mapname" "lava"
+"physics_mode" "2"
+"framecount" "3"
+"mappath" "maps/lava"
+"roundstr" "kdt"
+"colt" "1"
+"kar" "1"
+"db" "1"
+"bar" "1"
+"mg" "1"
+"ray" "1"
+"thomp" "1"
+"flame" "1"
+"ppsh" "1"
+"sawn" "1"
+"tesla" "1"
+"m1a1" "1"
+"ptrs" "1"
+"panz" "1"
+"stg" "1"
+"mp40" "1"
+"revolver" "1"
+"gewehr" "1"
+"fg" "1"
+"browning" "1"
+"kars" "1"
+"bknife" "1"
+"trench" "1"
+"m1" "1"
+"type100" "1"
+}
+entity 0{
+"modelindex" "1"
+"lastruntime" "1.100000"
+"movetype" "7"
+"solid" "4"
+"classname" "worldspawn"
+"model" "maps/lava.bsp"
+"mins" "-257 -257 -1"
+"maxs" "257 257 129"
+"weapon" "1"
+"currentammo" "32"
+"sounds" "1"
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+"points" "500"
+"currentmag" "8"
+"roundtime" "9.500000"
+"roundsnd" "5"
+"hudtype" "2"
+"runround" "4"
+"puchance" "0.020000"
+"song" "sounds/"
+}
+entity 1{
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+}
+entity 2{
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+}
+entity 3{
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+}
+entity 4{
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+}
+entity 5{
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+}
+entity 6{
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+}
+entity 7{
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+}
+entity 8{
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+}
+entity 9{
+"lastruntime" "1.100000"
+"origin" "-63 171 35"
+"classname" "info_player_start"
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+}
+entity 10{
+"lastruntime" "1.100000"
+"origin" "177 -173 60"
+"classname" "light"
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+"wait" "1"
+}
+entity 11{
+"absmin" "5 -96 34"
+"absmax" "7 -94 36"
+"lastruntime" "1.100000"
+"origin" "6 -95 35"
+"classname" "spawn_zombie"
+"spawnflags" "4"
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+}
+entity 12{
+"absmin" "186 -107 34"
+"absmax" "188 -105 36"
+"lastruntime" "1.100000"
+"origin" "187 -106 35"
+"classname" "spawn_zombie"
+"spawnflags" "4"
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+}
+entity 13{
+"absmin" "-198 -70 34"
+"absmax" "-196 -68 36"
+"lastruntime" "1.100000"
+"origin" "-197 -69 35"
+"classname" "spawn_zombie"
+"spawnflags" "4"
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+}
+entity 14{
+"modelindex" "36"
+"absmin" "209 -33 8"
+"absmax" "275 33 98"
+"lastruntime" "1.100000"
+"solid" "1"
+"origin" "242 0 33"
+"angles" "0 180 0"
+"classname" "perk_revive"
+"model" "models/machines/quick_revive.mdl"
+"effects" "64"
+"mins" "-32 -32 -24"
+"maxs" "32 32 64"
+"size" "64 64 88"
+"touch" "0:touch_perk"
+"think" "0:setup_perk"
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+"cost" "69"
+"cost2" "1500"
+}
+entity 15{
+"modelindex" "38"
+"absmin" "-275 -33 8"
+"absmax" "-209 33 98"
+"lastruntime" "1.100000"
+"solid" "1"
+"origin" "-242 0 33"
+"classname" "perk_juggernog"
+"model" "models/machines/juggernog.mdl"
+"effects" "128"
+"mins" "-32 -32 -24"
+"maxs" "32 32 64"
+"size" "64 64 88"
+"touch" "0:touch_perk"
+"think" "0:setup_perk"
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+"cost" "420"
+}
+entity 16{
+"modelindex" "84"
+"absmin" "-33 211 -16"
+"absmax" "33 277 74"
+"lastruntime" "1.100000"
+"solid" "1"
+"origin" "0 244 9"
+"classname" "mystery"
+"model" "models/machines/mystery.mdl"
+"mins" "-32 -32 -24"
+"maxs" "32 32 64"
+"size" "64 64 88"
+"touch" "0:mystery_touch"
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+"cost" "2"
+"goaldummy" "17"
+}
+entity 17{
+"modelindex" "85"
+"absmin" "-1 243 8"
+"absmax" "1 245 10"
+"lastruntime" "1.100000"
+"origin" "0 244 9"
+"model" "models/machines/mglow$.mdl"
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+}
+entity 18{
+"modelindex" "87"
+"absmin" "-33 -259 8"
+"absmax" "33 -193 98"
+"lastruntime" "1.100000"
+"solid" "1"
+"origin" "0 -226 33"
+"angles" "0 90 0"
+"classname" "perk_pap"
+"model" "models/machines/pap.mdl"
+"mins" "-32 -32 -24"
+"maxs" "32 32 64"
+"size" "64 64 88"
+"touch" "0:touch_pap"
+"dimension_solid" "255"
+"dimension_hit" "255"
+"drawflags" "96"
+"dimension_see" "255"
+"dimension_seen" "255"
+"Version" "1"
+"uniquespawnid" "1"
+"cost" "1337"
+}
+

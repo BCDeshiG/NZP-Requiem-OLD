@@ -219,6 +219,7 @@
 @PointClass size(-16 -16 -32, 16 16 56) base(Item, Appearflags) color(107 29 20) studio("models/machines/juggernog.mdl") = 
 	perk_juggernog : "Juggernog" 
 [
+	cost(integer) : "Cost" : 2500
 	spawnflags(Flags) =
 	[
 		1 : "Random location" : 0
@@ -228,6 +229,7 @@
 @PointClass size(-16 -16 -32, 16 16 56) base(Item, Appearflags) color(131 63 148) studio("models/machines/flopper.mdl") = 
 	perk_flopper : "Phd-Flopper" 
 [
+	cost(integer) : "Cost" : 2000
 	spawnflags(Flags) =
 	[
 		1 : "Random location" : 0
@@ -238,6 +240,7 @@
 @PointClass size(-16 -16 -32, 16 16 40) base(Item, Appearflags) color(214 203 1) studio("models/machines/double_tap.mdl") = 
 	perk_double : "Double Tap Root Beer"  
 [
+	cost(integer) : "Cost" : 2000
 	spawnflags(Flags) =
 	[
 		1 : "Random location" : 0
@@ -247,6 +250,7 @@
 @PointClass size(-24 -24 -32, 24 24 56) base(Item, Appearflags) color(0 117 58) studio("models/machines/speed_cola.mdl") = 
 	perk_speed : "Speed Cola" 
 [
+	cost(integer) : "Cost" : 3000
 	spawnflags(Flags) =
 	[
 		1 : "Random location" : 0
@@ -256,6 +260,8 @@
 @PointClass size(-16 -16 -32, 16 16 32) base(Item, Appearflags) color(129 172 254) studio("models/machines/quick_revive.mdl") = 
 	perk_revive : "quick revive" 
 [
+	cost(integer) : "Solo Cost" : 500
+	cost2(integer) : "Co-op Cost" : 1500
 	spawnflags(Flags) =
 	[
 		1 : "Random location" : 0
@@ -265,6 +271,7 @@
 @PointClass size(-24 -24 -32, 24 24 48) base(Item, Appearflags) color(254 198 65) studio("models/machines/staminup.mdl") = 
 	perk_staminup : "Stamin Up" 
 [
+	cost(integer) : "Cost" : 2000
 	spawnflags(Flags) =
 	[
 		1 : "Random location" : 0
@@ -274,6 +281,7 @@
 @PointClass size(-24 -24 -32, 24 24 48) base(Item, Appearflags) color(254 198 65) studio("models/machines/mule.mdl") = 
 	perk_mulekick : "Mule Kick" 
 [
+	cost(integer) : "Cost" : 4000
 	spawnflags(Flags) =
 	[
 		1 : "Random location" : 0
@@ -283,6 +291,7 @@
 @PointClass size(-24 -24 -32, 24 24 48) base(Item, Appearflags) color(254 198 65) studio("models/machines/deadshot.mdl") = 
 	perk_deadshot : "Deadshot" 
 [
+	cost(integer) : "Cost" : 1500
 	spawnflags(Flags) =
 	[
 		1 : "Random location" : 0
@@ -294,6 +303,7 @@
 @PointClass size(-32 -32 -32, 32 32 56) base(Item, Appearflags) color(125 196 187) studio("models/machines/pap.mdl") = 
 	perk_pap : "Pack-A-Punch" 
 [	
+	cost(integer) : "Cost" : 5000
 	spawnflags(Flags) =
 	[
 		1 : "random round place" : 0
@@ -307,6 +317,7 @@
 @PointClass size(-32 -8 -8, 32 8 8) base(Item, Appearflags) color(141 85 29) studio("models/machines/mystery.mdl") = 
 	mystery_box : "Mystery Box" 
 [	
+	cost(integer) : "Cost" : 950
 	spawnflags(Flags) =
 	[
 		1 : "Not here" : 0
