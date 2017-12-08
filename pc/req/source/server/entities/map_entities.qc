@@ -768,3 +768,87 @@ void() egg_music =
 	self.solid = SOLID_TRIGGER;
 	songcount++;
 }
+
+//motolegacy -- lava
+void() followZombie =
+{
+	setorigin(self, self.owner.origin);
+	self.nextthink = time + 0.1;
+}
+
+void(entity who) zombie_spawn_fire =
+{
+	local entity flame;
+	flame = spawn();
+	setmodel(flame, "progs/flame0.mdl");
+	flame.owner = who;
+
+	setorigin(flame, flame.owner.origin);
+
+	flame.think = followZombie;
+	flame.nextthink = time + 0.1;
+}
+
+void() zombie_touch_lava =
+{
+	if (other.hasburned == 0) {
+		other.health *= 0.5;
+		zombie_spawn_fire(other);
+		other.nextthink = time + 0.1;
+		other.hasburned = 1;
+	}
+}
+
+void() resetLava =
+{
+	self.lava = 0;
+	self.maxspeed = GetWeaponWalkSpeed(self.weapon);
+}
+
+void() doLavaDamage =
+{
+	DamageHandler (self, 0, 15, S_ZOMBIE);
+	if (self.onlava == 0) {
+		self.think = resetLava;
+		self.nextthink = time + 0.3;
+	}
+	self.onlava = 0;
+	self.nextthink = time + 1.5;
+}
+
+void() player_touch_lava =
+{
+	if (other.classname != "player")
+		return;
+	other.think = doLavaDamage;
+
+	other.stamina = 0;
+	other.maxspeed *= 1.2;
+	other.lava = 1;
+	other.onlava = 1;
+	if (other.hasburned == 0) {
+		other.nextthink = time + 0.1;
+		other.hasburned = 1;
+	}
+	centerprint(other, "oof halp");
+}
+
+void() touch_lava =
+{
+	switch(other.classname) {
+		case "player": player_touch_lava(); break;
+		case "ai_zombie": zombie_touch_lava(); break;
+	}
+}
+
+void() func_lava =
+{
+	precache_model("progs/flame0.mdl");
+	self.classname = "func_lava";
+	self.movetype = MOVETYPE_PUSH;	// so it doesn't get pushed by anything
+	self.solid = SOLID_BSP;
+	setmodel (self, self.model);
+	setorigin(self, self.origin);
+
+	self.touch = touch_lava;
+}

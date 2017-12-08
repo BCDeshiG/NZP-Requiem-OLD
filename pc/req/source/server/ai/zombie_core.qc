@@ -874,6 +874,12 @@ void() Zombie_Death =
 			zombie_deathC1();
 		}
 	}
+	if (self.hasburned == 1) {
+		sound (self, CHAN_WEAPON, "sounds/weapons/grenade/explode.wav", 1, ATTN_NORM);	
+		DamgageExplode (self, self.owner, 16, 35, 16);
+		te_explosionquad(self.origin);
+		SUB_Remove ();
+	}
 };
 
 

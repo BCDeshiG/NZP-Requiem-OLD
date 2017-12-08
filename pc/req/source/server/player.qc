@@ -176,6 +176,9 @@ void() PlayerPreThink =
 			self.maxspeed *= 0.2;
 
 		self.maxspeed *= GetWeaponWalkSpeed(self.weapon);
+
+		if (self.lava)
+			self.maxspeed *= 0.35;
 	}
 	if(self.isspec != 0 && !self.downed)
 	{

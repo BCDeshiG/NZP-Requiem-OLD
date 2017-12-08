@@ -378,3 +378,6 @@ float gumcache;
 .float used;
 .string song;
 float songam, songcount;
+
+//motolegacy -- lava
+.float lava, hasburned, onlava;

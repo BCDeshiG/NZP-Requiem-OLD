@@ -674,6 +674,10 @@
 
 ]
 
+@SolidClass base(Appearflags) = func_lava : "bo2 lava"
+[
+]
+
 @SolidClass base(Targetname, Appearflags) = func_wall : "Wall" 
 [
 	alpha(string) : "Transparency (0.1 - 1.0)"
