@@ -368,7 +368,7 @@ float runrnd, puc;
 
 //MOTO - Gum
 float gumcache;
-.float holdgum, gumcount, gumnum, meleedamage, gumtime, machinewait, machinebuy;
+.float holdgum, gumcount, gumnum, meleedamage, gumtime, machinewait, machinebuy, gum_delay;
 
 //Moto - Quotes
 .float quoteplay;

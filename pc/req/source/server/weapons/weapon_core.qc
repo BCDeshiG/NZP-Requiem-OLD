@@ -1419,7 +1419,7 @@ void(float gum) setSpecial =
 	switch(gum) {
 		case G_KILLJOY:
 			self.holdgum = G_KILLJOY;
-			self.gumcount = 2;
+			self.gumcount = 3;
 			break;
 		case G_ROBBIN:
 			self.holdgum = G_ROBBIN;
@@ -1523,6 +1523,7 @@ void () Impulse_Functions =
 			break;
 		case 104:
 			activateGobble();
+			break;
 		case 111:
 			W_Switch();
 			break;	

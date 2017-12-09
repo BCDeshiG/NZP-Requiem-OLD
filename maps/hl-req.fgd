@@ -247,6 +247,13 @@
 		2 : "Switch location" : 0
 	]
 ]
+
+@PointClass size(-16 -16 -32, 16 16 40) base(Appearflags) color(214 203 1) studio("models/machines/double_tap.mdl") = 
+	perk_gobblegum : "GobbleGum"  
+[
+
+]
+
 @PointClass size(-24 -24 -32, 24 24 56) base(Item, Appearflags) color(0 117 58) studio("models/machines/speed_cola.mdl") = 
 	perk_speed : "Speed Cola" 
 [

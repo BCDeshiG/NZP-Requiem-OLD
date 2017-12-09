@@ -745,7 +745,7 @@ void(float width, float height) HUD_Useprint =
 				usestring = strcat("Hold ",usebutton, " to revive yourself");
 				break;
 			case 16:
-				usestring = strcat("Hold ",usebutton, " to dispense Gobblegum [Cost:", ftos(useprint_cost), "]");
+				usestring = strcat("Hold ",usebutton, " to dispense GobbleGum [Cost:", ftos(useprint_cost), "]");
 				break;
 			case 17:
 				usestring = strcat("Hold ",usebutton, " to take ", getGumName(useprint_weapon));

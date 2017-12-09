@@ -8,10 +8,9 @@ void() activateGobble =
 	switch(self.holdgum) {
 		case G_KILLJOY:
 			self.gumcount--;
-			if (self.gumcount == 0) {
+			if (self.gumcount <= 0) {
 				self.holdgum = 0;
-				return;
-			}
+				return; }
 			makevectors (self.v_angle);
 			Spawn_Powerup(self.origin + '-100 0 0', 2);
 			break;
@@ -40,6 +39,7 @@ void() giveAllPerks =
 	self.perks = self.perks | 4;
 	self.perks = self.perks | 2;
 	self.perks = self.perks | 64;
+	self.perks = self.perks | 128;
 	SetPerk(self, self.perks);
 }
 
@@ -126,7 +126,7 @@ void(float gum) chewGum =
 			gumfunction = giveRoundRobbin;
 			break;
 		case G_INPLAIN:
-			gumfunction = givePerkaholic;
+			//gumfunction = givePerkaholic;
 			break;
 		case G_KILLJOY:
 			gumfunction = giveKillJoy;
