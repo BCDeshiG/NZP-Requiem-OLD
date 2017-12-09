@@ -161,9 +161,9 @@ float(float spent) gobbleCost =
 		case 2: return 2500; break;
 		case 3: return 5000; break;
 		case 4: return 10000; break;
-		case 5: return 25000; break;
-		default: return 50000; break;
-	}
+		case 5: return 25000; break; }
+
+	return 50000;
 }
 
 void() changeGumState =

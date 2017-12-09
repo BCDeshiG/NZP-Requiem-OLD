@@ -50,6 +50,7 @@ void() NewRound =
 	{
 		if (plr.alcount < 3 && plr.alcount != -1)
 			plr.alcount++;
+		plr.gumnum = 0;
 		plr = find(plr, classname, "player");
 	}
 	entity who = find(world,classname,"spectator");
