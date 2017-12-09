@@ -604,6 +604,7 @@ const float EF_NODRAW = 16;
 const float EF_ADDITIVE = 32;	/* The entity will be drawn with an additive blend. */
 const float EF_BLUE = 64;	/* A blue glow */
 const float EF_RED = 128;	/* A red glow */
+const float EF_ORANGE = 256;
 const float EF_GREEN = 262144;	/* A green glow */
 const float EF_FULLBRIGHT = 512;	/* This entity will ignore lighting */
 const float EF_NOSHADOW = 4096;	/* This entity will not cast shadows */

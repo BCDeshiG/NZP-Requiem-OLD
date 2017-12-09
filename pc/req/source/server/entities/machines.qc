@@ -310,6 +310,10 @@ void() setup_perk =
 			case "perk_speed":
 				self.effects = EF_GREEN;
 				break;
+			case "perk_double":
+			case "perk_staminup":
+				self.effects = EF_ORANGE;
+				break;
 			default:
 				self.effects = 0;
 				break;
