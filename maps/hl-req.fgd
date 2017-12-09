@@ -34,12 +34,14 @@
 	]
 	chartype(choices) : "Crew" : 0 =
 	[
-		0: "Ultimus/Primus"
-		1: "Pentagon"
-		2: "Romero's Playthings"
-		3: "Victus"
-		4: "Alcatraz"
-		5: "The Cursed"
+		0: "None"
+		1: "Ultimus/Primus"
+		2: "Pentagon"
+		3: "Romero's Playthings"
+		4: "Victus"
+		5: "Alcatraz"
+		6: "The Cursed"
+		7: "CIA/CDC"
 	]
 	limit(integer) : "Perk Limit (0 for no limit)"
 	weapon(choices) : "Starting Weapon" : 1 = 

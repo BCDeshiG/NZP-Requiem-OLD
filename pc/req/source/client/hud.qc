@@ -1103,10 +1103,11 @@ void() HUD_Fade =
 //==- TODO -==//
 /*
 	1. Re-do scaling
-	2. Change offset values
 */
 //==- By: MotoLegacy -==//
 
+float hasChoosen;
+string char7;
 void(float width, float height) HUD_PlayerName =
 {
 	local float playername, plroffset, p1o, p2o, p3o, p4o;
@@ -1115,7 +1116,7 @@ void(float width, float height) HUD_PlayerName =
 
 	switch(getstatf(STAT_CREWTYPE))
 	{
-		case 0:
+		case 1:
 			p1 = "Dempsey";
 			p1o = 0.700;
 			p2 = "Nikolai";
@@ -1125,7 +1126,7 @@ void(float width, float height) HUD_PlayerName =
 			p4 = "Richtofen";
 			p4o = 0.675;
 			break;
-		case 1:
+		case 2:
 			p1 = "Kennedy";
 			p1o = 0.700;
 			p2 = "McNamara";
@@ -1135,7 +1136,7 @@ void(float width, float height) HUD_PlayerName =
 			p4 = "Castro";
 			p4o = 0.725; 
 			break;
-		case 2:
+		case 3:
 			p1 = "Gellar";
 			p1o = 0.720;
 			p2 = "Englund";
@@ -1145,7 +1146,7 @@ void(float width, float height) HUD_PlayerName =
 			p4 = "Rooker";
 			p4o = 0.725; 
 			break;
-		case 3:
+		case 4:
 			p1 = "Stuhlinger";
 			p1o = 0.675;
 			p2 = "Marlton";
@@ -1155,7 +1156,7 @@ void(float width, float height) HUD_PlayerName =
 			p4 = "Russman";
 			p4o = 0.700; 
 			break;
-		case 4:
+		case 5:
 			p1 = "Finn";
 			p1o = 0.760;
 			p2 = "Weasel";
@@ -1165,7 +1166,7 @@ void(float width, float height) HUD_PlayerName =
 			p4 = "Billy";
 			p4o = 0.730; 
 			break;
-		case 5:
+		case 6:
 			p1 = "Campbell";
 			p1o = 0.700;
 			p2 = "Rose";
@@ -1175,6 +1176,23 @@ void(float width, float height) HUD_PlayerName =
 			p4 = "Vincent";
 			p4o = 0.700; 
 			break;
+	}
+
+	if (getstatf(STAT_CREWTYPE) == 7) {
+		local float which;
+
+		which = random();
+
+		if (which < 0.5 && hasChoosen == 0)
+			char7 = "CIA";
+
+		else if (hasChoosen == 0)
+			char7 = "CDC";
+
+		p1 = p2 = p3 = p4 = char7;
+		p1o = p2o = p3o = p4o = 0.775;
+
+		hasChoosen = 1;
 	}
 
 	switch(getstatf(STAT_CHARACTER))

@@ -5,7 +5,7 @@ void(string snd) PlayQuote =
 	string subdir;
 
 	switch (world.chartype) {
-		case 0: subdir = "kdt"; break;
+		case 1: subdir = "kdt"; break;
 		default: return;
 	}
 	precache_sound(strcat(directory, subdir, "/", snd, ".wav"));
