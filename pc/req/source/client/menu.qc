@@ -25,7 +25,7 @@ void() M_Menu_Main_Draw =
 	if (M_Menu_Main_Cursor != 3)
 		drawstring([0.025*g_width, 0.275*g_height, 0], "Settings (In Progress)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 	if (M_Menu_Main_Cursor != 4)
-		drawstring([0.025*g_width, 0.325*g_height, 0], "Credits (N/A)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+		drawstring([0.025*g_width, 0.325*g_height, 0], "Credits (In Progress)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 	if (M_Menu_Main_Cursor != 5)
 		drawstring([0.025*g_width, 0.375*g_height, 0], "Quit", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 
@@ -40,7 +40,7 @@ void() M_Menu_Main_Draw =
 	if (M_Menu_Main_Cursor == 3)
 		drawstring([0.025*g_width, 0.275*g_height, 0], "Settings (In Progress)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	if (M_Menu_Main_Cursor == 4)
-		drawstring([0.025*g_width, 0.325*g_height, 0], "Credits (N/A)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.325*g_height, 0], "Credits (In Progress)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	if (M_Menu_Main_Cursor == 5)
 		drawstring([0.025*g_width, 0.375*g_height, 0], "Quit", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 
@@ -74,6 +74,7 @@ void() M_Menu_Main_Keys =
 		switch (M_Menu_Main_Cursor) {
 			case 0: in_menu = MENU_SINGLE; menuTime = time + 0.2; break;
 			case 3: in_menu = MENU_SETTINGS; menuTime = time + 0.2; break;
+			case 4: in_menu = MENU_CREDITS; menuTime = time + 0.2; break;
 			case 5: localcmd("quit\n"); break;
 		}
 	}
@@ -232,9 +233,9 @@ void() M_Menu_Settings_Draw =
 		drawstring([0.025*g_width, 0.125*g_height, 0], "Fullbright", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 
 	if (cvar("r_fullbright"))
-		drawstring([0.900*g_width, 0.125*g_height, 0], "1", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+		drawstring([0.900*g_width, 0.125*g_height, 0], "On", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 	else
-		drawstring([0.900*g_width, 0.125*g_height, 0], "0", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+		drawstring([0.900*g_width, 0.125*g_height, 0], "Off", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 
 	//Selection
 
@@ -279,6 +280,56 @@ void() M_Menu_Settings_Keys =
 			localcmd("vid_restart\n");
 			menuTime = 0.2 + time;
 		}
+	}
+}
+
+/* =========
+    Credits
+   ========= */
+
+//Let's sacriface optimization for scrolling... yay..
+float creditsHeight;
+float hasStartedCredits;
+
+void() M_Menu_Credits_Draw =
+{
+	float w1, w2, w3, w4;
+
+	if (hasStartedCredits == 0) {
+		creditsHeight = 0.950;
+		hasStartedCredits = 1;
+	}
+
+	w1 = stringwidth ("Nazi Zombies: Portable", 0, [0.03*g_width, 0.03*g_width, 0]);
+	w1 = w1/2;
+
+	w2 = stringwidth ("PROGRAMMING:", 0, [0.03*g_width, 0.03*g_width, 0]);
+	w2 = w2/2;
+
+	w3 = stringwidth ("Jukki", 0, [0.03*g_width, 0.03*g_width, 0]);
+	w3 = w3/2;
+
+	w4 = stringwidth ("Blubswillrule", 0, [0.03*g_width, 0.03*g_width, 0]);
+	w4 = w4/2;
+
+	drawstring([w1, creditsHeight*g_height, 0], "Nazi Zombies: Portable", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	drawstring([w2, (creditsHeight+0.150)*g_height, 0], "PROGRAMMING:", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	drawstring([w3, (creditsHeight+0.200)*g_height, 0], "Jukki", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	drawstring([w4, (creditsHeight+0.250)*g_height, 0], "Blubswillrule", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+
+	creditsHeight -= 0.0001;
+}
+
+void() M_Menu_Credits_Keys =
+{
+	if (menuTime > time)
+		return;
+
+	if (K_LEFTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		in_menu = MENU_MAIN;
+		menuTime = time + 0.2;
+		hasStartedCredits = 0;
 	}
 }
 
@@ -513,6 +564,10 @@ void() Draw_Menu =
 		case MENU_SETTINGS:
 			M_Menu_Settings_Draw();
 			M_Menu_Settings_Keys();
+			break;
+		case MENU_CREDITS:
+			M_Menu_Credits_Draw();
+			M_Menu_Credits_Keys();
 			break;
 		case MENU_PAUSE:
 			title = "PAUSED";
