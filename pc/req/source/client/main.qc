@@ -22,9 +22,7 @@ void() ToggleMenu =
 	}
 	else
 	{
-		in_menu = MENU_MAIN;
-		time_in_menu = 0;
-		setcursormode(TRUE,"menu/cursor");
+		localcmd("map menu\n");
 	}
 }
 
@@ -32,6 +30,7 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 {
 	precache_sound("sounds/menu/navigate.wav");
 	precache_sound("sounds/menu/enter.wav");
+	precache_sound("sounds/menu/theme.wav");
 	registercommand("togglemenu");
 	registercommand("startwalk");
 	registercommand("stopwalk");

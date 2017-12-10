@@ -12,8 +12,6 @@ float M_Menu_Main_Cursor;
 
 void() M_Menu_Main_Draw =
 {
-	drawpic([0,0,0], "menu/bg", [g_width, g_height, 1], [1,1,1], 1); //Background image
-
 	drawstring([0.025*g_width, 0.050*g_height, 0], "Requiem", [g_height * 0.04, g_height * 0.04, 1], [1, 0.5, 0], 1, 1); //Title
 
 	//FIXME - Text is opaque so we can't draw over each other without a weird effect
@@ -88,8 +86,6 @@ float M_Menu_Solo_Cursor;
 
 void() M_Menu_Solo_Draw =
 {
-	drawpic([0,0,0], "menu/bg", [g_width, g_height, 1], [1,1,1], 1); //Background image
-
 	drawstring([0.025*g_width, 0.050*g_height, 0], "Map List", [g_height * 0.04, g_height * 0.04, 1], [1, 0.5, 0], 1, 1); //Title
 
 	//FIXME - Text is opaque so we can't draw over each other without a weird effect
@@ -158,7 +154,6 @@ float M_Menu_Classic_Cursor;
 
 void() M_Menu_Classic_Draw =
 {
-	drawpic([0,0,0], "menu/bg", [g_width, g_height, 1], [1,1,1], 1); //Background image
 
 	drawstring([0.025*g_width, 0.050*g_height, 0], "Classic Maps", [g_height * 0.04, g_height * 0.04, 1], [1, 0.5, 0], 1, 1); //Title
 
@@ -420,10 +415,14 @@ void() Menu_Click =
 	}
 };
 
-
+float songTime;
 
 void() Draw_Menu =
 {
+	if (songTime < time) {
+		sound(self, 0, "sounds/menu/theme.wav", 1, ATTN_NONE);
+		songTime = 196 + time;
+	}
 	local string title = "";
 	switch(in_menu)
 	{

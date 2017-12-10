@@ -1224,6 +1224,12 @@ void(float width, float height) HUD_PlayerName =
 
 void(float width, float height) HUD_Draw = 
 {
+	if (mapname == "menu") {
+		in_menu = MENU_MAIN;
+		time_in_menu = 0;
+		setcursormode(TRUE,"menu/cursor");
+		return;
+	}
 	if (!getstatf(STAT_SPECTATING) && (getstatf(STAT_HEALTH) > 10) && !score_show)
 	{
 		Draw_Crosshair();

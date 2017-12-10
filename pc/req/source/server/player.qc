@@ -398,6 +398,13 @@ void() PlayerSpawn =
 	self.fixangle = TRUE;
 	setsize(self, [-16, -16, -24], [16, 16, 32]);
 	self.view_ofs = VEC_VIEW_OFS; // naievil -- set view_ofs to 32 to maintain half life (64) sizes
+	if (mapname == "menu") {
+		self.movetype = MOVETYPE_NONE;
+		self.origin = world.origin;
+		self.angles = '0 0 0';
+		droptofloor();
+		return;
+	}
 
 	self.weapon = world.weapon;
 
@@ -522,8 +529,6 @@ void() SpectatorSpawn =
 //called when a client loads a map
 void() PutClientInServer =
 {
-	bprint(PRINT_HIGH, self.netname);
-	bprint(PRINT_HIGH, " has joined the game.\n");
 	
 	if (spawn_time > time || !rounds)
 		PlayerSpawn();
