@@ -37,6 +37,7 @@ const float MENU_NONE = 0;
 const float MENU_MAIN = 1;
 const float MENU_SINGLE = 2;
 const float MENU_CLASSIC = 4;
+const float MENU_SETTINGS = 8;
 const float MENU_JOIN = 32;
 const float MENU_PAUSE = 64;
 const float MENU_IGS = 128;

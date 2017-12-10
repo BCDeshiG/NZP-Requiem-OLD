@@ -23,11 +23,11 @@ void() M_Menu_Main_Draw =
 	if (M_Menu_Main_Cursor != 2)
 		drawstring([0.025*g_width, 0.225*g_height, 0], "Achievements (N/A)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 	if (M_Menu_Main_Cursor != 3)
-		drawstring([0.025*g_width, 0.275*g_height, 0], "Settings (N/A)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+		drawstring([0.025*g_width, 0.275*g_height, 0], "Settings (In Progress)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 	if (M_Menu_Main_Cursor != 4)
 		drawstring([0.025*g_width, 0.325*g_height, 0], "Credits (N/A)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 	if (M_Menu_Main_Cursor != 5)
-		drawstring([0.025*g_width, 0.375*g_height, 0], "Quit (N/A)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+		drawstring([0.025*g_width, 0.375*g_height, 0], "Quit", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 
 	//Selection
 
@@ -38,11 +38,11 @@ void() M_Menu_Main_Draw =
 	if (M_Menu_Main_Cursor == 2)
 		drawstring([0.025*g_width, 0.225*g_height, 0], "Achievements (N/A)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	if (M_Menu_Main_Cursor == 3)
-		drawstring([0.025*g_width, 0.275*g_height, 0], "Settings (N/A)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.275*g_height, 0], "Settings (In Progress)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	if (M_Menu_Main_Cursor == 4)
 		drawstring([0.025*g_width, 0.325*g_height, 0], "Credits (N/A)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	if (M_Menu_Main_Cursor == 5)
-		drawstring([0.025*g_width, 0.375*g_height, 0], "Quit (N/A)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.375*g_height, 0], "Quit", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 
 	//Directions
 	drawstring([0.025*g_width, 0.950*g_height, 0], "W/S: Navigate      D: Enter      A: Return", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
@@ -73,6 +73,8 @@ void() M_Menu_Main_Keys =
 		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
 		switch (M_Menu_Main_Cursor) {
 			case 0: in_menu = MENU_SINGLE; menuTime = time + 0.2; break;
+			case 3: in_menu = MENU_SETTINGS; menuTime = time + 0.2; break;
+			case 5: localcmd("quit\n"); break;
 		}
 	}
 }
@@ -204,8 +206,78 @@ void() M_Menu_Classic_Keys =
 
 	if (K_RIGHTDOWN) {
 		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
-		switch (M_Menu_Solo_Cursor) {
+		switch (M_Menu_Classic_Cursor) {
 			case 0: localcmd("map ndu\n"); break;
+		}
+	}
+}
+
+/* ==========
+	Settings
+   ========== */
+
+#define M_Menu_Settings_CursorMax 	0
+float M_Menu_Settings_Cursor;
+
+void() M_Menu_Settings_Draw =
+{
+	drawstring([0.025*g_width, 0.050*g_height, 0], "Settings", [g_height * 0.04, g_height * 0.04, 1], [1, 0.5, 0], 1, 1); //Title
+
+	//FIXME - Text is opaque so we can't draw over each other without a weird effect
+
+	if (M_Menu_Settings_Cursor != 0)
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Fullbright", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+
+	if (M_Menu_Settings_Cursor == 0)
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Fullbright", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+
+	if (cvar("r_fullbright"))
+		drawstring([0.900*g_width, 0.125*g_height, 0], "1", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	else
+		drawstring([0.900*g_width, 0.125*g_height, 0], "0", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+
+	//Selection
+
+	//Directions
+	drawstring([0.025*g_width, 0.950*g_height, 0], "W/S: Navigate      D: Enter/Apply      A: Return", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+}
+
+void() M_Menu_Settings_Keys =
+{
+	if (menuTime > time)
+		return;
+
+	if (K_BACKDOWN) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_Settings_Cursor++;
+		if (M_Menu_Settings_Cursor > M_Menu_Settings_CursorMax)
+			M_Menu_Settings_Cursor = 0;
+		menuTime = time + 0.2;
+	}
+
+	if (K_FORWARDDOWN) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_Settings_Cursor--;
+		if (M_Menu_Settings_Cursor == -1)
+			M_Menu_Settings_Cursor = M_Menu_Settings_CursorMax;
+		menuTime = time + 0.2;
+	}
+
+	if (K_LEFTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		in_menu = MENU_MAIN;
+		menuTime = time + 0.2;
+	}
+
+	if (K_RIGHTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		if (M_Menu_Settings_Cursor == 0) {
+			if (cvar("r_fullbright"))
+				cvar_set("r_fullbright", "0");
+			else
+				cvar_set("r_fullbright", "1");
+			localcmd("vid_restart\n");
+			menuTime = 0.2 + time;
 		}
 	}
 }
@@ -419,7 +491,7 @@ float songTime;
 
 void() Draw_Menu =
 {
-	if (songTime < time) {
+	if (songTime < time && mapname == "menu") {
 		sound(self, 0, "sounds/menu/theme.wav", 1, ATTN_NONE);
 		songTime = 196 + time;
 	}
@@ -437,6 +509,11 @@ void() Draw_Menu =
 		case MENU_CLASSIC:
 			M_Menu_Classic_Draw();
 			M_Menu_Classic_Keys();
+			break;
+		case MENU_SETTINGS:
+			M_Menu_Settings_Draw();
+			M_Menu_Settings_Keys();
+			break;
 		case MENU_PAUSE:
 			title = "PAUSED";
 			break;
