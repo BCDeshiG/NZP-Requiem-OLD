@@ -1,39 +1,53 @@
 //==-           Menu.qc           -==//
 //==- Menu Revamped By MotoLegacy -==//
 
-//float menuTime; //Used to prevent flickering
+float menuTime; //Used to prevent flickering
 
 /* ===========
     Main Menu
    =========== */
 
-/*var struct
-{
-	string text;
-} M_Menu_Main_String[] =
-{
-	"Solo",
-	"Cooperative",
-	"Achievements",
-	"Settings",
-	"Credits",
-	"Quit",
-};
-
-#define M_Menu_Main_CursorMax	1
+#define M_Menu_Main_CursorMax	5
 float M_Menu_Main_Cursor;
 
 void() M_Menu_Main_Draw =
 {
-	drawpic([0,0,0], "menu/bg", [g_width, g_height, 1], [1,1,1], 1);
+	drawpic([0,0,0], "menu/bg", [g_width, g_height, 1], [1,1,1], 1); //Background image
 
-	drawstring([0.025*g_width, 0.100*g_height, 0] M_Menu_Main_String[0], [g_height * 0.03, g_height * 0.3, 1], [0.8, 0.8, 0.8], 1);
-	drawstring([0.025*g_width, 0.150*g_height, 0] M_Menu_Main_String[3], [g_height * 0.03, g_height * 0.3, 1], [0.8, 0.8, 0.8], 1);
+	drawstring([0.025*g_width, 0.050*g_height, 0], "Requiem", [g_height * 0.04, g_height * 0.04, 1], [1, 0.5, 0], 1, 1); //Title
 
-	switch(M_Menu_Main_Cursor) {
-		case 0: drawstring([0.025*g_width, 0.100*g_height, 0] M_Menu_Main_String[0], [g_height * 0.03, g_height * 0.3, 1], [1, 0, 0], 1); break;
-		case 1: drawstring([0.025*g_width, 0.150*g_height, 0] M_Menu_Main_String[3], [g_height * 0.03, g_height * 0.3, 1], [1, 0, 0], 1); break;
-	}
+	//FIXME - Text is opaque so we can't draw over each other without a weird effect
+
+	if (M_Menu_Main_Cursor != 0)
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Solo", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	if (M_Menu_Main_Cursor != 1)
+		drawstring([0.025*g_width, 0.175*g_height, 0], "Cooperative (N/A)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	if (M_Menu_Main_Cursor != 2)
+		drawstring([0.025*g_width, 0.225*g_height, 0], "Achievements (N/A)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	if (M_Menu_Main_Cursor != 3)
+		drawstring([0.025*g_width, 0.275*g_height, 0], "Settings (N/A)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	if (M_Menu_Main_Cursor != 4)
+		drawstring([0.025*g_width, 0.325*g_height, 0], "Credits (N/A)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	if (M_Menu_Main_Cursor != 5)
+		drawstring([0.025*g_width, 0.375*g_height, 0], "Quit (N/A)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+
+	//Selection
+
+	if (M_Menu_Main_Cursor == 0)
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Solo", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+	if (M_Menu_Main_Cursor == 1)
+		drawstring([0.025*g_width, 0.175*g_height, 0], "Cooperative (N/A)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+	if (M_Menu_Main_Cursor == 2)
+		drawstring([0.025*g_width, 0.225*g_height, 0], "Achievements (N/A)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+	if (M_Menu_Main_Cursor == 3)
+		drawstring([0.025*g_width, 0.275*g_height, 0], "Settings (N/A)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+	if (M_Menu_Main_Cursor == 4)
+		drawstring([0.025*g_width, 0.325*g_height, 0], "Credits (N/A)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+	if (M_Menu_Main_Cursor == 5)
+		drawstring([0.025*g_width, 0.375*g_height, 0], "Quit (N/A)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+
+	//Directions
+	drawstring([0.025*g_width, 0.950*g_height, 0], "W/S: Navigate      D: Enter      A: Return", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 }
 
 void() M_Menu_Main_Keys =
@@ -41,7 +55,7 @@ void() M_Menu_Main_Keys =
 	if (menuTime > time)
 		return;
 
-	if (K_DOWNARROW) {
+	if (K_BACKDOWN) {
 		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
 		M_Menu_Main_Cursor++;
 		if (M_Menu_Main_Cursor > M_Menu_Main_CursorMax)
@@ -49,16 +63,157 @@ void() M_Menu_Main_Keys =
 		menuTime = time + 0.2;
 	}
 
-	if (K_UPARROW) {
+	if (K_FORWARDDOWN) {
 		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
 		M_Menu_Main_Cursor--;
 		if (M_Menu_Main_Cursor == -1)
 			M_Menu_Main_Cursor = M_Menu_Main_CursorMax;
 		menuTime = time + 0.2;
 	}
-}*/
 
+	if (K_RIGHTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		switch (M_Menu_Main_Cursor) {
+			case 0: in_menu = MENU_SINGLE; menuTime = time + 0.2; break;
+		}
+	}
+}
 
+/* ======
+    Solo
+   ====== */
+
+#define M_Menu_Solo_CursorMax	1
+float M_Menu_Solo_Cursor;
+
+void() M_Menu_Solo_Draw =
+{
+	drawpic([0,0,0], "menu/bg", [g_width, g_height, 1], [1,1,1], 1); //Background image
+
+	drawstring([0.025*g_width, 0.050*g_height, 0], "Map List", [g_height * 0.04, g_height * 0.04, 1], [1, 0.5, 0], 1, 1); //Title
+
+	//FIXME - Text is opaque so we can't draw over each other without a weird effect
+
+	if (M_Menu_Solo_Cursor != 0)
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Classic", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	if (M_Menu_Solo_Cursor != 1)
+		drawstring([0.025*g_width, 0.175*g_height, 0], "NZ:P Beta (N/A)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+
+	//Selection
+
+	if (M_Menu_Solo_Cursor == 0) {
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Classic", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.900*g_height, 0], "Maps from the Call of Duty Series", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+	}
+	if (M_Menu_Solo_Cursor == 1) {
+		drawstring([0.025*g_width, 0.175*g_height, 0], "NZ:P Beta (N/A)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.900*g_height, 0], "Maps from Nazi Zombies: Portable Beta", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+	}
+
+	//Directions
+	drawstring([0.025*g_width, 0.950*g_height, 0], "W/S: Navigate      D: Enter      A: Return", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+}
+
+void() M_Menu_Solo_Keys =
+{
+	if (menuTime > time)
+		return;
+
+	if (K_BACKDOWN) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_Solo_Cursor++;
+		if (M_Menu_Solo_Cursor > M_Menu_Solo_CursorMax)
+			M_Menu_Solo_Cursor = 0;
+		menuTime = time + 0.2;
+	}
+
+	if (K_FORWARDDOWN) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_Solo_Cursor--;
+		if (M_Menu_Solo_Cursor == -1)
+			M_Menu_Solo_Cursor = M_Menu_Solo_CursorMax;
+		menuTime = time + 0.2;
+	}
+
+	if (K_LEFTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		in_menu = MENU_MAIN;
+		menuTime = time + 0.2;
+	}
+
+	if (K_RIGHTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		switch (M_Menu_Solo_Cursor) {
+			case 0: in_menu = MENU_CLASSIC; menuTime = time + 0.2; break;
+		}
+	}
+}
+
+/* ==============
+    Classic Maps
+   ============== */
+
+#define M_Menu_Classic_CursorMax	0
+float M_Menu_Classic_Cursor;
+
+void() M_Menu_Classic_Draw =
+{
+	drawpic([0,0,0], "menu/bg", [g_width, g_height, 1], [1,1,1], 1); //Background image
+
+	drawstring([0.025*g_width, 0.050*g_height, 0], "Classic Maps", [g_height * 0.04, g_height * 0.04, 1], [1, 0.5, 0], 1, 1); //Title
+
+	//FIXME - Text is opaque so we can't draw over each other without a weird effect
+
+	if (M_Menu_Classic_Cursor != 0)
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Nacht der Untoten", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+
+	//Selection
+
+	if (M_Menu_Classic_Cursor == 0) {
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Nacht der Untoten", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.850*g_height, 0], "You drove them deep into the heart of the Reich.", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.900*g_height, 0], "You thought they were dead. You were wrong.", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawpic([0.025 * g_width, 0.550 * g_height, 0], "menu/ndu", [g_width * 0.25, g_height * 0.25, 1], [1,1,1], 1);
+	}
+
+	//Directions
+	drawstring([0.025*g_width, 0.950*g_height, 0], "W/S: Navigate      D: Enter      A: Return", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+}
+
+void() M_Menu_Classic_Keys =
+{
+	if (menuTime > time)
+		return;
+
+	if (K_BACKDOWN) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_Classic_Cursor++;
+		if (M_Menu_Classic_Cursor > M_Menu_Classic_CursorMax)
+			M_Menu_Classic_Cursor = 0;
+		menuTime = time + 0.2;
+	}
+
+	if (K_FORWARDDOWN) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_Classic_Cursor--;
+		if (M_Menu_Classic_Cursor == -1)
+			M_Menu_Classic_Cursor = M_Menu_Classic_CursorMax;
+		menuTime = time + 0.2;
+	}
+
+	if (K_LEFTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		in_menu = MENU_SINGLE;
+		menuTime = time + 0.2;
+	}
+
+	if (K_RIGHTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		switch (M_Menu_Solo_Cursor) {
+			case 0: localcmd("map ndu\n"); break;
+		}
+	}
+}
 
 //
 //	Menu stuff
@@ -86,29 +241,11 @@ void() menu_resn =
 	in_menu = MENU_PAUSE;
 };
 
-void() menu_multi =
-{
-	in_menu = MENU_MULTI;
-	time_in_menu = 0;
-};
-
-void() menu_settings =
-{
-	in_menu = MENU_SETTINGS;
-	time_in_menu = 0;
-};
-
 void() menu_settings2 =
 {
 	in_menu = MENU_IGS;
 	time_in_menu = 0;
 }
-
-void() menu_about =
-{
-	in_menu = MENU_ABOUT;
-	time_in_menu = 0;
-};
 
 void() menu_quit =
 {
@@ -181,17 +318,17 @@ var struct
 	float group; //a bit field, button will be usable/visible when these bits are active
 } buttons[] =
 {
-	{[0.025, 0.175, 0], [0.325, 0.06, 0], " Solo", -1, menu_single, MENU_MAIN},
-	{[0.025, 0.250, 0], [0.325, 0.06, 0], " Cooperative", -1, menu_multi, MENU_MAIN},
-	{[0.025, 0.325, 0], [0.325, 0.06, 0], " Settings", -1, menu_settings, MENU_MAIN},
-	{[0.025, 0.400, 0], [0.325, 0.06, 0], " Achievements", -1, menu_main, MENU_MAIN},
-	{[0.025, 0.475, 0], [0.325, 0.06, 0], " Credits", -1, menu_about, MENU_MAIN},
-	{[0.025, 0.550, 0], [0.325, 0.06, 0], " Quit", -1, menu_quit, MENU_MAIN},
-	{[0.025, 0.900, 0], [0.325, 0.06, 0], "Back", -1, menu_back, MENU_SINGLE + MENU_MULTI + MENU_SETTINGS + MENU_ABOUT},
-	{[0.025, 0.175, 0], [0.425, 0.06, 0], "Nacht Der Untoten", -1, menu_loadndu, MENU_SINGLE},
+	{[0.025, 0.175, 0], [0.325, 0.06, 0], " Solo", -1, menu_single, 0},
+	{[0.025, 0.250, 0], [0.325, 0.06, 0], " Cooperative", -1, menu_single, 0},
+	{[0.025, 0.325, 0], [0.325, 0.06, 0], " Settings", -1, menu_single, 0},
+	{[0.025, 0.400, 0], [0.325, 0.06, 0], " Achievements", -1, menu_main, 0},
+	{[0.025, 0.475, 0], [0.325, 0.06, 0], " Credits", -1, menu_single, 0},
+	{[0.025, 0.550, 0], [0.325, 0.06, 0], " Quit", -1, menu_quit, 0},
+	{[0.025, 0.900, 0], [0.325, 0.06, 0], "Back", -1, menu_back, 0},
+	{[0.025, 0.175, 0], [0.425, 0.06, 0], "Nacht Der Untoten", -1, menu_loadndu, 0},
 	//{[0.025, 0.575, 0], [0.250, 0.05, 0], "Warehouse", -1, menu_loadwh, MENU_SINGLE},
-	{[0.475, 0.500, 0], [0.250, 0.05, 0], "Join", -1, game_join, MENU_JOIN},
-	{[0.475, 0.575, 0], [0.250, 0.05, 0], "Spectate", -1, game_spec, MENU_JOIN},
+	{[0.475, 0.500, 0], [0.250, 0.05, 0], "Join", -1, game_join, 0},
+	{[0.475, 0.575, 0], [0.250, 0.05, 0], "Spectate", -1, game_spec, 0},
 	{[0.025, 0.500, 0], [0.250, 0.05, 0], "Resume", -1, menu_resume, MENU_PAUSE},
 	{[0.025, 0.575, 0], [0.250, 0.05, 0], "Restart", -1, menu_restart, MENU_PAUSE},
 	{[0.025, 0.650, 0], [0.250, 0.05, 0], "Settings", -1, menu_settings2, MENU_PAUSE},
@@ -287,42 +424,20 @@ void() Menu_Click =
 
 void() Draw_Menu =
 {
-	precache_sound("sounds/menu/enter.wav");
-	
-	//Background picture with a nice scrolling effect, scrolling happens in the shader in scripts/menu.shader
-	//moto - put loading of demo.bsp when it's time has come.
-	if(serverkey("constate") == "disconnected")
-	{
-		if(g_width <= g_height * 1.77778)
-			drawpic([0,0,0], "menu/bg", [g_height * 1.77778, g_height, 1], [1, 1, 1], 1);
-		else
-			drawpic([0,0,0], "menu/bg", [g_width, g_height, 1], [1, 1, 1], 1);
-	}
-
-		
-	//Gradient on the background
-	drawpic([0,0,0], "menu/gradient_l2r", [0.75*g_width, g_height, 1], [1, 1, 1], 1);
-	
-
-	//Menu titles & cinematic lines.
 	local string title = "";
 	switch(in_menu)
 	{
 		case MENU_MAIN:
-			title = "MAIN MENU";
+			M_Menu_Main_Draw();
+			M_Menu_Main_Keys();
 			break;
 		case MENU_SINGLE:
-			title = "SOLO";
+			M_Menu_Solo_Draw();
+			M_Menu_Solo_Keys();
 			break;
-		case MENU_MULTI:
-			title = "COOP";
-			break;
-		case MENU_SETTINGS:
-			title = "SETTINGS";
-			break;
-		case MENU_ABOUT:
-			title = "CREDITS";
-			break;
+		case MENU_CLASSIC:
+			M_Menu_Classic_Draw();
+			M_Menu_Classic_Keys();
 		case MENU_PAUSE:
 			title = "PAUSED";
 			break;
@@ -335,67 +450,6 @@ void() Draw_Menu =
 		default:
 			title = "Nazi Zombies: Portable";
 	}
-
-	local float chars_to_keep;
-	time_in_menu += frametime;
-	
-	if(time_in_menu < 0.5)
-	{
-		chars_to_keep = time_in_menu * 2;
-		chars_to_keep = rint(chars_to_keep * strlen(title));
-	}
-	else
-		chars_to_keep = strlen(title);
-	
-	drawstring([0.025*g_width, 0.05*g_height, 0], substring(title, 0, chars_to_keep), [g_height * 0.05, g_height * 0.05, 1], [0.8, 0.8, 0.8], 1, 1);
-	
-	//Credits
-	switch(in_menu)
-	{
-		case MENU_ABOUT:
-			drawstring([0.03*g_width, 0.15*g_height, 0], "Blubswillrule: Coding, Models, GFX, Sounds,", [g_height * 0.025, g_height * 0.025, 1], [0.8, 0.8, 0.8], 1, 1);
-			drawstring([0.03*g_width, 0.185*g_height, 0], "               Animations, Music", [g_height * 0.025, g_height * 0.025, 1], [0.8, 0.8, 0.8], 1, 1);
-			drawfill ([.03*g_width, 0.15*g_height + g_height*0.025 + 3, 0], [strlen("Blubswillrule")*12.5, 0.0025*g_height, 0], [0.8, 0.8, 0.8], 1);
-			
-			drawstring([0.03*g_width, 0.25*g_height, 0], "Ju[s]tice:     Maps, Models, GFX", [g_height * 0.025, g_height * 0.025, 1], [0.8, 0.8, 0.8], 1, 1);
-			drawfill ([.03*g_width, 0.25*g_height + g_height*0.025 + 3, 0], [strlen("Ju[s]tice")*12.5, 0.0025*g_height, 0], [0.8, 0.8, 0.8], 1);
-
-				
-			drawstring([0.03*g_width, 0.35*g_height, 0], "Jukki:         Coding", [g_height * 0.025, g_height * 0.025, 1], [0.8, 0.8, 0.8], 1, 1);
-			drawfill ([.03*g_width, 0.35*g_height + g_height*0.025 + 3, 0], [strlen("Jukki")*12.5, 0.0025*g_height, 0], [0.8, 0.8, 0.8], 1);
-												
-			drawstring([0.03*g_width, 0.45*g_height, 0], "Special Thanks:", [g_height * 0.025, g_height * 0.025, 1], [0.8, 0.8, 0.8], 1, 1);
-			drawfill ([.03*g_width, 0.45*g_height + g_height*0.025 + 3, 0], [strlen("Special Thanks")*12.5, 0.0025*g_height, 0], [0.8, 0.8, 0.8], 1);
-			
-			drawstring([0.25*g_width, 0.525*g_height, 0], "- Spike", [g_height * 0.025, g_height * 0.025, 1], [0.8, 0.8, 0.8], 1, 1);
-			drawstring([0.25*g_width, 0.575*g_height, 0], "- Shpuld", [g_height * 0.025, g_height * 0.025, 1], [0.8, 0.8, 0.8], 1, 1);
-			drawstring([0.25*g_width, 0.625*g_height, 0], "- DR_Mabuse1981", [g_height * 0.025, g_height * 0.025, 1], [0.8, 0.8, 0.8], 1, 1);
-			drawstring([0.25*g_width, 0.675*g_height, 0], "- Naievil", [g_height * 0.025, g_height * 0.025, 1], [0.8, 0.8, 0.8], 1, 1); 
-			drawstring([0.25*g_width, 0.725*g_height, 0], "- Biodude", [g_height * 0.025, g_height * 0.025, 1], [0.8, 0.8, 0.8], 1, 1);
-			drawstring([0.25*g_width, 0.775*g_height, 0], "- MotoLegacy", [g_height * 0.025, g_height * 0.025, 1], [0.8, 0.8, 0.8], 1, 1);
-		default:
-			break;
-	}
-
-	local float chars_to_keep2;
-	time_in_menu += frametime;
-	
-	chars_to_keep2 = 90;
-
-	//Restart Confirmation
-	local string confirm = "";
-	local string confirm2 = "";
-	switch(in_menu)
-	{
-		case MENU_RES:
-			confirm = "Are you sure you want to restart?";
-			confirm2 = "Your current progress will be lost!";
-		default:
-			break;
-	}
-
-	drawstring([0.025*g_width, 0.25*g_height, 0], substring(confirm, 0, chars_to_keep2), [g_height * 0.015, g_height * 0.015, 1], [0.8, 0.8, 0.8], 1, 1);
-	drawstring([0.025*g_width, 0.3*g_height, 0], substring(confirm2, 0, chars_to_keep2), [g_height * 0.015, g_height * 0.015, 1], [0.8, 0.8, 0.8], 1, 1);
 
 	//Update buttons
 	local float i;

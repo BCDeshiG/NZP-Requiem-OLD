@@ -12,7 +12,8 @@ void() activateGobble =
 				self.holdgum = 0;
 				return; }
 			makevectors (self.v_angle);
-			Spawn_Powerup(self.origin + '-100 0 0', 2);
+			centerprint(self, vtos(self.angles));
+			Spawn_Powerup(self.origin + '-100 0 12', 2);
 			break;
 		case G_ROBBIN:
 			nuke();
