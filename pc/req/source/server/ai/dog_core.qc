@@ -60,11 +60,15 @@ void() Dog_Death =
 	
 	if (rounds == 5 || rounds == 10 || rounds == 15)
 	{
-		if (!Remaining_Zombies)
+		if (!Remaining_Zombies) {
 			Spawn_Powerup(self.origin + '0 0 12', 1);
+			dogEnd = 1;
+		}
 	}
 	
 	dog_deathanim();		// FIXME real animation
+
+	Current_Zombies--;
 };
 
 void(entity where) spawn_a_dogB =
@@ -72,6 +76,7 @@ void(entity where) spawn_a_dogB =
 	local entity sdog;//USED FOR WHAT TO SPAWN
 	
 	sdog = getFreeZombieEnt(self);
+
 	if(sdog == world)
 	{
 		return;

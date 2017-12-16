@@ -714,6 +714,8 @@ void() LungeKnifeHit =
 			self.th_die();
 			self = oldself;
 			return;
+		} else if (trace_ent.classname == "menu_screen") {
+			remove(trace_ent);
 		}
 		sound (self, CHAN_WEAPON, "sounds/weapons/knife/knife_hitbod.wav", 1, ATTN_NORM);
 		
@@ -1493,6 +1495,11 @@ void() CrouchSet =
 		self.hasprone = 1;
 		return;
 	}
+}
+
+void() ExitChair =
+{
+	self.movetype = MOVETYPE_WALK;
 }
 
 void () Impulse_Functions =

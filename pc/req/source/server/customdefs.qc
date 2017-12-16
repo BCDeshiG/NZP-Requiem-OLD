@@ -236,9 +236,9 @@ float() spawn_a_zombieA;
 float() spawn_a_dogA;
 float gotdog;
 float z_health;
-float max_zomb;
 .float bleedingtime;
 .float time_to_die;
+float dogEnd;
 
 
 float crandom();
@@ -381,3 +381,6 @@ float songam, songcount;
 
 //motolegacy -- lava
 .float lava, hasburned, onlava;
+
+//motolegacy -- menu
+.float isnoclip;

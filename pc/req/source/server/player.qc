@@ -2,6 +2,7 @@
 //	Player.qc - Various stuff done for the player, including per-frame functions like PlayerPreThink and PlayerPostThink, also client specific stuff like PutClientInServer etc.
 //
 
+void() ExitChair;
 
 // player animations
 
@@ -223,6 +224,11 @@ void() PlayerPreThink =
 	}
 	else
 		self.flags = self.flags | FL_JUMPRELEASED;
+
+	if (self.button8 && self.movetype == MOVETYPE_NONE && self.isnoclip == 0) {
+		self.isnoclip = 1;
+		ExitChair();
+	}
 };
 
 void() PlayerPostThink =
@@ -398,11 +404,10 @@ void() PlayerSpawn =
 	self.fixangle = TRUE;
 	setsize(self, [-16, -16, -24], [16, 16, 32]);
 	self.view_ofs = VEC_VIEW_OFS; // naievil -- set view_ofs to 32 to maintain half life (64) sizes
+
 	if (mapname == "menu") {
+		remove(spawnpoint);
 		self.movetype = MOVETYPE_NONE;
-		self.origin = world.origin;
-		self.angles = '0 0 0';
-		droptofloor();
 		return;
 	}
 
@@ -505,8 +510,6 @@ void() PlayerSpawn =
 
 	//MOTO - gum
 	self.meleedamage = 150;
-
-	max_zomb = 24;
 };
 
 void() SpectatorSpawn =

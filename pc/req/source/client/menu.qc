@@ -293,6 +293,7 @@ float hasStartedCredits;
 
 void() M_Menu_Credits_Draw =
 {
+	setcursormode(TRUE,"menu/cursor");
 	float w1, w2, w3, w4;
 
 	if (hasStartedCredits == 0) {
@@ -546,6 +547,12 @@ void() Draw_Menu =
 		sound(self, 0, "sounds/menu/theme.wav", 1, ATTN_NONE);
 		songTime = 196 + time;
 	}
+
+	if(getstatf(STAT_ISNOCLIP)) {
+		setcursormode(FALSE);
+		return;
+	}
+
 	local string title = "";
 	switch(in_menu)
 	{

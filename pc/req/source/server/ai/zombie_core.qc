@@ -158,8 +158,19 @@ void(float what) play_sound_z =
 	}
 };
 
+void() set_d_health =
+{
+	z_health = 350;
+	z_health = z_health * (rounds / 10);
+}
+
 void() set_z_health =
 {
+	if (roundtype == 2) {
+		set_d_health();
+		return;
+	}
+
 	if(rounds <= 10)
 	{
 		z_health = 50 + (rounds * 100);
@@ -168,7 +179,7 @@ void() set_z_health =
 	{	
 		local float i;
 		i = rounds - 10;
-		z_health = 1050;
+		z_health = 850;
 		while(i > 0)
 		{
 			z_health *= 1.1; 
@@ -969,7 +980,7 @@ void() spawnAllZombEnts =
 {
 	local float i;
 	i = 0;
-	while(i < max_zomb)//IMPORTANT VALUE, max zombies allowed in map
+	while(i < 24)//IMPORTANT VALUE, max zombies allowed in map
 	{
 		spawnSingleZombEnt(i);
 		i++;

@@ -44,6 +44,7 @@ void() PlayerSpawn;
 
 void() NewRound =
 {		
+	dogEnd = 0;
 	local entity plr;
 	plr = find(world, classname, "player");
 	while(plr)
@@ -77,14 +78,10 @@ void() NewRound =
 	}
 	if (rounds != 0)
 	{
-		if (gotdog && (rounds == 4 || rounds == 9 || rounds == 14)) {
+		if (gotdog && (rounds == 4 || rounds == 9 || rounds == 14))
 			playSoundAtPlayers("sounds/rounds/dog_start.wav");
-			max_zomb = 2;
-		}
-		else {
+		else
 			playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/nround.wav"));
-			max_zomb = 24;
-		}
 		rounds_change = 6;
 		SetUpdate(self, UT_ROUNDS_CHANGE, rounds_change, 0, 0);
 		blink_return = time + 2;
@@ -102,7 +99,6 @@ void() NewRound =
 		}
 		tempe = find(tempe, classname, "player");
 	}
-	set_z_health();
 	if(rounds < 10)
 	{
 		if (rounds == 1)
@@ -149,6 +145,8 @@ void() NewRound =
 		roundtype = 1;
 		localcmd(strcat("fog ", world.fog));
 	}
+
+	set_z_health(); 		//moto -- put after roundtype for dog health
 }
 void() Round_Core =
 {
@@ -184,6 +182,12 @@ void() Round_Core =
 	}
 	if (Total_Zombies > Current_Zombies && spawn_time < time)
 	{
+		if (roundtype == 2 && (Current_Zombies >= 2 || Remaining_Zombies == 0)) { //moto -- make a special statement for dogs
+			if (dogEnd == 1) {
+				EndRound();
+			}
+			return;
+		}
 		Spawn_Enemy();
 	}
 	if (!Remaining_Zombies && !Delay_Time)

@@ -146,7 +146,7 @@ string(float perk) GetPerkName =
 		case 3:
 			return "Speed Cola";
 		case 4:
-			return "Double Tap";
+			return "Double Tap Root Beer";
 		case 5:
 			return "Stamin-Up";
 		case 6:

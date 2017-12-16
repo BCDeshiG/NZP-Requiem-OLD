@@ -715,7 +715,7 @@ void(float width, float height) HUD_Useprint =
 				usestring = strcat("Hold ",usebutton, " to Rebuild Barrier");
 				break;
 			case 6://box
-				usestring = strcat("Hold ",usebutton, " to buy a random weapon [Cost:", ftos(useprint_cost),"]");
+				usestring = strcat("Hold ",usebutton, "for Mystery Box [Cost:", ftos(useprint_cost),"]");
 				break;
 			case 7://box take
 				usestring = strcat("Hold ",usebutton, " to take weapon");
@@ -733,7 +733,7 @@ void(float width, float height) HUD_Useprint =
 				usestring = strcat("Hold ",usebutton, " to active the electric barrier [Cost:", ftos(useprint_cost), "]");
 				break;
 			case 12://packapunch
-				usestring = strcat("Hold ",usebutton, " to Pack a Punch [Cost:", ftos(useprint_cost), "]");
+				usestring = strcat("Hold ",usebutton, " to Pack-a-Punch [Cost:", ftos(useprint_cost), "]");
 				break;
 			case 13://revive
 				usestring = strcat("Hold ",usebutton, " to revive player");

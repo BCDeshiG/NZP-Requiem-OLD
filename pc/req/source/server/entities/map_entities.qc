@@ -852,3 +852,24 @@ void() func_lava =
 
 	self.touch = touch_lava;
 }
+
+//Menu specific things
+void() menu_screen =
+{
+	self.classname = "menu_screen";
+	self.movetype = MOVETYPE_PUSH;	// so it doesn't get pushed by anything
+	self.solid = SOLID_BSP;
+	setmodel (self, self.model);
+	setorigin(self, self.origin);
+	self.takedamage = DAMAGE_YES;
+	self.health = 150;
+}
+
+void() menu_door =
+{
+	self.classname = "menu_door";
+	self.movetype = MOVETYPE_PUSH;	// so it doesn't get pushed by anything
+	self.solid = SOLID_BSP;
+	setmodel (self, self.model);
+	setorigin(self, self.origin);
+}
