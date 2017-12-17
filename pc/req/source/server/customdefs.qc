@@ -271,6 +271,7 @@ float isPowerOn;
 .float firesale_icon;
 float instakill_finished;
 float sale_end;
+float boxMoved;
 float insta_blink;
 float x2_finished;
 float x2_blink;

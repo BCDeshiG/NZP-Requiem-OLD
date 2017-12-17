@@ -931,6 +931,7 @@ void() findboxspot =
 	newspot.visited = 2;
 	setmodel (newspot, "models/machines/mystery.mdl");
 	setsize (newspot, VEC_HULL2_MIN, VEC_HULL2_MAX);
+	boxMoved = 1;
 }
 
 void() remove_box =

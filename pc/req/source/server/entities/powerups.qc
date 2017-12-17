@@ -380,8 +380,12 @@ void(vector where, float type) Spawn_Powerup =
 			}
 			else
 			{
-				setmodel(new_powerup,"progs/Misc/sale!.mdl");
-				new_powerup.zombie_drop_id = 6;
+				if (boxMoved) {
+					setmodel(new_powerup,"progs/Misc/sale!.mdl");
+					new_powerup.zombie_drop_id = 6;
+				} else {
+					setmodel(new_powerup,"progs/Misc/x2!.mdl");
+				}
 			}
 			/*else
 		 {
@@ -413,8 +417,13 @@ void(vector where, float type) Spawn_Powerup =
 			}
 			else
 			{
-				setmodel(new_powerup,"progs/Misc/sale!.mdl");
-				new_powerup.zombie_drop_id = 6;
+				if (boxMoved) {
+					setmodel(new_powerup,"progs/Misc/sale!.mdl");
+					new_powerup.zombie_drop_id = 6;
+				} else {
+					setmodel(new_powerup,"progs/Misc/x2!.mdl");
+				}
+
 			}
 			/*
 			else
