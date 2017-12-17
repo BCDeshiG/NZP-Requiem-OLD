@@ -130,6 +130,12 @@ string(float gum) getGumName =
 			return "Kill Joy";
 		case G_PERK:
 			return "Perkaholic";
+		case G_SCORE:
+			return "Who's Keeping Score?";
+		case G_IMMOLATION:
+			return "Immolation Liquidation";
+		case G_CARPENTER:
+			return "Licensed Contractor";
 		default:
 			return "NULL";
 	}

@@ -19,6 +19,9 @@ const float EVENT_BLACKOUT = 26;
 #define G_INPLAIN 		2		//In Plain Sight
 #define G_KILLJOY 		3 		//Kill Joy
 #define G_PERK 			4 		//Perkaholic
+#define G_SCORE 		5 		//Whos' Keeping Score?
+#define G_IMMOLATION 	6 		//Immolation Liquidation
+#define G_CARPENTER 	7 		//Licensed Contractor
 
 //nzp weapon defines
 //id list

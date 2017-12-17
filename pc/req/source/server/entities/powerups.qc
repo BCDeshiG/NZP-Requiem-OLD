@@ -442,6 +442,12 @@ void(vector where, float type) Spawn_Powerup =
 	} else if (type == 3) {
 		setmodel(new_powerup,"progs/Misc/sale!.mdl");
 		new_powerup.zombie_drop_id = 6;
+	} else if (type == 4) {
+		setmodel(new_powerup,"progs/Misc/x2!.mdl");
+		new_powerup.zombie_drop_id = 2;
+	} else if (type == 5) {
+		setmodel(new_powerup,"progs/Misc/carpenter!.mdl");
+		new_powerup.zombie_drop_id = 5;
 	}
 	last_pu = new_powerup.zombie_drop_id;
 	new_powerup.touch = powerup_touch;

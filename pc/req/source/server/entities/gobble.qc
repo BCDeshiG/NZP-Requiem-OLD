@@ -5,6 +5,11 @@ void(vector where, float type) Spawn_Powerup;
 
 void() activateGobble =
 {
+	local entity gum;
+	gum = spawn();
+	setorigin(gum, self.origin);
+	gum.angles = self.angles;
+	gum.origin = self.origin + '-100 0 12';
 	switch(self.holdgum) {
 		case G_KILLJOY:
 			self.gumcount--;
@@ -12,8 +17,31 @@ void() activateGobble =
 				self.holdgum = 0;
 				return; }
 			makevectors (self.v_angle);
-			centerprint(self, vtos(self.angles));
-			Spawn_Powerup(self.origin + '-100 0 12', 2);
+			Spawn_Powerup(gum.origin, 2);
+			break;
+		case G_IMMOLATION:
+			self.gumcount--;
+			if (self.gumcount <= 0) {
+				self.holdgum = 0;
+				return; }
+			makevectors (self.v_angle);
+			Spawn_Powerup(gum.origin, 3);
+			break;
+		case G_SCORE:
+			self.gumcount--;
+			if (self.gumcount <= 0) {
+				self.holdgum = 0;
+				return; }
+			makevectors (self.v_angle);
+			Spawn_Powerup(gum.origin, 4);
+			break;
+		case G_CARPENTER:
+			self.gumcount--;
+			if (self.gumcount <= 0) {
+				self.holdgum = 0;
+				return; }
+			makevectors (self.v_angle);
+			Spawn_Powerup(gum.origin, 5);
 			break;
 		case G_ROBBIN:
 			nuke();
@@ -57,17 +85,23 @@ void(entity who) CheckGum =
 
 float(float gum) getGumSkin =
 {
+	/*
+	0 - Orange
+	1 - Green
+	2 - Red
+	3 - Blue
+	4 - Purple
+	*/
 	switch(gum) {
 		case G_SWORD:
 			return 1;
 			break;
+		case G_CARPENTER:
 		case G_ROBBIN:
-			return 4;
-			break;
 		case G_INPLAIN:
-			return 4;
-			break;
 		case G_KILLJOY:
+		case G_SCORE:
+		case G_IMMOLATION:
 			return 4;
 			break;
 		case G_PERK:
@@ -88,11 +122,12 @@ void(float gum) giveGum =
 		case G_SWORD:
 			activateSwordFlay();
 			break;
+		case G_CARPENTER:
 		case G_KILLJOY:
-			setSpecial(G_KILLJOY);
-			break;
 		case G_ROBBIN:
-			setSpecial(G_ROBBIN);
+		case G_SCORE:
+		case G_IMMOLATION:
+			setSpecial(gum);
 			break;
 		default:
 			centerprint(self, "You broke something.");
@@ -113,6 +148,10 @@ void() givePerkaholic = { giveGum(G_PERK); }
 void() giveSwordFlay = { giveGum(G_SWORD); }
 void() giveKillJoy = { giveGum(G_KILLJOY); }
 void() giveRoundRobbin = { giveGum(G_ROBBIN); }
+void() giveInPlainSight = { giveGum(G_INPLAIN); }
+void() giveScore = { giveGum(G_SCORE); }
+void() giveSale = { giveGum(G_IMMOLATION); }
+void() giveCarpenter = { giveGum(G_CARPENTER); }
 
 void(float gum) chewGum =
 {
@@ -127,13 +166,22 @@ void(float gum) chewGum =
 			gumfunction = giveRoundRobbin;
 			break;
 		case G_INPLAIN:
-			//gumfunction = givePerkaholic;
+			gumfunction = giveInPlainSight;
 			break;
 		case G_KILLJOY:
 			gumfunction = giveKillJoy;
 			break;
 		case G_PERK:
 			gumfunction = givePerkaholic;
+			break;
+		case G_SCORE:
+			gumfunction = giveScore;
+			break;
+		case G_IMMOLATION:
+			gumfunction = giveSale;
+			break;
+		case G_CARPENTER:
+			gumfunction = giveCarpenter;
 			break;
 		default:
 			centerprint(other, "You broke something.");
@@ -188,16 +236,22 @@ void() touch_gum =
 		if (other.button7 && other.points >= cost) {
 			float gum;
 			gum = random();
-			if (gum < 0.2)
+			if (gum < 0.125)
 				gumcache = G_SWORD;
-			else if (gum < 0.4)
+			else if (gum < 0.250)
 				gumcache = G_ROBBIN;
-			else if (gum < 0.6)
+			else if (gum < 0.375)
 				gumcache = G_INPLAIN;
-			else if (gum < 0.8)
+			else if (gum < 0.500)
 				gumcache = G_KILLJOY;
-			else
+			else if (gum < 0.625)
 				gumcache = G_PERK;
+			else if (gum < 0.750)
+				gumcache = G_SCORE;
+			else if (gum < 875)
+				gumcache = G_IMMOLATION;
+			else
+				gumcache = G_CARPENTER;
 			addmoney(other, -cost, 0);
 			other.gumnum++;
 			self.think = changeGumState;
