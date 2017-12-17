@@ -971,7 +971,7 @@ void() Float_Change =
 				
 		self.velocity = '0 0 0';
 		
-		if (!teddygen || teddygen < 0.9) {		//teddy gen threshold, high means less chance
+		if (!teddygen || teddygen < 0.9 || firesale_finished) {		//teddy gen threshold, high means less chance
 			self.owner.boxstatus = 2;
 			self.weapon = r;
 			self.nextthink = time + 5;
@@ -995,6 +995,10 @@ void() Float_Change =
 	}
 	self.nextthink = time + self.boxstatus;
 	self.think = Float_Change;
+
+	if (sale_end && self.owner.classname == "mystery_box_tp_spot") {
+		remove(self);
+	}
 }
 
 void() Create_Floating_Weapon =
@@ -1032,6 +1036,9 @@ void() Create_Floating_Weapon =
 	gun.wait = time + 5;
 	gun.nextthink = time + 0.01;
 	gun.think = Float_Change;
+
+	if (sale_end && self.classname == "mystery_box_tp_spot")
+		remove(gun);
 }
 
 void() mystery_box_tp_spot = 
@@ -1059,12 +1066,17 @@ void() mystery_touch =
 	entity tempe;
 	float startframe, endframe;
 	string modelname;
-	
+
+	if (firesale_finished)
+		self.cost2 = 10;
+	else
+		self.cost2 = self.cost;
+
 	if (other.classname != "player" || other.downed)
 		return;
 		
 	if (!self.boxstatus) {
-		useprint (other, 6, self.cost, 0);
+		useprint (other, 6, self.cost2, 0);
 	}
 	if (self.boxstatus == 2 && self.owner == other) {
 		useprint (other, 7, 0, 0);
@@ -1074,10 +1086,10 @@ void() mystery_touch =
 	{
 		if (!self.boxstatus)
 		{
-			if (other.points >= self.cost)
+			if (other.points >= self.cost2)
 			{					
 				sound (self, CHAN_ITEM, "sounds/machines/mbox_open.wav", 1, ATTN_NORM);
-				addmoney(other, -self.cost, FALSE);
+				addmoney(other, -self.cost2, FALSE);
 				self.boxstatus = 1;
 				self.owner = other;
 				box_open1 ();
@@ -1090,6 +1102,9 @@ void() mystery_touch =
 		}
 		if (self.boxstatus == 2)
 		{
+			if (sale_end && self.classname == "mystery_box_tp_spot") { //firesale end
+				remove(self.boxweapon);
+			}
 			other.semiuse = 1;
 			if (self.owner == other)
 			{

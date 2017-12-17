@@ -81,6 +81,7 @@ void() worldspawn =
 	precache_model ("progs/Misc/instakill!.mdl");
 	precache_model ("progs/Misc/nuke!.mdl");
 	precache_model ("progs/Misc/carpenter!.mdl");
+	precache_model ("progs/Misc/sale!.mdl");
 	
 	precache_sound("sounds/player/footstep1.wav");
 	precache_sound("sounds/player/footstep2.wav");
@@ -211,6 +212,7 @@ void() worldspawn =
 	precache_sound ("sounds/pu/nuke.wav");
 	precache_sound ("sounds/pu/powerup.wav");
 	precache_sound ("sounds/pu/drop.wav");
+	precache_sound ("sounds/music/sale.wav");
 
 
 	clientstat(STAT_CURRENTMAG, EV_FLOAT, currentmag);
@@ -226,6 +228,7 @@ void() worldspawn =
 	clientstat(STAT_WEAPONZOOM, EV_FLOAT, zoom);
 	clientstat(STAT_INSTA, EV_FLOAT, insta_icon);
 	clientstat(STAT_X2, EV_FLOAT, x2_icon);
+	clientstat(STAT_SALE, EV_FLOAT, firesale_icon);
 	clientstat(STAT_SPECTATING, EV_FLOAT, isspec);
 	clientstat(STAT_PLAYERNUM, EV_FLOAT, playernum);		// literally useless but will be kept in case
 	clientstat(STAT_CREWTYPE, EV_FLOAT, chartype);

@@ -1,4 +1,5 @@
 void() W_PutOut;
+void() firesale;
 
 void() ReturnWeaponModel =
 {
@@ -1575,6 +1576,35 @@ void(entity ent) CheckPowerups =
 	{
 		instakill_finished = 0;
 		ent.insta_icon = false;
+	}
+	if (firesale_finished >= time)
+	{
+		if (firesale_finished < 4 + time)
+		{
+			if (firesale_blink< time - 0.25)
+				firesale_blink = time + 0.25;
+		}
+		else if (firesale_finished < 7 + time)
+		{
+			if (firesale_blink< time - 0.5)
+				firesale_blink = time + 0.5;
+		}
+		else if (firesale_finished < 10 + time)
+		{
+			if (firesale_blink< time - 1)
+				firesale_blink = time + 1;
+		}
+		if (firesale_blink < time)
+			ent.firesale_icon = true;
+		else 
+			ent.firesale_icon = false;			
+	}
+	else if(firesale_finished)
+	{
+		firesale_finished = 0;
+		sale_end = 1;
+		firesale();
+		ent.firesale_icon = false;
 	}
 	
 	if (x2_finished > time)

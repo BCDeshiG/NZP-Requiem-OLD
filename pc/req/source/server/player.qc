@@ -3,6 +3,7 @@
 //
 
 void() ExitChair;
+void(vector where, float type) Spawn_Powerup;
 
 // player animations
 
@@ -510,6 +511,8 @@ void() PlayerSpawn =
 
 	//MOTO - gum
 	self.meleedamage = 150;
+
+	Spawn_Powerup(self.origin + '-100 0 12', 3);
 };
 
 void() SpectatorSpawn =

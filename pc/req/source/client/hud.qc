@@ -715,7 +715,7 @@ void(float width, float height) HUD_Useprint =
 				usestring = strcat("Hold ",usebutton, " to Rebuild Barrier");
 				break;
 			case 6://box
-				usestring = strcat("Hold ",usebutton, "for Mystery Box [Cost:", ftos(useprint_cost),"]");
+				usestring = strcat("Hold ",usebutton, " for Mystery Box [Cost:", ftos(useprint_cost),"]");
 				break;
 			case 7://box take
 				usestring = strcat("Hold ",usebutton, " to take weapon");
@@ -1003,6 +1003,8 @@ void() HUD_Powerups = {
 		drawpic([(g_width/2 - (28/272)*g_height),0,0], "gfx/hud/2x.tga", [(28/272)*g_height, (28/272)*g_height, 1], [1,1,1], 1);
 	if(getstatf(STAT_INSTA))
 		drawpic([(g_width/2 + (5/480)*g_width),0,0], "gfx/hud/in_kill.tga", [(28/272)*g_height, (28/272)*g_height, 1], [1,1,1], 1);
+	if(getstatf(STAT_SALE))
+		drawpic([(g_width/2 + (5/688)*g_width),0,0], "gfx/hud/sale.tga", [(28/272)*g_height, (28/272)*g_height, 1], [1,1,1], 1);
 }
 
 void() HUD_Broadcast = {

@@ -268,10 +268,14 @@ float isPowerOn;
 //powerups
 .float x2_icon;
 .float insta_icon;
+.float firesale_icon;
 float instakill_finished;
+float sale_end;
 float insta_blink;
 float x2_finished;
 float x2_blink;
+float firesale_finished;
+float firesale_blink;
 float total_windows_down;
 float total_powerup_points;
 float powerup_activate;

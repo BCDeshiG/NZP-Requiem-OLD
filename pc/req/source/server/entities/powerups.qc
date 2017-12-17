@@ -2,6 +2,38 @@
 .float flashtime;
 .float flash_step;
 
+void() firesale =
+{
+	if (firesale_finished) {
+		local entity mbox, box;
+		box = find(world, classname, "mystery");
+		sound(box, ATTN_NONE, "sounds/music/sale.wav", 1, 1);
+		mbox = find(world, classname, "mystery_box_tp_spot");
+		while(mbox) {
+			setmodel(mbox,"models/machines/mystery.mdl");
+			mbox.spins = 0;
+			mbox.boxstatus = 0;
+			mbox.touch = mystery_touch;
+			mbox.solid=SOLID_TRIGGER;
+			mbox.classname = "firesale_box";
+			mbox.angles = mbox.angles + '0 90 0'; //moto -- teddy angle and box angle don't match..
+			setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+			sound(mbox, ATTN_NONE, "sounds/music/sale.wav", 1, 1); //moto -- (FIXME): won't play for some reason.
+			mbox = find(world, classname, "mystery_box_tp_spot");
+		}
+	} else {
+		local entity salebox;
+		salebox = find(world, classname, "firesale_box");
+		while(salebox) {
+			setmodel(salebox,"progs/Misc/teddy.mdl");
+			salebox.classname = "mystery_box_tp_spot";
+			salebox.angles = salebox.angles + '0 -90 0';
+			salebox.touch = SUB_Null;
+			salebox = find(world, classname, "firesale_box");
+		}
+	}
+}
+
 void() maxammo =
 {
 	entity tempe, temp;
@@ -189,6 +221,8 @@ void() powerup_flash =
 			setmodel(self,"progs/Misc/nuke!.mdl");
 		if(self.zombie_drop_id == 5)
 			setmodel(self,"progs/Misc/carpenter!.mdl");
+		if(self.zombie_drop_id == 6)
+			setmodel(self,"progs/Misc/sale!.mdl");
 	}
 	else
 	{
@@ -240,6 +274,13 @@ void() powerup_touch =
 		{
 			addmoney(other, 200*exp, 0);
 			carpenter();
+		}
+		else if(self.zombie_drop_id == 6)
+		{
+			firesale_finished = time + 45;
+			other.firesale_icon = true;
+			sale_end = 0;
+			firesale();
 		}
 		/*else if(self.zombie_drop_id == 6)
 		{
@@ -312,6 +353,44 @@ void(vector where, float type) Spawn_Powerup =
 	if (!type) {
 		if (total_windows_down >= 5)
 		{
+			if (t < 0.16)
+			{
+				setmodel(new_powerup,"progs/Misc/maxammo!.mdl");
+				new_powerup.zombie_drop_id = 1;
+			}
+			else if (t < 0.33)
+			{
+				setmodel(new_powerup,"progs/Misc/x2!.mdl");
+				new_powerup.zombie_drop_id = 2;
+			}
+			else if (t < 0.50)
+			{
+				setmodel(new_powerup,"progs/Misc/instakill!.mdl");
+				new_powerup.zombie_drop_id = 3;
+			}
+			else if (t < 0.66)
+			{
+				setmodel(new_powerup,"progs/Misc/nuke!.mdl");
+				new_powerup.zombie_drop_id = 4;
+			}
+			else if (t < 0.83)
+			{
+				setmodel(new_powerup,"progs/Misc/carpenter!.mdl");
+				new_powerup.zombie_drop_id = 5;
+			}
+			else
+			{
+				setmodel(new_powerup,"progs/Misc/sale!.mdl");
+				new_powerup.zombie_drop_id = 6;
+			}
+			/*else
+		 {
+				setmodel(new_powerup,"progs/Misc/perkbottle!.mdl");
+				new_powerup.zombie_drop_id = 6;
+			}*/
+		}
+		else
+		{
 			if (t < 0.2)
 			{
 				setmodel(new_powerup,"progs/Misc/maxammo!.mdl");
@@ -334,36 +413,8 @@ void(vector where, float type) Spawn_Powerup =
 			}
 			else
 			{
-				setmodel(new_powerup,"progs/Misc/carpenter!.mdl");
-				new_powerup.zombie_drop_id = 5;
-			}
-			/*else
-		 {
-				setmodel(new_powerup,"progs/Misc/perkbottle!.mdl");
+				setmodel(new_powerup,"progs/Misc/sale!.mdl");
 				new_powerup.zombie_drop_id = 6;
-			}*/
-		}
-		else
-		{
-			if (t < 0.25)
-			{
-				setmodel(new_powerup,"progs/Misc/maxammo!.mdl");
-				new_powerup.zombie_drop_id = 1;
-			}
-			else if (t < 0.5)
-			{
-				setmodel(new_powerup,"progs/Misc/x2!.mdl");
-				new_powerup.zombie_drop_id = 2;
-			}
-			else if (t < 0.75)
-			{
-				setmodel(new_powerup,"progs/Misc/instakill!.mdl");
-				new_powerup.zombie_drop_id = 3;
-			}
-			else
-			{
-				setmodel(new_powerup,"progs/Misc/nuke!.mdl");
-				new_powerup.zombie_drop_id = 4;
 			}
 			/*
 			else
@@ -379,6 +430,9 @@ void(vector where, float type) Spawn_Powerup =
 	} else if (type == 2) {
 		setmodel(new_powerup,"progs/Misc/instakill!.mdl");
 		new_powerup.zombie_drop_id = 3;
+	} else if (type == 3) {
+		setmodel(new_powerup,"progs/Misc/sale!.mdl");
+		new_powerup.zombie_drop_id = 6;
 	}
 	last_pu = new_powerup.zombie_drop_id;
 	new_powerup.touch = powerup_touch;
