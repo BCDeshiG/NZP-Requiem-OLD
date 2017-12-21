@@ -767,16 +767,31 @@ void(float width, float height) HUD_Useprint =
 
 int perk_order[11];
 int current_perk_order;
+
+void(int x, int y) PerkPositionChange =
+{
+	switch(getstatf(STAT_HUDTYPE)) {
+		case 0:
+		case 1:
+			y -= 22;
+			break;
+		default:
+			x -= 0.5;
+	}
+}
 	
 void(float width, float height) HUD_Perks =
 {
 	
 	int i, s;
 	int y = height - 100 - 22/*sb_round[1]->height - 22 //(round height minus perk icon height)*/;	
+	int x;
+	local float type;
+	x = 2;
 	string directory, subdir;
 	switch(getstatf(STAT_HUDTYPE)) {
-		case 0: subdir = "demo"; break;
-		case 1: subdir = "beta"; break;
+		case 0: subdir = "demo"; type = 1; break;
+		case 1: subdir = "beta"; type = 1; break;
 		case 2: subdir = "bo1"; break;
 		case 3: subdir = "bo2"; break;
 		case 4: subdir = "bo3"; break;
@@ -792,53 +807,80 @@ void(float width, float height) HUD_Perks =
 		{
 			if (perk_order[i] == P_JUG)
 			{
-				drawpic([2,y,0], strcat(directory, "jug.tga"), [20, 20, 1], [1,1,1], 1);
-				y = y - 22;
+				drawpic([x,y,0], strcat(directory, "jug.tga"), [25, 25, 1], [1,1,1], 1);
+				if (type)
+					y -= 27;
+				else
+					x += 27;
 			}
 			else if (perk_order[i] == P_DOUBLE)
 			{
-				drawpic([2,y,0], strcat(directory, "double.tga"), [20, 20, 1], [1,1,1], 1);
-				y = y - 22;
+				drawpic([x,y,0], strcat(directory, "double.tga"), [25, 25, 1], [1,1,1], 1);
+				if (type)
+					y -= 27;
+				else
+					x += 27;
 			}
 			else if (perk_order[i] == P_SPEED)
 			{
-				drawpic([2,y,0], strcat(directory, "speed.tga"), [20, 20, 1], [1,1,1], 1);
-				y = y - 22;
+				drawpic([x,y,0], strcat(directory, "speed.tga"), [25, 25, 1], [1,1,1], 1);
+				if (type)
+					y -= 27;
+				else
+					x += 27;
 			}
 			else if (perk_order[i] == P_REVIVE)
 			{
-				drawpic([2,y,0], strcat(directory, "revive.tga"), [20, 20, 1], [1,1,1], 1);
-				y = y - 22;
+				drawpic([x,y,0], strcat(directory, "revive.tga"), [25, 25, 1], [1,1,1], 1);
+				if (type)
+					y -= 27;
+				else
+					x += 27;
 			}
 			else if (perk_order[i] == P_FLOP)
 			{
-				drawpic([2,y,0], strcat(directory, "flopper.tga"), [20, 20, 1], [1,1,1], 1);
-				y = y - 22;
+				drawpic([x,y,0], strcat(directory, "flopper.tga"), [25, 25, 1], [1,1,1], 1);
+				if (type)
+					y -= 27;
+				else
+					x += 27;
 			}
 			else if (perk_order[i] == P_STAMIN)
 			{
-				drawpic([2,y,0], strcat(directory, "stamin.tga"), [20, 20, 1], [1,1,1], 1);
-				y = y - 22;
+				drawpic([x,y,0], strcat(directory, "stamin.tga"), [25, 25, 1], [1,1,1], 1);
+				if (type)
+					y -= 27;
+				else
+					x += 27;				
 			}
 			else if (perk_order[i] == P_MULE)
 			{
 				if (directory == "demo" || directory == "beta")	//Moto (FIXME) - Make Mule Kick themed icons for demo and beta
-					drawpic([2,y,0], "gfx/hud/bo1/mule.tga", [20, 20, 1], [1,1,1], 1);
+					drawpic([2,y,0], "gfx/hud/bo1/mule.tga", [25, 25, 1], [1,1,1], 1);
 				else
-					drawpic([2,y,0], strcat(directory, "mule.tga"), [20, 20, 1], [1,1,1], 1);
-				y = y - 22;
+					drawpic([x,y,0], strcat(directory, "mule.tga"), [25, 25, 1], [1,1,1], 1);
+				if (type)
+					y -= 27;
+				else
+					x += 27;
 			}
 			else if (perk_order[i] == P_DEAD)
 			{
 				if (directory == "demo" || directory == "beta")	//Moto (FIXME) - Make Deadshot themed icons for beta
 					drawpic([2,y,0], "gfx/hud/bo1/dead.tga", [20, 20, 1], [1,1,1], 1);
 				else
-					drawpic([2,y,0], strcat(directory, "dead.tga"), [20, 20, 1], [1,1,1], 1);
-				y = y - 22;
+					drawpic([x,y,0], strcat(directory, "dead.tga"), [25, 25, 1], [1,1,1], 1);
+				if (type)
+					y -= 27;
+				else
+					x += 27;
 			}
 			else if (perk_order[i] == P_BLOOD) {
-				drawpic([2,y,0], strcat(directory, "blood.tga"), [20, 20, 1], [1,1,1], 1);
-				y = y - 22;
+				drawpic([x,y,0], strcat(directory, "blood.tga"), [25, 25, 1], [1,1,1], 1);
+				if (type)
+					y -= 27;
+				else
+					x += 27;
 			}
 		}
 	}

@@ -1709,7 +1709,7 @@ void() perk_pap =
 
 void() GiveBlood =
 {
-	if (isSpecial(self.owner.weapon)) { //moto -- blood bullets doesn't work for wonder weapons & explosive weapons
+	if (isSpecial(self.owner.weapon) || self.owner.isBuying == true) { //moto -- blood bullets doesn't work for wonder weapons & explosive weapons
 		self.think = GiveBlood;
 		self.nextthink = time + 2.5;
 		return;
