@@ -167,6 +167,8 @@ void() W_MuleSwitch =
 
 void() W_Switch =
 {
+	if (self.downed == true)
+		return;
 	if (self.secondaryweapon && self.secondaryweapon !=0 && !self.new_anim_stop && !other.button7)
 	{    
 		if (self.thirdweapon != 0 && (self.perks & P_MULE)) {
