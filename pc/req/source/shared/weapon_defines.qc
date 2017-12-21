@@ -161,6 +161,8 @@ string(float perk) GetPerkName =
 			return "Mule Kick";
 		case 8:
 			return "Deadshot Daiquiri";
+		case 9:
+			return "Blood Bullets";
 		default:
 			return "NULL";
 	}
@@ -3410,6 +3412,20 @@ float(float weapon) CrossHairMaxSpread =
 			break;
 	}
 	return 0;
+}
+
+float(float wep) isSpecial =
+{
+	switch(wep) {
+		case W_RAY:
+		case W_PORTER:
+		case W_BIATCH:
+		case W_LONGINUS:
+		case W_PANZER:
+			return 1;
+		default:
+			return 0;
+	}
 }
 
 int(int weapon, int type) GetLowAmmo = // determine what ammo value you should have that turns shells red

@@ -140,6 +140,7 @@ const float EVENT_BLACKOUT = 26;
 #define 	P_STAMIN	32
 #define 	P_MULE 		64
 #define 	P_DEAD 		128
+#define 	P_BLOOD 	256
 
 #define STAT_CURRENTMAG         50
 #define STAT_CURRENTMAG2        51

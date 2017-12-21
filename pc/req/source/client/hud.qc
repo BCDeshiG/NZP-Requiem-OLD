@@ -836,6 +836,10 @@ void(float width, float height) HUD_Perks =
 					drawpic([2,y,0], strcat(directory, "dead.tga"), [20, 20, 1], [1,1,1], 1);
 				y = y - 22;
 			}
+			else if (perk_order[i] == P_BLOOD) {
+				drawpic([2,y,0], strcat(directory, "blood.tga"), [20, 20, 1], [1,1,1], 1);
+				y = y - 22;
+			}
 		}
 	}
 }
@@ -1321,6 +1325,11 @@ void UpdatePerks (float newperks) {
 		perk_order[current_perk_order] = P_DEAD;
 		current_perk_order = current_perk_order + 1;
 	}
+	if (newperks & P_BLOOD && !(perks & P_BLOOD))
+	{
+		perk_order[current_perk_order] = P_BLOOD;
+		current_perk_order = current_perk_order + 1;
+	}
 	if (perks & P_JUG && !(newperks & P_JUG))
 	{
 		for (s = 0; s < 10; s++)
@@ -1445,6 +1454,23 @@ void UpdatePerks (float newperks) {
 		for (s = 0; s < 10; s++)
 		{
 			if (perk_order[s] == P_DEAD)
+			{
+				perk_order[s] = 0;
+				while (perk_order[s+1])
+				{
+					perk_order[s] = perk_order[s+1];
+					perk_order[s+1] = 0;
+				}
+				break;
+			}
+		}
+		current_perk_order = current_perk_order - 1;
+	}
+	if (perks & P_BLOOD && !(newperks & P_BLOOD))
+	{
+		for (s = 0; s < 10; s++)
+		{
+			if (perk_order[s] == P_BLOOD)
 			{
 				perk_order[s] = 0;
 				while (perk_order[s+1])

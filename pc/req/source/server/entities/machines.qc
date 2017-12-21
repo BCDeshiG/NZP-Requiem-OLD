@@ -4,6 +4,7 @@ float sound_perk_delay;
 void() W_Switch;
 void() mystery_touch;
 void() ReturnWeaponModel;
+void(entity who) SetupBlood;
 void(string to, float skin) UpdateV2model;
 
 void GivePerk(float perk) {
@@ -32,6 +33,9 @@ void GivePerk(float perk) {
 		case P_DEAD:
 			self.perks = self.perks | 128;
 			break;
+		case P_BLOOD:
+			self.perks = self.perks | 256;
+			break;
 		default:
 			print("Unknown perk type, wtf?\n");
 	}
@@ -50,6 +54,7 @@ void() give_flopper = { GivePerk(P_FLOP); ReturnWeaponModel(); }
 void() give_staminup = { GivePerk(P_STAMIN); ReturnWeaponModel(); }
 void() give_mulekick = { GivePerk(P_MULE); ReturnWeaponModel(); }
 void() give_deadshot = { GivePerk(P_DEAD); ReturnWeaponModel(); }
+void() give_bloodbullets = { GivePerk(P_BLOOD); ReturnWeaponModel(); }
 
 
 void DrinkPerk(float perk) {
@@ -88,6 +93,10 @@ void DrinkPerk(float perk) {
 		case P_DEAD:
 			other.weaponskin = 1;
 			func = give_deadshot;
+			break;
+		case P_BLOOD:
+			other.weaponskin = 0;
+			func = give_bloodbullets;
 			break;
 		default:
 			print("Unknown perk type, wtf?\n");
@@ -277,6 +286,20 @@ void() touch_perk =
 			DrinkPerk(P_DEAD);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/dead.wav", 1, 1);
+		}
+		else if (other.button7)
+		{
+			centerprint(other, "Not enough points\n");
+		}
+	}
+	if (self.classname == "perk_bloodbullets" && !(other.perks & P_BLOOD) && self.fire_delay < time)
+	{
+		useprint (other, 9, self.cost, 9);
+		if (other.points >= self.cost && other.button7)
+		{
+			addmoney(other, -self.cost, 0);
+			DrinkPerk(P_BLOOD);
+			SetupBlood(other);
 		}
 		else if (other.button7)
 		{
@@ -475,6 +498,25 @@ void() perk_deadshot =
 
 	if (!self.cost)
 		self.cost = 1500;
+}
+
+void() perk_bloodbullets =
+{
+	self.solid = SOLID_TRIGGER;
+	precache_model ("models/machines/blood_bullets.mdl");
+	precache_model ("models.machines/v_perk.mdl");
+	precache_sound ("sounds/machines/perk_drink.wav");
+	setorigin (self, self.origin);
+	setmodel (self, "models/machines/blood_bullets.mdl");
+	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+	self.classname = "perk_bloodbullets";
+	self.touch = touch_perk;
+
+	self.think = setup_perk;
+	self.nextthink = time + 0.1;
+
+	if (!self.cost)
+		self.cost = 3000;
 }
 
 void()	turnpower1	=[	1,		turnpower2	] {self.frame = 1;};
@@ -1663,4 +1705,28 @@ void() perk_pap =
 
 	if (!self.cost)
 		self.cost = 5000;
+}
+
+void() GiveBlood =
+{
+	if (isSpecial(self.owner.weapon)) { //moto -- blood bullets doesn't work for wonder weapons & explosive weapons
+		self.think = GiveBlood;
+		self.nextthink = time + 2.5;
+		return;
+	}
+	if ((self.owner.currentammo < (getWeaponAmmo(self.owner.weapon))) && (self.owner.currentammo + 3 <= getWeaponAmmo(self.owner.weapon)))
+		self.owner.currentammo += 3;
+	else
+		self.owner.currentammo = getWeaponAmmo(self.owner.weapon);
+	self.think = GiveBlood;
+	self.nextthink = time + 2.5;
+}
+
+void(entity who) SetupBlood =
+{
+	local entity blood;
+	blood = spawn();
+	blood.owner = who;
+	blood.nextthink = time + 2.5;
+	blood.think = GiveBlood;
 }
