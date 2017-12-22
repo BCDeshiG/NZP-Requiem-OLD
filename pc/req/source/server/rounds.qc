@@ -29,13 +29,23 @@ void(string s) playSoundAtPlayers =
 
 void() EndRound =
 {
+	local float dog, dg;
+	dog = random();
+	if (dog > 0.33)
+		dg = 5;
+	else if (dog > 0.66)
+		dg = 6;
+	else
+		dg = 7;
 	rounds_change = 4;
 	SetUpdate(self, UT_ROUNDS_CHANGE, rounds_change, 0, 0);
 	if (rndtime != 0.1) {
 		if (roundtype == 1)
 			playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/eround.wav"));
-		else
+		else {
 			playSoundAtPlayers("sounds/rounds/dog_end.wav");
+			doground += dg;
+		}
 	}
 	round_changetime = time + rndtime;
 }
@@ -78,7 +88,7 @@ void() NewRound =
 	}
 	if (rounds != 0)
 	{
-		if (gotdog && (rounds == 4 || rounds == 9 || rounds == 14))
+		if (gotdog && rounds == doground)
 			playSoundAtPlayers("sounds/rounds/dog_start.wav");
 		else
 			playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/nround.wav"));
@@ -124,7 +134,7 @@ void() NewRound =
 	}
 	else
 	{
-		if ((rounds == 10 || rounds == 15) && gotdog)
+		if (doground && gotdog)
 			Remaining_Zombies = Total_Zombies = 15;
 		else
 			Remaining_Zombies = Total_Zombies = rint((0.0842 * rounds * rounds) + (0.1954 * rounds)+22.05);
@@ -138,7 +148,7 @@ void() NewRound =
 	totalpowerups = 0;
 	powerup_activate = powerup_activate*1.14;
 	
-	if ((rounds == 5 || rounds == 10 || rounds == 15) && gotdog) {
+	if (rounds == doground && gotdog) {
 		roundtype = 2;
 		localcmd("fog 0.25\n"); 
 	} else {

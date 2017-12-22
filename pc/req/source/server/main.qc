@@ -243,6 +243,15 @@ void() worldspawn =
 	mappath = strzone(mappath);
 
 	LoadWaypointData();
+
+	local float dog = random();
+
+	if (dog > 0.33)
+		doground = 5;
+	else if (dog > 0.66)
+		doground = 6;
+	else
+		doground = 7;
 }
 
 void() SpectatorConnect =
