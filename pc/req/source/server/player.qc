@@ -514,8 +514,6 @@ void() PlayerSpawn =
 
 	//MOTO - gum
 	self.meleedamage = 150;
-
-	Spawn_Powerup(self.origin + '0 100 0', 1);
 };
 
 void() SpectatorSpawn =

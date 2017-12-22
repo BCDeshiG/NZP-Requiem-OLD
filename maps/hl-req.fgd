@@ -78,6 +78,11 @@
 	currentammo(integer) : "Starting Reserve Ammo" : 32
 	points(integer) : "Starting Points" : 500
 	song(string) : "Easter Egg Song" : "sounds/"
+	walktype(choices) : "Zombie Style" : 0 =
+	[
+		0: "Normal"
+		1: "Verruckt Sprinters"
+	]
 ]
 
 //
@@ -243,6 +248,17 @@
 	perk_double : "Double Tap Root Beer"  
 [
 	cost(integer) : "Cost" : 2000
+	spawnflags(Flags) =
+	[
+		1 : "Random location" : 0
+		2 : "Switch location" : 0
+	]
+]
+
+@PointClass size(-16 -16 -32, 16 16 40) base(Item, Appearflags) color(214 203 1) studio("models/machines/blood_bullets.mdl") = 
+	perk_bloodbullets : "Blood Bullets"  
+[
+	cost(integer) : "Cost" : 1500
 	spawnflags(Flags) =
 	[
 		1 : "Random location" : 0

@@ -89,7 +89,7 @@ void(float what) play_sound_z =
 						sound(self,CHAN_VOICE,"sounds/zombie/w9.wav",1,ATTN_NORM);
 					return;
 				}
-				else if(self.walktype == 4 || self.walktype == 5)
+				else if(self.walktype == 4 || self.walktype == 5 || self.walktype == 6)
 				{
 					self.sound_time = time + 4 + random()*2;
 					if (e < 0.1)
@@ -332,6 +332,19 @@ void()	zombie_run8		=[	$run8,		zombie_run9	] 	{Zombie_Walk(15); self.frame = 99;
 void()	zombie_run9		=[	$run9,		zombie_run10	] 	{Zombie_Walk(15); self.frame = 100;Zombie_Think();};
 void()	zombie_run10		=[	$run10,	Zombie_Walk_Setup	] 	{Zombie_Walk(15); self.frame = 101;Zombie_Think();};
 
+$frame sprint1 sprint2 sprint3 sprint4 sprint5 sprint6 sprint7 sprint8 sprint9 sprint10 
+//12 unless 14
+void()	zombie_sprint1		=[	$sprint1,		zombie_sprint2	] 	{Zombie_Walk(35);/*if(freeze_time < time)*/ self.frame = 92;Zombie_Think();zombie_footstep();};//footstep
+void()	zombie_sprint2		=[	$sprint2,		zombie_sprint3	] 	{Zombie_Walk(35);self.frame = 93;Zombie_Think();};
+void()	zombie_sprint3		=[	$sprint3,		zombie_sprint4	] 	{Zombie_Walk(35); self.frame = 94;Zombie_Think();zombie_footstep();};//footstep
+void()	zombie_sprint4		=[	$sprint4,		zombie_sprint5	] 	{Zombie_Walk(35); self.frame = 95;Zombie_Think();};
+void()	zombie_sprint5		=[	$sprint5,		zombie_sprint6	] 	{Zombie_Walk(35); self.frame = 96;Zombie_Think();};
+void()	zombie_sprint6		=[	$sprint6,		zombie_sprint7	] 	{Zombie_Walk(35); self.frame = 97;Zombie_Think();zombie_footstep();};//footstep
+void()	zombie_sprint7		=[	$sprint7,		zombie_sprint8	] 	{Zombie_Walk(35); self.frame = 98;Zombie_Think();};
+void()	zombie_sprint8		=[	$sprint8,		zombie_sprint9	] 	{Zombie_Walk(35); self.frame = 99;Zombie_Think();zombie_footstep();};//footstep
+void()	zombie_sprint9		=[	$sprint9,		zombie_sprint10	] 	{Zombie_Walk(35); self.frame = 100;Zombie_Think();};
+void()	zombie_sprint10		=[	$sprint10,	Zombie_Walk_Setup	] 	{Zombie_Walk(35); self.frame = 101;Zombie_Think();};
+
 void() Zombie_Walk_Setup = 
 {
 	if(Remaining_Zombies == 1 && rounds >= runrnd)
@@ -362,6 +375,8 @@ void() Zombie_Walk_Setup =
 	{
 		zombie_run1();
 	}
+	else if (self.walktype == 6)
+		zombie_sprint1();
 };
 ///////////////////////////////////////////////////////////////////// ZOMBIE IDLE 1
 //0-12
@@ -935,6 +950,9 @@ void(entity szombie) SetZombieWalk =
 	if (rounds >= runrnd && runrnd != 4) {
 		szombie.walktype = 5;
 	}
+
+	if (world.walktype == 1 && whichwalk < 0.15)
+		szombie.walktype = 6;
 };
 
 /////////////////////ZOMBIE SPAWNING/////////////////////
