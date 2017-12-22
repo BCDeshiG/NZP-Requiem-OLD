@@ -387,8 +387,6 @@ void(vector where, float type) Spawn_Powerup =
 				} else {
 					setmodel(new_powerup,"progs/Misc/x2!.mdl");
 					new_powerup.zombie_drop_id = 2;
-					x2_finished = time + 30;
-					other.x2_icon = true;
 				}
 			}
 			/*else
@@ -427,8 +425,6 @@ void(vector where, float type) Spawn_Powerup =
 				} else {
 					setmodel(new_powerup,"progs/Misc/x2!.mdl");
 					new_powerup.zombie_drop_id = 2;
-					x2_finished = time + 30;
-					other.x2_icon = true;
 				}
 
 			}

@@ -70,6 +70,8 @@ void() giveAllPerks =
 	self.perks = self.perks | 64;
 	self.perks = self.perks | 128;
 	self.perks = self.perks | 256;
+	self.perks = self.perks | 512;
+	SetupBlood(self);
 	SetPerk(self, self.perks);
 }
 
