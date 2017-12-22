@@ -164,6 +164,7 @@ const float EVENT_BLACKOUT = 26;
 #define STAT_WEAPONSTATUS 		69
 #define STAT_ISNOCLIP 			70
 #define STAT_SALE 				71
+#define STAT_MAX 				72
 
 //Weapon State
 #define STATE_RELOAD 			1

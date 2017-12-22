@@ -318,6 +318,9 @@ void() PlayerPostThink =
 	}
 
 	self.oldvelocity = self.velocity;
+
+	if (self.maxa < time)
+		self.maxa = 0;
 };
 
 void() ClientKill =
@@ -511,6 +514,8 @@ void() PlayerSpawn =
 
 	//MOTO - gum
 	self.meleedamage = 150;
+
+	Spawn_Powerup(self.origin + '0 100 0', 1);
 };
 
 void() SpectatorSpawn =

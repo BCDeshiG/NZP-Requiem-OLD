@@ -389,3 +389,6 @@ float songam, songcount;
 
 //motolegacy -- menu
 .float isnoclip;
+
+//motolegacy -- max ammo text
+.float maxa;

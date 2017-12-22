@@ -1063,6 +1063,23 @@ void() HUD_Broadcast = {
 		drawstring([x, g_height/2, 0], broadcast_msg, [0.015*g_width, 0.015*g_width, 0], [1, 1, 1], 1, 1);
 }
 
+float opac, maxheight;
+string maxa = "MAX AMMO!";
+void() HUD_MAXAMMO =
+{
+	if (!(getstatf(STAT_MAX))) {
+		opac = 1;
+		maxheight = (g_height/2) + 75;
+	}
+	else {
+		float width = stringwidth(maxa, 0, [0.015*g_width, 0.015*g_width, 0]);
+		width = (g_width - width)/2;
+		drawstring([width, maxheight, 0], maxa, [0.015*g_width, 0.015*g_width, 0], [1, 1, 1], opac, 1);
+		maxheight -= 0.12;
+		opac -= 0.005;
+	}
+}
+
 void() HUD_Scores =
 {
 	string subtext = "Name                             Score";
@@ -1287,6 +1304,7 @@ void(float width, float height) HUD_Draw =
 			HUD_Perks(width, height);
 			HUD_Powerups();
 			HUD_AmmoString();
+			HUD_MAXAMMO();
 		}
 		HUD_Progressbar(width, height);
 	

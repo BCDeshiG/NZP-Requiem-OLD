@@ -62,6 +62,7 @@ void() maxammo =
 			if (tempe.grenades & 2)
         tempe.secondary_grenades = 2;
 		}
+		tempe.maxa = time + 1.5;
 		tempe = find (tempe, classname, "player");
 	}
 }
