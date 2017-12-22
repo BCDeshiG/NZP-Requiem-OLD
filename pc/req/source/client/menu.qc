@@ -418,6 +418,7 @@ void() menu_resume =
 {
 	in_menu = MENU_NONE;
 	setcursormode(FALSE);
+	localcmd("cmd pause\n");
 };
 
 void() menu_main =

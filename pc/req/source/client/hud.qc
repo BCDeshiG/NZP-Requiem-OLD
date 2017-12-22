@@ -1039,12 +1039,13 @@ void() Draw_Crosshair =
 
 void() HUD_Powerups = {
 
+	//moto -- (fixme) improve locations!
 	if(getstatf(STAT_X2))
 		drawpic([(g_width/2 - (28/272)*g_height),0,0], "gfx/hud/2x.tga", [(28/272)*g_height, (28/272)*g_height, 1], [1,1,1], 1);
 	if(getstatf(STAT_INSTA))
-		drawpic([(g_width/2 + (5/480)*g_width),0,0], "gfx/hud/in_kill.tga", [(28/272)*g_height, (28/272)*g_height, 1], [1,1,1], 1);
+		drawpic([((g_width/2 - (5/480)*g_width) + 10),0,0], "gfx/hud/in_kill.tga", [(28/272)*g_height, (28/272)*g_height, 1], [1,1,1], 1);
 	if(getstatf(STAT_SALE))
-		drawpic([(g_width/2 + (5/688)*g_width),0,0], "gfx/hud/sale.tga", [(28/272)*g_height, (28/272)*g_height, 1], [1,1,1], 1);
+		drawpic([(g_width/2 + (28/272)*g_height),0,0], "gfx/hud/sale.tga", [(28/272)*g_height, (28/272)*g_height, 1], [1,1,1], 1);
 }
 
 void() HUD_Broadcast = {

@@ -69,6 +69,7 @@ void() giveAllPerks =
 	self.perks = self.perks | 2;
 	self.perks = self.perks | 64;
 	self.perks = self.perks | 128;
+	self.perks = self.perks | 256;
 	SetPerk(self, self.perks);
 }
 
@@ -204,15 +205,20 @@ void(float gum) chewGum =
 
 float(float spent) gobbleCost =
 {
+	float cost;
 	switch (spent) {
-		case 0: return 500; break;
-		case 1: return 1500; break;
-		case 2: return 2500; break;
-		case 3: return 5000; break;
-		case 4: return 10000; break;
-		case 5: return 25000; break; }
+		case 0: cost = 500; break;
+		case 1: cost = 1500; break;
+		case 2: cost = 2500; break;
+		case 3: cost = 5000; break;
+		case 4: cost = 10000; break;
+		default: cost = 25000; break; 
+	}
 
-	return 50000;
+	if (firesale_finished)
+		cost -= 490;
+
+	return cost;
 }
 
 void() changeGumState =

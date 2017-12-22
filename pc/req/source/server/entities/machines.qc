@@ -664,7 +664,7 @@ float (float r) Getweaponid =
 	else if (r== 8)
 		return W_SAWNOFF;
 	else if (r==9)
-		return W_TESLA;//W_TESLA;
+		return W_SAWNOFF;//W_TESLA;
 	else if (r==10)
 		return W_FG;
 	else if (r==11)
