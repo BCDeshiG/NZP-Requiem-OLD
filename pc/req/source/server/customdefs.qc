@@ -97,7 +97,7 @@ void Weapon_Logic();
 #define S_RIGHT 1
 #define S_BOTH 2
 
-//Knife 
+//Knife
 .float semiknife;
 .float knife_delay;
 .float bowie;
@@ -157,7 +157,7 @@ entity lastzombie;
 .vector goalorigin;
 float crawler_num;
 //==== Reference Vars ====
-const float WWINDOW = 1; 
+const float WWINDOW = 1;
 const float WBOX1 = 2;
 const float WBOX2 = 4;
 const float WBOX3 = 8;
@@ -256,7 +256,6 @@ float crandom();
 //Perk and Power system
 float isPowerOn;
 .float isBuying; // naievil -- used for checking if a perk is being consumed, limits glitching
-.float perks;
 .float perk_delay;
 .float revivesoda;
 

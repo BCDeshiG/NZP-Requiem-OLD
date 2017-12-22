@@ -50,7 +50,7 @@ float useprint_weapon;
 float useprint_cost;
 float useprint_time;
 
-float HUD_Change_time; 
+float HUD_Change_time;
 float Hitmark_time;
 float crosshair_spread_time;
 float zoom_2_time;
@@ -68,7 +68,7 @@ float interpolating2;
 
 
 float rounds;
-float perks;
+float perk;
 float rounds_change;
 
 float playerpoints[4]; 			// player point holders, player 1 points are index 0, player 2 at 1...

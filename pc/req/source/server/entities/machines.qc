@@ -1,6 +1,6 @@
 //Any changes made before release should be followed by a (FIXME)
 float backupWepSkin;
-float sound_perk_delay; 
+float sound_perk_delay;
 void() W_Switch;
 void() mystery_touch;
 void() ReturnWeaponModel;
@@ -36,6 +36,9 @@ void GivePerk(float perk) {
 		case P_BLOOD:
 			self.perks = self.perks | 256;
 			break;
+		case P_CANDO:
+			self.perks = self.perks | 512;
+			break;
 		default:
 			print("Unknown perk type, wtf?\n");
 	}
@@ -55,6 +58,7 @@ void() give_staminup = { GivePerk(P_STAMIN); ReturnWeaponModel(); }
 void() give_mulekick = { GivePerk(P_MULE); ReturnWeaponModel(); }
 void() give_deadshot = { GivePerk(P_DEAD); ReturnWeaponModel(); }
 void() give_bloodbullets = { GivePerk(P_BLOOD); ReturnWeaponModel(); }
+void() give_candolier = { GivePerk(P_CANDO); ReturnWeaponModel(); }
 
 
 void DrinkPerk(float perk) {
@@ -63,27 +67,27 @@ void DrinkPerk(float perk) {
 
 	switch(perk) {
 		case P_REVIVE:
-			other.weaponskin = 3;	
+			other.weaponskin = 3;
 			func = give_revive;
 			break;
 		case P_FLOP:
-			other.weaponskin = 4;	
+			other.weaponskin = 4;
 			func = give_flopper;
 			break;
 		case P_JUG:
-			other.weaponskin = 2;	
+			other.weaponskin = 2;
 			func = give_juggernog;
 			break;
 		case P_STAMIN:
-			other.weaponskin = 2;	
+			other.weaponskin = 2;
 			func = give_staminup;
 			break;
 		case P_SPEED:
-			other.weaponskin = 1;	
+			other.weaponskin = 1;
 			func = give_speedcola;
 			break;
 		case P_DOUBLE:
-			other.weaponskin = 0;	
+			other.weaponskin = 0;
 			func = give_doubletap;
 			break;
 		case P_MULE:
@@ -98,18 +102,22 @@ void DrinkPerk(float perk) {
 			other.weaponskin = 0;
 			func = give_bloodbullets;
 			break;
+		case P_CANDO:
+			other.weaponskin = 1;
+			func = give_candolier;
+			break;
 		default:
 			print("Unknown perk type, wtf?\n");
 	}
 	other.isBuying = true;
 	entity tempe = self;
 	self = other;
-	
+
 	if (self.sprinting)
 		W_SprintStop();
-	
+
 	self.knife_delay = self.reload_delay2 = self.fire_delay2 = self.fire_delay = self.reload_delay = 3.5 + time;
-	self.limit --;	
+	self.limit --;
 	self.perkweapon = self.weapon;
 	self.weapon = 0;
 	self.weapon2model = "";
@@ -121,7 +129,7 @@ void DrinkPerk(float perk) {
 }
 
 void() touch_perk =
-{  
+{
 	if (other.classname != "player" || other.downed || other.isBuying == true)
 		return;
 
@@ -131,7 +139,7 @@ void() touch_perk =
 		addmoney(other, 100, 0);
 		self.moneyclaimed = 1;
 	}
-	  
+
 	if (self.requirespower == true && !isPowerOn)
 	{
 		useprint (other, 8, 0, 0);
@@ -143,10 +151,10 @@ void() touch_perk =
 
 	if (other.weaponskin == 0)
     	backupWepSkin = 0;
-    else 
+    else
     	backupWepSkin = 1;
 
-	
+
 	if (self.classname == "perk_revive" && !(other.perks & P_REVIVE) && other.fire_delay < time)
 	{
 
@@ -306,6 +314,19 @@ void() touch_perk =
 			centerprint(other, "Not enough points\n");
 		}
 	}
+	if (self.classname == "perk_candolier" && !(other.perks & P_CANDO) && self.fire_delay < time)
+	{
+		useprint (other, 9, self.cost, 10);
+		if (other.points >= self.cost && other.button7)
+		{
+			addmoney(other, -self.cost, 0);
+			DrinkPerk(P_CANDO);
+		}
+		else if (other.button7)
+		{
+			centerprint(other, "Not enough points\n");
+		}
+	}
 }
 
 void() setup_perk =
@@ -331,6 +352,7 @@ void() setup_perk =
 			case "perk_mulekick":
 			case "perk_deadshot":
 			case "perk_speed":
+			case "perk_candolier":
 				self.effects = EF_GREEN;
 				break;
 			case "perk_double":
@@ -341,9 +363,9 @@ void() setup_perk =
 				self.effects = 0;
 				break;
 		}
-	} 
-	
-		// naievil (FIXME) light effects 
+	}
+
+		// naievil (FIXME) light effects
 }
 void() perk_revive =
 {
@@ -519,6 +541,25 @@ void() perk_bloodbullets =
 		self.cost = 3000;
 }
 
+void() perk_candolier =
+{
+	self.solid = SOLID_TRIGGER;
+	precache_model ("models/machines/candolier.mdl");
+	precache_model ("models.machines/v_perk.mdl");
+	precache_sound ("sounds/machines/perk_drink.wav");
+	setorigin (self, self.origin);
+	setmodel (self, "models/machines/candolier.mdl");
+	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+	self.classname = "perk_candolier";
+	self.touch = touch_perk;
+
+	self.think = setup_perk;
+	self.nextthink = time + 0.1;
+
+	if (!self.cost)
+		self.cost = 3000;
+}
+
 void()	turnpower1	=[	1,		turnpower2	] {self.frame = 1;};
 void()	turnpower2	=[	2,		turnpower3	] {self.frame = 2;};
 void()	turnpower3	=[	3,		turnpower4	] {self.frame = 3;};
@@ -545,10 +586,10 @@ void() Turn_Lights =
 			tempe.effects = EF_GREEN;
 		else if (tempe.classname == "perk_deadshot")
 			tempe.effects = EF_GREEN;
-      
+
 		tempe = findfloat (tempe, requirespower, 1);// trigger all paired doors
-	}  // naievil (FIXME) redo light effects 
-} 
+	}  // naievil (FIXME) redo light effects
+}
 
 void() touch_power_Switch =
 {
@@ -596,7 +637,7 @@ void() touch_power_Switch =
 		}
 
 		Turn_Lights ();
-		
+
 	}
 }
 void() power_switch =
@@ -631,7 +672,7 @@ void()	box_open6		=[	6,	box_open7	] { self.frame = 6;updateBoxGlow();};
 void()	box_open7		=[	7,	box_open8	] { self.frame = 7;updateBoxGlow();};
 void()	box_open8		=[	8,	SUB_Null	] { self.frame = 8;updateBoxGlow();};
 
-void() resetbox = 
+void() resetbox =
 {
 	self.frame = 0;
 	self.boxstatus = 0;
@@ -646,7 +687,7 @@ void()	box_close4	=[	12,	resetbox	] { self.frame = 12;updateBoxGlow();};
 float colt, kar, db,bar, mg, ray, thomp, flame, ppsh, sawn, tesla, m1a1, ptrs, panz, stg, mp40, revolver, gewehr, fg, browning, kars, bknife, trench, m1, type100;
 
 float (float r) Getweaponid =
-{	
+{
 	if (r == 1)
 		return W_RAY;
 	else if (r == 2)
@@ -715,7 +756,7 @@ float() randomweapon = //this function is for making random box weapon system, c
 	else if (r == 2)
 	{
 		if (colt)
-			return 2;	
+			return 2;
 		else
 			return randomweapon();
 	}
@@ -882,7 +923,7 @@ float() randomweapon = //this function is for making random box weapon system, c
 	}
 	else
 		return randomweapon();
-	
+
 };
 
 float CheckWeapon (float w, entity user) =
@@ -932,7 +973,7 @@ void() Float_Decrease =
 }
 
 void() findboxspot =
-{	
+{
 	entity newspot = findfloat(world, visited, 1); // we are LOOKING to visit
 	if (!newspot) {
 		newspot = findfloat(world, visited, 2);
@@ -943,14 +984,14 @@ void() findboxspot =
 		}
 	}
 	newspot = findfloat(world, visited, 1);
-	
+
 	self.owner.model = "progs/Misc/teddy.mdl";
 	setmodel(self.owner, self.owner.model);
 	self.owner.classname = "mystery_box_tp_spot";
 	self.owner.touch = SUB_Null;
 	self.owner.visited = 2;		// we HAVE visited
 	self.owner.angles_y -= 90;
-	
+
 	newspot.angles_y += 90;
 	if (!(self.owner.spawnflags & 2))
 	{
@@ -961,9 +1002,9 @@ void() findboxspot =
 		setorigin(g,newspot.origin);
 		g.angles = newspot.angles;
 	}
-	
+
 	remove(self);      // remove teddy
-	
+
 	newspot.spins = 0;
 	newspot.boxstatus = 0;
 	newspot.touch = mystery_touch;
@@ -1011,9 +1052,9 @@ void() Float_Change =
 			}
 			else
 				teddygen = 0;
-				
+
 		self.velocity = '0 0 0';
-		
+
 		if (!teddygen || teddygen < 0.9 || firesale_finished) {		//teddy gen threshold, high means less chance
 			self.owner.boxstatus = 2;
 			self.weapon = r;
@@ -1058,22 +1099,22 @@ void() Create_Floating_Weapon =
 		r = Getweaponid(tempf);
 	}
 	temps = GetWeaponModel(r, 1);
-		
+
 	gun = spawn();
-	
+
 	setorigin (gun, self.origin);
 	setmodel (gun, temps);
 	setsize (gun, '0 0 0', '0 0 0');
 	gun.angles = self.angles;
-	
+
 	gun.movetype = MOVETYPE_NOCLIP;
 	gun.solid = SOLID_NOT;
 	makevectors(self.angles);
 	gun.velocity = v_up*15;
-	
+
 	gun.owner = self;
 	self.boxweapon = gun;
-	
+
 	gun.ltime = time+2;
 	gun.boxstatus = 0.01;
 	gun.wait = time + 5;
@@ -1084,22 +1125,22 @@ void() Create_Floating_Weapon =
 		remove(gun);
 }
 
-void() mystery_box_tp_spot = 
+void() mystery_box_tp_spot =
 {
 	entity mbox;
 	mbox = find(world, classname, "mystery");
-	if (!mbox)	
+	if (!mbox)
 		remove(self);		// if we don't have a mystery box why do we have a teleport spot
-		
-	precache_model ("progs/Misc/teddy.mdl"); 
-	
+
+	precache_model ("progs/Misc/teddy.mdl");
+
 	self.solid=SOLID_TRIGGER;
 	self.classname = "mystery_box_tp_spot";
 	self.visited = 1;
 	setorigin(self, self.origin);
 	setmodel (self, "progs/Misc/teddy.mdl");
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
-	
+
 	if (self.model == "progs/Misc/teddy.mdl")
 		self.angles_y -= 90;
 };
@@ -1117,20 +1158,20 @@ void() mystery_touch =
 
 	if (other.classname != "player" || other.downed)
 		return;
-		
+
 	if (!self.boxstatus) {
 		useprint (other, 6, self.cost2, 0);
 	}
 	if (self.boxstatus == 2 && self.owner == other) {
 		useprint (other, 7, 0, 0);
 	}
-	
+
 	if (other.button7 && !other.semiuse)
 	{
 		if (!self.boxstatus)
 		{
 			if (other.points >= self.cost2)
-			{					
+			{
 				sound (self, CHAN_ITEM, "sounds/machines/mbox_open.wav", 1, ATTN_NORM);
 				addmoney(other, -self.cost2, FALSE);
 				self.boxstatus = 1;
@@ -1155,29 +1196,29 @@ void() mystery_touch =
 				self.boxstatus = 0;
 				self.owner = world;
 				if (other.weapon != self.boxweapon.weapon && other.secondaryweapon != self.boxweapon.weapon && other.secondaryweapon)
-				{		
+				{
 					if (other.weapon == other.isthird)
 						other.isthird = self.boxweapon.weapon;
 					other.weapon = self.boxweapon.weapon;
-          			other.currentammo = getWeaponAmmo(self.boxweapon.weapon);
+          			other.currentammo = getWeaponAmmo(other, self.boxweapon.weapon);
 					other.currentmag = getWeaponMag(self.boxweapon.weapon);
 					other.weaponskin = 0;
 				}
 				else if (other.weapon == self.boxweapon.weapon)
 				{
-					other.currentammo = getWeaponAmmo(self.boxweapon.weapon);
+					other.currentammo = getWeaponAmmo(other, self.boxweapon.weapon);
 					other.currentmag = getWeaponMag(self.boxweapon.weapon);
 				}
 				else if (other.secondaryweapon == self.boxweapon.weapon)
 				{
-					other.secondaryammo = getWeaponAmmo(self.boxweapon.weapon);
+					other.secondaryammo = getWeaponAmmo(other, self.boxweapon.weapon);
 					other.secondarymag = getWeaponMag(self.boxweapon.weapon);
 				}
 				else if (!other.secondaryweapon)
 				{
 					WeaponSwitch(other);
 					other.weapon = self.boxweapon.weapon;
-					other.currentammo = getWeaponAmmo(self.boxweapon.weapon);
+					other.currentammo = getWeaponAmmo(other, self.boxweapon.weapon);
 					other.currentmag = getWeaponMag(self.boxweapon.weapon);
 					other.weaponskin = GetWepSkin(self.boxweapon.weapon);
 					other.isthird = 0;
@@ -1185,7 +1226,7 @@ void() mystery_touch =
 				if (other.thirdweapon == 0 && other.secondaryweapon && (other.perks & P_MULE)) {
 					other.thirdweapon = self.boxweapon.weapon;
 					other.thirdmag = getWeaponMag(other.thirdweapon);
-					other.thirdammo = getWeaponAmmo(other.thirdweapon);
+					other.thirdammo = getWeaponAmmo(other, other.thirdweapon);
 					other.isthird = other.thirdweapon;
 					WeaponSwitch(other);
 					WeaponSwitch(other);
@@ -1209,14 +1250,14 @@ void() mystery_touch =
 
 void() Load_Mbox_Data =
 {
-    
+
 	local float file;
 	local string h;
 	string temps;
 	h = strcat(mapname,  ".mbox");
 	h = strcat("maps/",  h);
 	file = fopen (h, FILE_READ);
-	
+
 	if (file == -1) {
 		colt = kar = db =bar = mg = ray = thomp = flame = ppsh = sawn = tesla = m1a1 = ptrs = panz = stg = mp40 = revolver = gewehr = fg = browning = kars = bknife = trench = m1 = type100 = 1;
 	} else {
@@ -1481,16 +1522,16 @@ void() mystery_box =
 
 	precache_model ("models/machines/mystery.mdl");
 	precache_model ("models/machines/mglow$.mdl");
-	precache_model ("progs/Misc/teddy.mdl"); 
-	precache_sound ("sounds/machines/mbox_open.wav"); 
-	precache_sound ("sounds/machines/mbox_close.wav"); 
-	
+	precache_model ("progs/Misc/teddy.mdl");
+	precache_sound ("sounds/machines/mbox_open.wav");
+	precache_sound ("sounds/machines/mbox_close.wav");
+
 	self.solid=SOLID_TRIGGER;
 	self.classname = "mystery";
 	setorigin(self, self.origin);
 	setmodel (self, "models/machines/mystery.mdl");
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
-	
+
 	if (!(self.spawnflags & 2))
 	{
 		//self.effects = EF_BLUELIGHT;
@@ -1545,7 +1586,7 @@ void PapSendOut() {
     makevectors(self.angles);
 	setorigin(self.goaldummy, self.origin);
     self.goaldummy.velocity = v_forward*25;
-    
+
     self.goaldummy.think = velocity_reduce_output;
     self.goaldummy.nextthink = time + 1;
 
@@ -1556,13 +1597,13 @@ void PapSendOut() {
 
 void PapUpgrade(entity pap, entity buyer) {
    	entity tempe;
-   	string modelname; 
+   	string modelname;
 
 	tempe = self;
 	self = buyer;
 	addmoney (self, -pap.cost, 0);
 
-	//////////WepModel IN Floating test////////    
+	//////////WepModel IN Floating test////////
 
 	entity floatmodelin;
 
@@ -1584,7 +1625,7 @@ void PapUpgrade(entity pap, entity buyer) {
 
 	floatmodelin.owner = pap;
     floatmodelin.velocity = v_forward*-25;
-    
+
     floatmodelin.think = velocity_reduce_output_in;
     floatmodelin.nextthink = time + 1;
 
@@ -1618,20 +1659,20 @@ void PapUpgrade(entity pap, entity buyer) {
 	self = tempe;
 
 	self.papState = 1;
-	
+
 }
 
 void touch_pap() {
-  
+
 	if (other.classname != "player" || other.downed) {
 		return;
 	}
-    
+
 	if (self.requirespower == true && !isPowerOn) {
 		useprint (other, 8, 0, 0);
 		return;
 	}
-  
+
 	if (!self.papState) {
 		if (IsPapWeapon(other.weapon) == 1) {
 			return;
@@ -1640,7 +1681,7 @@ void touch_pap() {
 		if (other.points >= self.cost && other.button7 && other.weapon)
 		{
 			PapUpgrade(self, other);
-		
+
 		}
 		else if (other.button7 && other.weapon) {
 			centerprint (other, "Not enough points\n");
@@ -1658,7 +1699,7 @@ void touch_pap() {
 			}
 
 			other.weapon = EqualPapWeapon(self.weapon);
-			other.currentammo = getWeaponAmmo(other.weapon);
+			other.currentammo = getWeaponAmmo(other, other.weapon);
 			other.currentmag = getWeaponMag(other.weapon);
 
 			if (IsDualWeapon(other.weapon)) {
@@ -1677,11 +1718,11 @@ void touch_pap() {
 			reset_pap();
 		}
 	}
-}	
+}
 
-void() perk_pap = 
-{ 
-	entity tempe; 
+void() perk_pap =
+{
+	entity tempe;
 
 	tempe = find (world, classname, "power_switch");// trigger all paired doors
 
@@ -1714,10 +1755,10 @@ void() GiveBlood =
 		self.nextthink = time + 2.5;
 		return;
 	}
-	if ((self.owner.currentammo < (getWeaponAmmo(self.owner.weapon))) && (self.owner.currentammo + 3 <= getWeaponAmmo(self.owner.weapon)))
+	if ((self.owner.currentammo < (getWeaponAmmo(self.owner, self.owner.weapon))) && (self.owner.currentammo + 3 <= getWeaponAmmo(self.owner, self.owner.weapon)))
 		self.owner.currentammo += 3;
 	else
-		self.owner.currentammo = getWeaponAmmo(self.owner.weapon);
+		self.owner.currentammo = getWeaponAmmo(self.owner, self.owner.weapon);
 	self.think = GiveBlood;
 	self.nextthink = time + 2.5;
 }

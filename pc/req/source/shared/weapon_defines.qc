@@ -163,6 +163,8 @@ string(float perk) GetPerkName =
 			return "Deadshot Daiquiri";
 		case 9:
 			return "Blood Bullets";
+		case 10:
+			return "Candolier Cola";
 		default:
 			return "NULL";
 	}
@@ -360,108 +362,144 @@ float(float wep) getWeaponMag =
 	return 0;
 }
 
-float(float wep) getWeaponAmmo =
+float(entity who, float wep) getWeaponAmmo =
 {
-
+	local float reserve;
 	switch (wep)
 	{
 		case W_COLT:
-			return 80;
 		case W_BIATCH:
-			return 80;
+			reserve = 80;
+			break;
 		case W_KAR:
-			return 50;
+			reserve = 50;
+			break;
     	case W_ARMAGEDDON:
-			return 60;
+			reserve = 60;
+			break;
 		case W_THOMPSON:
-			return 200;
+			reserve = 200;
+			break;
 		case W_GIBS:
-			return 250;
+			reserve = 250;
+			break;
 		case W_357:
 		case W_KILLU:
-			return 80;
+			reserve = 80;
+			break;
 		case W_BAR:
-			return 140;
+			reserve = 140;
+			break;
 		case W_WIDOW:
-			return 180;
+			reserve = 180;
+			break;
 		case W_BROWNING:
-			return 500;
+			reserve = 500;
+			break;
 		case W_ACCELERATOR:
-			return 750;
+			reserve = 750;
+			break;
 		case W_DB:
-			return 60;
+			reserve = 60;
+			break;
 		case W_BORE:
-			return 60;
+			reserve = 60;
+			break;
 		case W_FG:
-			return 192;
+			reserve = 192;
+			break;
 		case W_IMPELLER:
-			return 400;
+			reserve = 400;
+			break;
 		case W_GEWEHR:
-			return 120;
+			reserve = 120;
+			break;
 		case W_COMPRESSOR:
-			return 170;
+			reserve = 170;
+			break;
 		case W_KAR_SCOPE:
-			return 50;
+			reserve = 50;
+			break;
 		case W_HEADCRACKER:
-			return 100;
+			reserve = 100;
+			break;
 		case W_M1:
-			return 128;
+			reserve = 128;
+			break;
 		case W_M1000:
-			return 150;
+			reserve = 150;
+			break;
 		case W_M1A1:
-			return 120;
+			reserve = 120;
+			break;
 		case W_WIDDER:
-			return 150;
+			reserve = 150;
+			break;
 		case W_M2:
-      		return 200;
 		case W_FIW:
-      		return 200;
+      		reserve = 200;
+			break;
 		case W_MP40:
-			return 192;
 		case W_AFTERBURNER:
-			return 192;
+			reserve = 192;
+			break;
 		case W_MG:
-			return 500;
+			reserve = 500;
+			break;
 		case W_BARRACUDA:
-			return 750;
+			reserve = 750;
+			break;
 		case W_PANZER:
-			return 20;
+			reserve = 20;
+			break;
 		case W_LONGINUS:
-			return 30;
+			reserve = 30;
+			break;
 		case W_PPSH:
-			return 355;
+			reserve = 355;
+			break;
 		case W_REAPER:
-			return 700;
+			reserve = 700;
+			break;
 		case W_PTRS:
-			return 60;
 		case W_PENETRATOR:
-			return 60;
+			reserve = 60;
+			break;
 		case W_RAY:
-			return 160;
+			reserve = 160;
+			break;
 		case W_PORTER:
-			return 160;
+			reserve = 200;
+			break;
 		case W_SAWNOFF:
-			return 60;
 		case W_SNUFF:
-			return 60;
+			reserve = 60;
+			break;
 		case W_STG:
-			return 180;
+			reserve = 180;
+			break;
 		case W_SPATZ:
-			return 300;
+			reserve = 300;
+			break;
 		case W_TRENCH:
-			return 60;
 		case W_GUT:
-			return 60;
+			reserve = 60;
 		case W_TYPE:
-			return 160;
+			reserve = 160;
+			break;
 		case W_SAMURAI:
-			return 220;
+			reserve = 220;
+			break;
 		case W_M14:
-			return 96;
+			reserve = 96;
+			break;
 		case W_MNESIA:
-			return 196;
+			reserve = 196;
+			break;
 	}
-	return 0;
+	if (who.perks & P_CANDO)
+		reserve += getWeaponMag(wep)*2;
+	return reserve;
 }
 
 
@@ -1331,7 +1369,7 @@ float(float wep, float frametype) GetFrame =
 					return 33;
 				case RELOAD_CANCEL:
 					return 21;
-			}	
+			}
 			break;
 		case W_THOMPSON:
 		case W_GIBS:
@@ -2366,7 +2404,7 @@ float(float wep) GetWepSkin = {
 }
 
 
-float(float wep)  EqualNonPapWeapon = 
+float(float wep)  EqualNonPapWeapon =
 {
 
 	switch (wep) {
@@ -2422,7 +2460,7 @@ float(float wep)  EqualNonPapWeapon =
 			return 0;
 	}
 }
-float(float wep)  EqualPapWeapon = 
+float(float wep)  EqualPapWeapon =
 {
 
 	switch (wep) {
@@ -3260,7 +3298,7 @@ float(float weapon) CrossHairWeapon =
 		case W_MNESIA:
 			return 10;
 	}
-	return 0;	
+	return 0;
 }
 
 float(float weapon) CrossHairMaxSpread =
@@ -3432,7 +3470,7 @@ int(int weapon, int type) GetLowAmmo = // determine what ammo value you should h
 {
 	switch (weapon)
 	{
-		case W_COLT: if (type) return 2; else return 16; 
+		case W_COLT: if (type) return 2; else return 16;
 		case W_KAR: if (type) return 1; else return 10;
 		case W_KAR_SCOPE: if (type) return 1; else return 10;
 		case W_M1A1: if (type) return 4; else return 24;
@@ -3442,15 +3480,15 @@ int(int weapon, int type) GetLowAmmo = // determine what ammo value you should h
 		case W_BAR: if (type) return 6; else return 28;
 		case W_BIATCH: if (type) return 2; else return 16;
 		case W_FG: if (type) return 8; else return 32;
-		case W_357: if (type) return 2; else return 12; 
+		case W_357: if (type) return 2; else return 12;
 		case W_BROWNING: if (type) return 25; else return 125;
 		case W_GEWEHR: if (type) return 3; else return 20;
 		case W_M1: if (type) return 2; else return 24;
-		case W_MP40: if (type) return 8; else return 64; 
+		case W_MP40: if (type) return 8; else return 64;
 		case W_MG: if (type) return 25; else return 125;
 		case W_PANZER: if (type) return 0; else return 4;
 		case W_PPSH: if (type) return 25; else return 71;
-		case W_PTRS: if (type) return 2; else return 12; 
+		case W_PTRS: if (type) return 2; else return 12;
 		case W_RAY: if (type) return 5; else return 40;
 		case W_STG: if (type) return 12; else return 60;
 		case W_TRENCH: if (type) return 2; else return 12;

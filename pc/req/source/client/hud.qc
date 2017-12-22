@@ -1,19 +1,19 @@
 //*********************************************************************/
 //							HUD Drawing Code						   /
 //																	   /
-//*********************************************************************/			
+//*********************************************************************/
 
 
 /*******************
 *    HUD_Health   *
 *******************/
 
-void(float width, float height) HUD_Health = 
+void(float width, float height) HUD_Health =
 {
-	local float health;	
+	local float health;
 	float alpha;
-	
-	health = getstatf(STAT_HEALTH); 
+
+	health = getstatf(STAT_HEALTH);
 
 	if (health < 100)
 	{
@@ -23,16 +23,16 @@ void(float width, float height) HUD_Health =
 		float modifier = (sin(time * 10) * 20) - 20;//always negative
 		if(modifier < -35.0)
 		modifier = -35.0;
-    
+
 		alpha += modifier;
-    
+
 		if(alpha < 0.0)
 			return;
 		float color = 255.0 + modifier;
-    
+
 		drawpic([0,0,0], "gfx/hud/blood.tga", [width, height, 0], [10,0,0], alpha/2000); // naievil -- alpha factor division here makes it easy to use legacy code
 	}
-	
+
 }
 
 /*===============
@@ -74,19 +74,19 @@ void(float width, float height) HUD_Ammo =
 	local float ammo, curmag, benis, benis2;
 	string ammostring, ammostring_1, ammostring_2;
 	vector color;
-	
-	curmag = getstatf(STAT_CURRENTMAG);		
-	ammo = getstatf(STAT_AMMO);	
-	
+
+	curmag = getstatf(STAT_CURRENTMAG);
+	ammo = getstatf(STAT_AMMO);
+
 	benis = strlen(ftos(ammo));
 	benis2 = strlen(ftos(curmag));
 	benis = benis + benis2;
-	
+
 	if (GetLowAmmo(getstatf(STAT_ACTIVEWEAPON), 1) >= getstatf(STAT_CURRENTMAG))
 		color = [215/255, 0, 0];
 	else
 		color = [1, 1, 1];
-	
+
 	if (GetLowAmmo(getstatf(STAT_ACTIVEWEAPON), 0) >= getstatf(STAT_AMMO))
 		vector color_2 = [215/255, 0, 0];
 	else
@@ -95,7 +95,7 @@ void(float width, float height) HUD_Ammo =
 
 	if (IsDualWeapon(getstatf(STAT_ACTIVEWEAPON))) {
 		float curmag2 = getstatf(STAT_CURRENTMAG2);
-		
+
 		ammostring = strcat(ftos(curmag2), " ", ftos(curmag), "/", ftos(ammo));
 		drawstring([width - (42/480)*width - (benis*20*width/1024), 0.96*height, 0], ammostring, [0.02*width, 0.02*width, 0], [1,1,1], 1, 1);
 	} else {
@@ -110,7 +110,7 @@ void() HUD_AmmoString =
 {
 	vector textcolor = [1, 1, 1];
 	string message = "";
-	
+
 	if (GetLowAmmo(getstatf(STAT_ACTIVEWEAPON), 1) >= getstatf(STAT_CURRENTMAG) && getstatf(STAT_WEAPONZOOM) != 2)
 	{
 		if (0 < getstatf(STAT_AMMO) && getstatf(STAT_CURRENTMAG) >= 0) {
@@ -118,7 +118,7 @@ void() HUD_AmmoString =
 			textcolor = [1, 1, 1];
 		} else if (0 < getstatf(STAT_CURRENTMAG)) {
 			message = "LOW AMMO";
-			textcolor = [219/255, 203/255, 19/255];		
+			textcolor = [219/255, 203/255, 19/255];
 		} else {
 			message = "NO AMMO";
 			textcolor = [215/255, 0, 0];
@@ -135,28 +135,28 @@ void(float width, float height) HUD_Points =
 {
 	local float pointlength = 0, increm = 10, i = 0;
 	vector TEXTCOLOR;
-	
+
 	for (i = 3; i >= 0; i = i - 1)
 	{
 		if (playerpoints[i] == -1)
 			continue;
-			
+
 		switch(i) {
 			case 1: TEXTCOLOR = TEXT_LIGHTBLUE; break;
 			case 2: TEXTCOLOR = TEXT_ORANGE; break;
 			case 3: TEXTCOLOR = TEXT_GREEN; break;
 			default: TEXTCOLOR = [1, 1, 1]; break;
 		}
-		
+
 		if ((i+1) == getstatf(STAT_PLAYERNUM)) {
 			pointlength = strlen(ftos(playerpoints[i]));
-			drawpic([0.8*width,0.70*height - (.061*height*i),0], "gfx/hud/moneyback.tga", [0.2*width, 0.07*height, 0], [1,1,1], 1); 
-			drawstring([.9414*width - pointlength*20*width/1024, 0.715*height - 0.06*height*i, 0], ftos(playerpoints[i]), [0.022*width, 0.022*width, 0], TEXTCOLOR, 1, 1); 
+			drawpic([0.8*width,0.70*height - (.061*height*i),0], "gfx/hud/moneyback.tga", [0.2*width, 0.07*height, 0], [1,1,1], 1);
+			drawstring([.9414*width - pointlength*20*width/1024, 0.715*height - 0.06*height*i, 0], ftos(playerpoints[i]), [0.022*width, 0.022*width, 0], TEXTCOLOR, 1, 1);
 		}
 		else {
 			pointlength = strlen(ftos(playerpoints[i]));
-			drawpic([0.85*width,0.70*height - (.071*height*i*0.8),0], "gfx/hud/moneyback.tga", [0.2*width*0.8, 0.07*height*0.8, 0], [1,1,1], 1); 
-			drawstring([.97*width - pointlength*20*width/1024, 0.715*height - 0.07*height*i*0.8, 0], ftos(playerpoints[i]), [0.022*width*0.8, 0.022*width*0.8, 0], TEXTCOLOR, 1, 1); 
+			drawpic([0.85*width,0.70*height - (.071*height*i*0.8),0], "gfx/hud/moneyback.tga", [0.2*width*0.8, 0.07*height*0.8, 0], [1,1,1], 1);
+			drawstring([.97*width - pointlength*20*width/1024, 0.715*height - 0.07*height*i*0.8, 0], ftos(playerpoints[i]), [0.022*width*0.8, 0.022*width*0.8, 0], TEXTCOLOR, 1, 1);
 		}
 	}
 }
@@ -174,7 +174,7 @@ void(float width, float height) HUD_Grenades =
 	betties = getstatf(STAT_SECGRENADES);
 	drawpic([0.9*width,0.825*height,0], "gfx/hud/frag.tga", [50, 50, 0], [1,1,1], 1);
 	drawstring([0.9*width + 28, 0.825*height + 32, 0], ftos(grenades), [0.025*width, 0.025*width, 0], [1, 1, 1], 1, 1);
-	
+
 	if (betties != -1) {
 		drawpic([0.825*width,0.825*height,0], "gfx/hud/betty.tga", [50, 50, 0], [1,1,1], 1);
 		drawstring([0.825*width + 28, 0.825*height + 32, 0], ftos(betties), [0.025*width, 0.025*width, 0], [1, 1, 1], 1, 1);
@@ -198,13 +198,13 @@ float round_center_x;
 float round_center_y;
 
 void(float width, float height) HUD_Rounds =
-{	
+{
 	float roundheight = 48/272*height;
 	float roundwidth = 0.02291666*width;
-	
+
 	float roundwidth_4 = (60/480)*width;
 	float roundheight_4 = (48/272)*height;
-	
+
 	float roundheight_num = 48/272*height;
 	float roundwidth_num = 48/480*height; // naievil -- was 32, but more square makes it look better
 
@@ -214,13 +214,13 @@ void(float width, float height) HUD_Rounds =
 	int num[3];
 	x_offset = 0;
 	savex = 0;
-	
+
 	sb_round[0] = "gfx/hud/r1.tga";
 	sb_round[1] = "gfx/hud/r2.tga";
 	sb_round[2] = "gfx/hud/r3.tga";
 	sb_round[3] = "gfx/hud/r4.tga";
 	sb_round[4] = "gfx/hud/r5.tga";
-	
+
 	sb_round_num[0] = "gfx/hud/r_num0.tga";
 	sb_round_num[1] = "gfx/hud/r_num1.tga";
 	sb_round_num[2] = "gfx/hud/r_num2.tga";
@@ -233,33 +233,33 @@ void(float width, float height) HUD_Rounds =
 	sb_round_num[9] = "gfx/hud/r_num9.tga";
 
 	if (rounds_change == 1)//this is the rounds icon at the middle of the screen
-	{		
+	{
 		alphabling = alphabling + 15;
 
 		if (alphabling < 0)
 			alphabling = 0;
 		else if (alphabling > 255)
 			alphabling = 255;
-			
+
 		round_center_x = (g_width - (11*g_width/480)) /2;
 		round_center_y = (g_height - (48*g_height/272)) /2;
-		
+
 		drawpic([round_center_x,round_center_y,0], sb_round[0], [roundwidth, roundheight, 1], [107/255,1/255,0], alphabling/255);
 
 	}
 	else if (rounds_change == 2)//this is the rounds icon moving from middle
 	{
 		float round_center_y_offset, round_center_x_offset;
-				
+
 		drawpic([round_center_x + round_center_x_offset,round_center_y + round_center_y_offset,0], sb_round[0], [roundwidth,roundheight, 1], [107/255,(1/255),0], 1);
-		
+
 		round_center_x = round_center_x - (((229/108)*2 - 0.2)*(width/480)/8);
 		round_center_y = round_center_y + ((2*(height/272))/8);
 		if (round_center_x <= (5/480)*height)
 			round_center_x = (5/480)*height;
 		if (round_center_y >= (220/272)*height)
 			round_center_y = (220/272)*height;
-					
+
 	}
 	else if (rounds_change == 3)//shift to white
 	{
@@ -291,7 +291,7 @@ void(float width, float height) HUD_Rounds =
 				if (i == 4)
 				{
 					drawpic([5,height - roundheight, 0], sb_round[4], [roundwidth_4,roundheight_4, 1], [color_shift[0]/255,color_shift[1]/255,color_shift[2]/255], 1);
-					
+
 					savex = x_offset + (10*width/480);
 					x_offset = x_offset + (10*width/480);
 					continue;
@@ -317,7 +317,7 @@ void(float width, float height) HUD_Rounds =
 			{
 				num[2] = (int)(rounds/100);
 				drawpic([5 + x_offset, height - roundheight - (4*height/272),0], sb_round_num[num[2]], [roundwidth_num, roundheight_num, 1], [color_shift[0]/255,color_shift[1]/255,color_shift[2]/255], 1);
-								
+
 				x_offset = x_offset +  roundwidth_num - (8*width/480);
 			}
 			else
@@ -340,7 +340,7 @@ void(float width, float height) HUD_Rounds =
 	}
 	else if (rounds_change == 4)//blink white
 	{
-	
+
 		if (endroundchange > time)
 		{
 			blinking = ((int)(time*1000)&510) - 255;
@@ -353,8 +353,8 @@ void(float width, float height) HUD_Rounds =
 			else
 				blinking = 0;
 		}
-			
-	
+
+
 		if (rounds > 0 && rounds < 11)
 		{
 			for (i = 0; i < rounds; i = i + 1)
@@ -389,7 +389,7 @@ void(float width, float height) HUD_Rounds =
 			{
 				num[2] = (int)(rounds/100);
 				drawpic([2 + x_offset, height - roundheight - (4*height/272),0], sb_round_num[num[2]], [roundwidth_num,roundheight_num, 1], [1,1,1], blinking/255);
-					
+
 				x_offset = x_offset +  roundwidth_num - (8*width/480);
 			}
 			else
@@ -398,7 +398,7 @@ void(float width, float height) HUD_Rounds =
 			{
 				num[1] = (int)((rounds - num[2]*100)/10);
 				drawpic([2 + x_offset, height - roundheight - (4*height/272),0], sb_round_num[num[1]], [roundwidth_num,roundheight_num, 1], [1,1,1], blinking/255);
-				
+
 				x_offset = x_offset +  roundwidth_num - (8*width/480);
 			}
 			else
@@ -406,10 +406,10 @@ void(float width, float height) HUD_Rounds =
 
 			num[0] = rounds - num[2]*100 - num[1]*10;
 			drawpic([2 + x_offset, height - roundheight - (4*height/272),0], sb_round_num[num[0]], [roundwidth_num,roundheight_num, 1], [1,1,1], blinking/255);
-			
+
 			x_offset = x_offset +  roundwidth_num - (8*width/480);
 		}
-		
+
 		if (endroundchange == 0)
 			endroundchange = time + 2;
 	}
@@ -476,12 +476,12 @@ void(float width, float height) HUD_Rounds =
 	else if (rounds_change == 6)//blink white while fading back
 	{
 		endroundchange = 0;
-		
+
 		color_shift_init = 0;
 		blinking = ((int)(time*1000)&510) - 255;
-		
+
 		blinking = fabs(blinking);
-			
+
 		if (rounds > 0 && rounds < 11)
 		{
 			for (i = 0; i < rounds; i = i + 1)
@@ -489,7 +489,7 @@ void(float width, float height) HUD_Rounds =
 				if (i == 4)
 				{
 					drawpic([5, height - roundheight - (4*height/272),0], sb_round[4], [roundwidth_4,roundheight_4, 1], [1,1,1], blinking/255);
-								
+
 					savex = x_offset + (10*width/480);
 					x_offset = x_offset + (10*width/480);
 					continue;
@@ -516,7 +516,7 @@ void(float width, float height) HUD_Rounds =
 			{
 				num[2] = (int)(rounds/100);
 				drawpic([2 + x_offset, height - roundheight - (4*height/272),0], sb_round_num[num[2]], [roundwidth_num,roundheight_num, 1], [1,1,1], blinking/255);
-				
+
 				x_offset = x_offset +  roundwidth_num - (8*width/480);
 			}
 			else
@@ -671,10 +671,10 @@ void(float width, float height) HUD_Rounds =
 				num[1] = 0;
 
 			num[0] = rounds - num[2]*100 - num[1]*10;
-			
+
 			if(rounds == 0)
 				return;
-			
+
 			drawpic([2 + x_offset, height - roundheight - (4*height/272),0], sb_round_num[num[0]], [roundwidth_num,roundheight_num, 1], [107/255,1/255,0], 1);
 
 			x_offset = x_offset +  roundwidth_num - (8*width/480);
@@ -691,7 +691,7 @@ void(float width, float height) HUD_Useprint =
 
 		string usestring, usebutton;
 		float print_width, x, back_width;
-		
+
 		tokenize(findkeysforcommand("+button7"));
 		usebutton = strtoupper(keynumtostring(stof(argv(0))));
 
@@ -779,12 +779,12 @@ void(int x, int y) PerkPositionChange =
 			x -= 0.5;
 	}
 }
-	
+
 void(float width, float height) HUD_Perks =
 {
-	
+
 	int i, s;
-	int y = height - 100 - 22/*sb_round[1]->height - 22 //(round height minus perk icon height)*/;	
+	int y = height - 100 - 22/*sb_round[1]->height - 22 //(round height minus perk icon height)*/;
 	int x;
 	local float type;
 	x = 2;
@@ -800,7 +800,7 @@ void(float width, float height) HUD_Perks =
 	directory = strcat("gfx/hud/", subdir, "/");
 
 	//drawstring([0.01*width, 0.10*height, 0], ftos(perks), [0.03*width, 0.03*width, 0], [1, 1, 1], 1, 1);
-			
+
 	for (i = 0; i < 10; i = i + 1)
 	{
 		if (perk_order[i])
@@ -851,7 +851,7 @@ void(float width, float height) HUD_Perks =
 				if (type)
 					y -= 27;
 				else
-					x += 27;				
+					x += 27;
 			}
 			else if (perk_order[i] == P_MULE)
 			{
@@ -876,6 +876,13 @@ void(float width, float height) HUD_Perks =
 				else
 					x += 27;
 			}
+			else if (perk_order[i] == P_CANDO) {
+				drawpic([x,y,0], strcat(directory, "cando.tga"), [25, 25, 1], [1,1,1], 1);
+				if (type)
+					y -= 27;
+				else
+					x += 27;
+			}
 		}
 	}
 }
@@ -886,12 +893,12 @@ void(float width, float height) HUD_Perks =
 
 void(float width, float height) HUD_Weaponstring =
 {
-	string weaponstring; 
+	string weaponstring;
 	float ws_offset;
-	
+
 	weaponstring = GetWeaponName(getstatf(STAT_ACTIVEWEAPON));
 	ws_offset = (strlen(weaponstring));
-		
+
 	drawstring([0.925*width + (40*width/1024) - ws_offset*20*width/1024, 0.75*height + 10, 0], weaponstring, [0.02*width, 0.02*width, 0], [1, 1, 1], 1, 1);
 }
 
@@ -906,9 +913,9 @@ void(float width, float height) HUD_Progressbar =
 		return;
 	}
 
-	string progress; 
+	string progress;
 	local float ws_offset;
-	
+
 	progress = ftos(percent);
 	ws_offset = (strlen(progress) - 1);
 
@@ -919,8 +926,8 @@ void(float width, float height) HUD_Progressbar =
 
 	drawfill ([bar_x - 1, bar_y - 1, 0], [bar_width+2, bar_height, 0], [0, 0, 0], 0.4);
 	drawfill ([bar_x, bar_y, 0], [bar_width * percent, bar_height-2, 0], [1, 1, 1], 0.4);
-	
-	drawstring([(width - (88))/2, height*0.77 + 10, 0], "Reviving...", [0.0175*width, 0.0175*width, 0], [1, 1, 1], 1, 1); 
+
+	drawstring([(width - (88))/2, height*0.77 + 10, 0], "Reviving...", [0.0175*width, 0.0175*width, 0], [1, 1, 1], 1, 1);
 }
 
 /*******************
@@ -955,12 +962,12 @@ void() Draw_Crosshair =
 
 	if (getstatf(STAT_ACTIVEWEAPON) == 0)
 		return;
-	
+
 	if (K_BACKDOWN || K_FORWARDDOWN || K_LEFTDOWN || K_RIGHTDOWN)
 		croshhairmoving = 1;
 	else
 		croshhairmoving = 0;
-	
+
 
 	if (getstatf(STAT_WEAPONZOOM) == 2 && zoom_2_time < time)
     {
@@ -970,16 +977,16 @@ void() Draw_Crosshair =
 		drawpic([(g_width/2 - g_height/2),0,0], "gfx/hud/scope.tga", [g_height, g_height, 1], [1,1,1], 1);
 		drawfill([(g_width/2 + g_height/2),0,0],  [g_width, g_height, 0], '0 0 0', 1);
 	}
-    
+
 	if (getstatf(STAT_HEALTH) < 11)
 		return;
-		
+
 	if (crosshair_spread_time > time && crosshair_spread_time)
     {
         cur_spread = cur_spread + 10;
 		if (cur_spread >= CrossHairMaxSpread(getstatf(STAT_ACTIVEWEAPON)))
 			cur_spread = CrossHairMaxSpread(getstatf(STAT_ACTIVEWEAPON));
-		
+
 		if (!croshhairmoving)
 			cur_spread *= 1/2;
     }
@@ -1001,40 +1008,40 @@ void() Draw_Crosshair =
     {
         int x_value, y_value;
         int crosshair_offset; /*= CrossHairWeapon() + cur_spread;*/
-        
+
         /*if (sv_player->v.view_ofs[2] != 32) // naievil -- changed weapon spread if crouched or not
          crosshair_offset = CrossHairWeapon()*(.8) + cur_spread;
         else*/
          crosshair_offset = CrossHairWeapon(getstatf(STAT_ACTIVEWEAPON)) + cur_spread;
-        
+
 		if (CrossHairMaxSpread(getstatf(STAT_ACTIVEWEAPON)) < crosshair_offset || croshhairmoving)
 		{
 			crosshair_offset = CrossHairMaxSpread(getstatf(STAT_ACTIVEWEAPON));
 		}
 
 		crosshair_offset_step += (crosshair_offset - crosshair_offset_step) * 0.5;
-		if (perks & P_DEAD)
+		if (perk & P_DEAD)
 			crosshair_offset_step *= 0.65;
 
 		x_value = ((480 - 8)/2 - crosshair_offset_step)*(g_width/480);
 		y_value = ((272 - 8)/2)*g_height/272;
-		drawstring([x_value, y_value, 0], "-", [0.0175*g_width, 0.0175*g_width, 0], [1, 1, 1], 1, 1); 
+		drawstring([x_value, y_value, 0], "-", [0.0175*g_width, 0.0175*g_width, 0], [1, 1, 1], 1, 1);
 
 		x_value = ((480 - 8)/2 + crosshair_offset_step)*(g_width/480);
 		y_value = ((272 - 8)/2)*g_height/272;
-		drawstring([x_value, y_value, 0], "-", [0.0175*g_width, 0.0175*g_width, 0], [1, 1, 1], 1, 1); 
+		drawstring([x_value, y_value, 0], "-", [0.0175*g_width, 0.0175*g_width, 0], [1, 1, 1], 1, 1);
 
 		x_value = ((480 - 8)/2)*(g_width/480);
 		y_value = ((272 - 8)/2 - crosshair_offset_step)*g_height/272;
-		drawstring([x_value, y_value, 0], "|", [0.0175*g_width, 0.0175*g_width, 0], [1, 1, 1], 1, 1); 
+		drawstring([x_value, y_value, 0], "|", [0.0175*g_width, 0.0175*g_width, 0], [1, 1, 1], 1, 1);
 
 		x_value = ((480 - 8)/2)*(g_width/480);
 		y_value = ((272 - 8)/2 + crosshair_offset_step)*g_height/272;
-		drawstring([x_value, y_value, 0], "|", [0.0175*g_width, 0.0175*g_width, 0], [1, 1, 1], 1, 1); 
+		drawstring([x_value, y_value, 0], "|", [0.0175*g_width, 0.0175*g_width, 0], [1, 1, 1], 1, 1);
 
     }
     else if (/*crosshair.value && */getstatf(STAT_WEAPONZOOM) != 1 && getstatf(STAT_WEAPONZOOM) != 2) // naievil (FIXME) crosshair cvar
-		drawstring([((480 - 8)/2/480)*g_width, ((272 - 8)/2)*(g_height/272), 0], ".", [0.0175*g_width, 0.0175*g_width, 0], [1, 1, 1], 1, 1); 
+		drawstring([((480 - 8)/2/480)*g_width, ((272 - 8)/2)*(g_height/272), 0], ".", [0.0175*g_width, 0.0175*g_width, 0], [1, 1, 1], 1, 1);
 }
 
 void() HUD_Powerups = {
@@ -1052,7 +1059,7 @@ void() HUD_Broadcast = {
 
 	string broadcast_msg = "";
 	float health = getstatf(STAT_HEALTH);
-	
+
 		switch(broadcast_type) {
 			case 2: broadcast_msg = "A Player needs to be revived"; break;
 			default: broadcast_msg = "benis"; break;
@@ -1085,31 +1092,31 @@ void() HUD_Scores =
 	string subtext = "Name                             Score";
 	float xback, i, x;
 	vector TEXTCOLOR = [1, 1, 1];
-	
+
 	if(serverkey("constate") != "disconnected")
 	{
 		float print_width = stringwidth(subtext, 0, [0.015*g_width, 0.015*g_width, 0]);
 		x = (g_width - print_width)/2;
 		drawstring([x,g_height*(5/12), 0], subtext, [0.015*g_width, 0.015*g_width, 0], [1, 1, 1], 1, 1);
-	
+
 		xback = x;
-	
+
 		for (i = 0; i < 4; i = i + 1)
 		{
 			if (playerpoints[i] == -1)
 				break;
-			
+
 			switch(i) {
 				case 1: TEXTCOLOR = TEXT_LIGHTBLUE; break;
 				case 2: TEXTCOLOR = TEXT_ORANGE; break;
 				case 3: TEXTCOLOR = TEXT_GREEN; break;
 				default: TEXTCOLOR = [1, 1, 1]; break;
 			}
-			
+
 			print_width = stringwidth(ftos(playerpoints[i]), 0, [0.015*g_width, 0.015*g_width, 0]);
 			x = (g_width + (0.5*g_width) - print_width)/2;
-			drawstring([x,g_height*(5.75/12)+(i*g_width*0.03), 0], ftos(playerpoints[i]), [0.015*g_width, 0.015*g_width, 0], TEXTCOLOR, 1, 1); 
-			drawstring([xback,g_height*(5.75/12)+(i*g_width*0.03), 0], playernames[i], [0.015*g_width, 0.015*g_width, 0], TEXTCOLOR, 1, 1); 
+			drawstring([x,g_height*(5.75/12)+(i*g_width*0.03), 0], ftos(playerpoints[i]), [0.015*g_width, 0.015*g_width, 0], TEXTCOLOR, 1, 1);
+			drawstring([xback,g_height*(5.75/12)+(i*g_width*0.03), 0], playernames[i], [0.015*g_width, 0.015*g_width, 0], TEXTCOLOR, 1, 1);
 		}
 	}
 }
@@ -1118,7 +1125,7 @@ void() HUD_Endgame = {
 
 	string message = "GAME OVER";
 	string survive = strcat("You survived ",ftos(rounds)," rounds");
-	
+
 	// first message
 	float print_width = stringwidth(message, 0, [(1/30)*g_width, (1/30)*g_width, 0]);
 	float x = (g_width - print_width)/2;
@@ -1128,23 +1135,23 @@ void() HUD_Endgame = {
 	print_width = stringwidth(survive, 0, [0.025*g_width, 0.025*g_width, 0]);
 	x = (g_width - print_width)/2;
 	drawstring([x,g_height*(1/3), 0], survive, [0.025*g_width, 0.025*g_width, 0], [1, 1, 1], 1, 1);
-	
+
 	// we can reuse our tab scores for the endgame
 	HUD_Scores();
 }
 
 float oldfade_alpha;
-void() HUD_Fade = 
-{  
+void() HUD_Fade =
+{
 	float alpha;
-	
+
 	if (fade_type == 1) {
 		alpha = cos(fade_time - time);
 			if (oldfade_alpha > 0.95)
 			alpha = 1;
-			
+
 			alpha = invertfloat(alpha);
-						
+
 		drawfill ([0, 0, 0], [g_width, g_height, 0], [0, 0, 0], alpha);	// background
 		oldfade_alpha = alpha;
 	}
@@ -1152,7 +1159,7 @@ void() HUD_Fade =
 		alpha = sin(((fade_time - time) * 2));
 		if (oldfade_alpha > 0.95)
 			alpha = 1;
-				
+
 		drawfill ([0, 0, 0], [g_width, g_height, 0], [0, 0, 0], alpha);	// background
 		oldfade_alpha = alpha;
 	}
@@ -1194,7 +1201,7 @@ void(float width, float height) HUD_PlayerName =
 			p3 = "Nixon";
 			p3o = 0.730;
 			p4 = "Castro";
-			p4o = 0.725; 
+			p4o = 0.725;
 			break;
 		case 3:
 			p1 = "Gellar";
@@ -1204,7 +1211,7 @@ void(float width, float height) HUD_PlayerName =
 			p3 = "Trejo";
 			p3o = 0.730;
 			p4 = "Rooker";
-			p4o = 0.725; 
+			p4o = 0.725;
 			break;
 		case 4:
 			p1 = "Stuhlinger";
@@ -1214,7 +1221,7 @@ void(float width, float height) HUD_PlayerName =
 			p3 = "Misty";
 			p3o = 0.730;
 			p4 = "Russman";
-			p4o = 0.700; 
+			p4o = 0.700;
 			break;
 		case 5:
 			p1 = "Finn";
@@ -1224,7 +1231,7 @@ void(float width, float height) HUD_PlayerName =
 			p3 = "DeLuca";
 			p3o = 0.725;
 			p4 = "Billy";
-			p4o = 0.730; 
+			p4o = 0.730;
 			break;
 		case 6:
 			p1 = "Campbell";
@@ -1234,7 +1241,7 @@ void(float width, float height) HUD_PlayerName =
 			p3 = "Nero";
 			p3o = 0.750;
 			p4 = "Vincent";
-			p4o = 0.700; 
+			p4o = 0.700;
 			break;
 	}
 
@@ -1276,13 +1283,13 @@ void(float width, float height) HUD_PlayerName =
 	}
 
 	drawstring([plroffset*width, 0.725*height, 0], pname, [0.015*width, 0.015*width, 0], [1, 1, 1], 1, 1);
-} 
+}
 
 /*******************
 *     HUD Draw     *
 *******************/
 
-void(float width, float height) HUD_Draw = 
+void(float width, float height) HUD_Draw =
 {
 	if (mapname == "menu") {
 		in_menu = MENU_MAIN;
@@ -1307,7 +1314,7 @@ void(float width, float height) HUD_Draw =
 			HUD_MAXAMMO();
 		}
 		HUD_Progressbar(width, height);
-	
+
 		if (HUD_Change_time > time && getstatf(STAT_ACTIVEWEAPON) != AL)
 		{
 			HUD_ALCount(width, height);
@@ -1316,78 +1323,83 @@ void(float width, float height) HUD_Draw =
 			HUD_Weaponstring(width, height);
 			HUD_PlayerName(width, height);
 		}
-			
-		if (useprint_time > time) 
+
+		if (useprint_time > time)
 			HUD_Useprint(width, height);
-		
+
 		if (Hitmark_time > time)
 			HUD_Hitmark();
 	}
-	
+
 	// Only keep broadcast messages outside in case they are important
 	if (broadcast_time > time)
 		HUD_Broadcast();
-	
+
 	if (getstatf(STAT_HEALTH) <= 10 && getstatf(STAT_SPECTATING) && !find(world, classname, "ai_zombie"))
 		HUD_Endgame();
-		
+
 	if (score_show)
 		HUD_Scores();
-		
+
 	if (fade_time > time)
 		HUD_Fade();
 }
 
 void UpdatePerks (float newperks) {
 	float s;
-	if (newperks & P_JUG && !(perks & P_JUG))
+	if (newperks & P_JUG && !(perk & P_JUG))
 	{
 		perk_order[current_perk_order] = P_JUG;
 		current_perk_order = current_perk_order + 1;
 	}
-	if (newperks & P_DOUBLE && !(perks & P_DOUBLE))
+	if (newperks & P_DOUBLE && !(perk & P_DOUBLE))
 	{
 		perk_order[current_perk_order] = P_DOUBLE;
 		current_perk_order = current_perk_order + 1;
 	}
-	if (newperks & P_SPEED && !(perks & P_SPEED))
+	if (newperks & P_SPEED && !(perk & P_SPEED))
 	{
 		perk_order[current_perk_order] = P_SPEED;
 		current_perk_order = current_perk_order + 1;
 	}
-	if (newperks & P_REVIVE && !(perks & P_REVIVE))
+	if (newperks & P_REVIVE && !(perk & P_REVIVE))
 	{
 		perk_order[current_perk_order] = P_REVIVE;
 		current_perk_order = current_perk_order + 1;
 	}
-	if (newperks & P_FLOP && !(perks & P_FLOP))
+	if (newperks & P_FLOP && !(perk & P_FLOP))
 	{
 		perk_order[current_perk_order] = P_FLOP;
 		current_perk_order = current_perk_order + 1;
 	}
-	if (newperks & P_STAMIN && !(perks & P_STAMIN))
+	if (newperks & P_STAMIN && !(perk & P_STAMIN))
 	{
 		perk_order[current_perk_order] = P_STAMIN;
 		current_perk_order = current_perk_order + 1;
 	}
-	if (newperks & P_MULE && !(perks & P_MULE))
+	if (newperks & P_MULE && !(perk & P_MULE))
 	{
 		perk_order[current_perk_order] = P_MULE;
 		current_perk_order = current_perk_order + 1;
 	}
-	if (newperks & P_DEAD && !(perks & P_DEAD))
+	if (newperks & P_DEAD && !(perk & P_DEAD))
 	{
 		perk_order[current_perk_order] = P_DEAD;
 		current_perk_order = current_perk_order + 1;
 	}
-	if (newperks & P_BLOOD && !(perks & P_BLOOD))
+	if (newperks & P_BLOOD && !(perk & P_BLOOD))
 	{
 		perk_order[current_perk_order] = P_BLOOD;
 		current_perk_order = current_perk_order + 1;
 	}
-	if (perks & P_JUG && !(newperks & P_JUG))
+	if (newperks & P_CANDO && !(perk & P_CANDO))
 	{
-		for (s = 0; s < 10; s++)
+		perk_order[current_perk_order] = P_CANDO;
+		current_perk_order = current_perk_order + 1;
+	}
+	if (perk & P_JUG && !(newperks & P_JUG))
+	{
+		for (s = 0; s < 11; s++)
 		{
 			if (perk_order[s] == P_JUG)
 			{
@@ -1402,9 +1414,9 @@ void UpdatePerks (float newperks) {
 		}
 		current_perk_order = current_perk_order - 1;
 	}
-	if (perks & P_DOUBLE && !(newperks & P_DOUBLE))
+	if (perk & P_DOUBLE && !(newperks & P_DOUBLE))
 	{
-		for (s = 0; s < 10; s++)
+		for (s = 0; s < 11; s++)
 		{
 			if (perk_order[s] == P_DOUBLE)
 			{
@@ -1419,9 +1431,9 @@ void UpdatePerks (float newperks) {
 		}
 		current_perk_order = current_perk_order - 1;
 	}
-	if (perks & P_SPEED && !(newperks & P_SPEED))
+	if (perk & P_SPEED && !(newperks & P_SPEED))
 	{
-		for (s = 0; s < 10; s++)
+		for (s = 0; s < 11; s++)
 		{
 			if (perk_order[s] == P_SPEED)
 			{
@@ -1436,9 +1448,9 @@ void UpdatePerks (float newperks) {
 		}
 		current_perk_order = current_perk_order - 1;
 	}
-	if (perks & P_REVIVE && !(newperks & P_REVIVE))
+	if (perk & P_REVIVE && !(newperks & P_REVIVE))
 	{
-		for (s = 0; s < 10; s++)
+		for (s = 0; s < 11; s++)
 		{
 			if (perk_order[s] == P_REVIVE)
 			{
@@ -1453,9 +1465,9 @@ void UpdatePerks (float newperks) {
 		}
 		current_perk_order = current_perk_order - 1;
 	}
-	if (perks & P_FLOP && !(newperks & P_FLOP))
+	if (perk & P_FLOP && !(newperks & P_FLOP))
 	{
-		for (s = 0; s < 10; s++)
+		for (s = 0; s < 11; s++)
 		{
 			if (perk_order[s] == P_FLOP)
 			{
@@ -1470,9 +1482,9 @@ void UpdatePerks (float newperks) {
 		}
 		current_perk_order = current_perk_order - 1;
 	}
-	if (perks & P_STAMIN && !(newperks & P_STAMIN))
+	if (perk & P_STAMIN && !(newperks & P_STAMIN))
 	{
-		for (s = 0; s < 10; s++)
+		for (s = 0; s < 11; s++)
 		{
 			if (perk_order[s] == P_STAMIN)
 			{
@@ -1487,9 +1499,9 @@ void UpdatePerks (float newperks) {
 		}
 		current_perk_order = current_perk_order - 1;
 	}
-	if (perks & P_MULE && !(newperks & P_MULE))
+	if (perk & P_MULE && !(newperks & P_MULE))
 	{
-		for (s = 0; s < 10; s++)
+		for (s = 0; s < 11; s++)
 		{
 			if (perk_order[s] == P_MULE)
 			{
@@ -1504,9 +1516,9 @@ void UpdatePerks (float newperks) {
 		}
 		current_perk_order = current_perk_order - 1;
 	}
-	if (perks & P_DEAD && !(newperks & P_DEAD))
+	if (perk & P_DEAD && !(newperks & P_DEAD))
 	{
-		for (s = 0; s < 10; s++)
+		for (s = 0; s < 11; s++)
 		{
 			if (perk_order[s] == P_DEAD)
 			{
@@ -1521,9 +1533,9 @@ void UpdatePerks (float newperks) {
 		}
 		current_perk_order = current_perk_order - 1;
 	}
-	if (perks & P_BLOOD && !(newperks & P_BLOOD))
+	if (perk & P_BLOOD && !(newperks & P_BLOOD))
 	{
-		for (s = 0; s < 10; s++)
+		for (s = 0; s < 11; s++)
 		{
 			if (perk_order[s] == P_BLOOD)
 			{
@@ -1538,6 +1550,23 @@ void UpdatePerks (float newperks) {
 		}
 		current_perk_order = current_perk_order - 1;
 	}
-	
-	perks = newperks;
+	if (perk & P_CANDO && !(newperks & P_CANDO))
+	{
+		for (s = 0; s < 11; s++)
+		{
+			if (perk_order[s] == P_CANDO)
+			{
+				perk_order[s] = 0;
+				while (perk_order[s+1])
+				{
+					perk_order[s] = perk_order[s+1];
+					perk_order[s+1] = 0;
+				}
+				break;
+			}
+		}
+		current_perk_order = current_perk_order - 1;
+	}
+
+	perk = newperks;
 }

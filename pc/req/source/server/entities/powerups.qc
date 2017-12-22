@@ -37,15 +37,15 @@ void() firesale =
 void() maxammo =
 {
 	entity tempe, temp;
-	
+
 	tempe = find (world, classname, "player");
 	while (tempe)
-	{	
+	{
 		if (!tempe.downed)
 		{
 			if (tempe.weapon)
 			{
-				tempe.currentammo = getWeaponAmmo(tempe.weapon);
+				tempe.currentammo = getWeaponAmmo(tempe, tempe.weapon);
 				if (!tempe.currentmag)
 				{
 					temp = self;
@@ -55,10 +55,10 @@ void() maxammo =
 				}
 			}
 			if (tempe.secondaryweapon)
-				tempe.secondaryammo = getWeaponAmmo(tempe.secondaryweapon);
-			
+				tempe.secondaryammo = getWeaponAmmo(tempe, tempe.secondaryweapon);
+
 			tempe.primary_grenades = 4;
-			
+
 			if (tempe.grenades & 2)
         tempe.secondary_grenades = 2;
 		}
@@ -73,8 +73,8 @@ void() nuke =
 	local entity oldself;
 	local entity who;
 	oldself = self;
-	
-	
+
+
 	who = find(world,classname,"ai_zombie");
 	while(who != world)
 	{
@@ -84,10 +84,10 @@ void() nuke =
 			self.th_die();
 			self = oldself;
 		}
-		
+
 		who = find(who,classname,"ai_zombie");
 	}
-	
+
 	who = find(world,classname,"player");
 	while(who)
 	{
@@ -100,8 +100,8 @@ void() carpenter =
 	local entity oldself;
 	local entity who;
 	oldself = self;
-	
-	
+
+
 	who = find(world,classname,"window");
 	while(who != world)
 	{
@@ -112,15 +112,15 @@ void() carpenter =
 			who.health = 6;
 			self = oldself;
 		}
-		
+
 		who = find(who,classname,"window");
 	}
-	
+
 	who = find(world,classname,"player");
 	while(who)
 	{
 		addmoney(who,200,1);
-		
+
 		who = find(who,classname,"player");
 	}
 	total_windows_down = 0;
@@ -129,9 +129,9 @@ void() carpenter =
 void() give_perk =
 {
   local float t;
-  
+
   t = random();
-  	
+
   if (t < 0.166 && !(other.perks & P_REVIVE))
   {
   other.perks = other.perks | 8;
@@ -176,7 +176,7 @@ void() powerup_flash =
 	else if(self.flash_step == 1)
 	{
 		self.nextthink = time + 0.6;
-		
+
 		if(self.flashtime < time)
 		{
 			self.flash_step = 2;
@@ -188,14 +188,14 @@ void() powerup_flash =
 	else if(self.flash_step == 2)
 	{
 		self.nextthink = time + 0.3;
-		
+
 		if(self.flashtime < time)
 		{
 			self.flash_step = 3;
 			self.nextthink = time + 0.15;
 			self.flashtime = time + 3;
 		}
-		
+
 	}
 	else if(self.flash_step == 3)
 	{
@@ -209,7 +209,7 @@ void() powerup_flash =
 			return;
 		}
 	}
-	
+
 	if(self.model == "")
 	{
 		if(self.zombie_drop_id == 1)
@@ -235,18 +235,18 @@ void() powerup_touch =
 {
   local float t;
   local float exp;
-  
+
   if (x2_finished > time)
 	exp = 2;
   else
 	exp = 1;
-  
+
   t = random();
-  
+
 	if(other.classname == "player")
 	{
 		sound(self.owner,CHAN_VOICE,"sounds/pu/pickup.wav",1,ATTN_NONE);
-		
+
 		if(self.zombie_drop_id == 1)
 		{
 			sound(self,CHAN_VOICE,"sounds/pu/maxammo.wav",1,ATTN_NONE);
@@ -254,7 +254,7 @@ void() powerup_touch =
 		}
 		else if(self.zombie_drop_id == 2)
 		{
-			sound(self,CHAN_VOICE,"sounds/pu/double_points.wav",1,ATTN_NONE);   
+			sound(self,CHAN_VOICE,"sounds/pu/double_points.wav",1,ATTN_NONE);
 
 			x2_finished = time + 30;
 			other.x2_icon = true;
@@ -305,16 +305,16 @@ void() sparkle_think =
 		f = r;
 	}
 	self.frame = f;
-	
+
 	self.think = sparkle_think;
 	self.nextthink = time + 0.1;
-	
+
 	if(self.calc_time <= time)
 	{
 		sound(self,CHAN_VOICE,"sounds/pu/powerup.wav",0.6,ATTN_NORM);
 		self.calc_time = time + 2.998;
 	}
-	
+
 };
 
 float last_pu;
@@ -329,28 +329,28 @@ void(vector where, float type) Spawn_Powerup =
 	new_powerup.solid = SOLID_TRIGGER;
 	new_powerup.classname = "item_powerup";
 
-	
+
 	setsize (new_powerup, VEC_HULL_MIN, VEC_HULL_MAX);
 	new_powerup.movetype = MOVETYPE_NONE;
 	//new_powerup.effects = EF_GREENLIGHT;
 	//new_powerup.effects = new_powerup.effects | EF_BRIGHTLIGHT;
-	
+
 	//=================== Sparkle Effects =====================
 	entity twlt_Sparkle;
 	twlt_Sparkle = spawn();
 	new_powerup.owner = twlt_Sparkle; //just a reference so power up can delete the sparkle later on
-	
+
 	setorigin(twlt_Sparkle,where);
 	setmodel(twlt_Sparkle,"progs/Sprites/sprkle.spr");
-	
+
 	twlt_Sparkle.think = sparkle_think;
 	twlt_Sparkle.nextthink = time + 0.1;
 	sound(twlt_Sparkle,CHAN_VOICE,"sounds/pu/powerup.wav",0.6,ATTN_NORM);
-	
+
 	sound(new_powerup,CHAN_AUTO,"sounds/pu/drop.wav",1,ATTN_NONE);
 	//========================================================
 	t = random();
-	
+
 	if (!type) {
 		if (total_windows_down >= 5)
 		{
@@ -458,7 +458,7 @@ void(vector where, float type) Spawn_Powerup =
 	}
 	last_pu = new_powerup.zombie_drop_id;
 	new_powerup.touch = powerup_touch;
-	
+
 	new_powerup.think = powerup_flash;
 	new_powerup.nextthink = time + 21;
 	totalpowerups = 1;

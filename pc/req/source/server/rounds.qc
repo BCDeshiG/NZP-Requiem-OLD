@@ -88,7 +88,7 @@ void() NewRound =
 	}
 	if (rounds != 0)
 	{
-		if (gotdog && rounds == doground)
+		if (gotdog && rounds == (doground - 1))
 			playSoundAtPlayers("sounds/rounds/dog_start.wav");
 		else
 			playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/nround.wav"));

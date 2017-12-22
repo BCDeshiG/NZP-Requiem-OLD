@@ -8,11 +8,11 @@ void(vector where, float type) Spawn_Powerup;
 // player animations
 
 void() playdown 	 	=[	1,		playdown1	  	] {self.frame = 32;}
-void() playdown1  		=[	2,		playdown2	  	] {self.frame = 33;} 
-void() playdown2  		=[	2,		playdown3	  	] {self.frame = 34;} 
-void() playdown3  		=[	2,		playdown4	  	] {self.frame = 35;} 
-void() playdown4  		=[	2,		playdown5	  	] {self.frame = 36;} 
-void() playdown5  		=[	2,		playdown5	  	] {self.frame = 37;} 
+void() playdown1  		=[	2,		playdown2	  	] {self.frame = 33;}
+void() playdown2  		=[	2,		playdown3	  	] {self.frame = 34;}
+void() playdown3  		=[	2,		playdown4	  	] {self.frame = 35;}
+void() playdown4  		=[	2,		playdown5	  	] {self.frame = 36;}
+void() playdown5  		=[	2,		playdown5	  	] {self.frame = 37;}
 //
 void() playreload   	=[	1,		playreload1	  	] {self.frame = 11;}
 void() playreload1  	=[	2,		playreload2	  	] {self.frame = 12;}
@@ -30,7 +30,7 @@ void() playreload12 	=[	13,		playreload13	] {self.frame = 23;}
 void() playreload13 	=[	14,		playreload13	] {self.frame = 24;}
 //
 void() playdownfire 	=[	1,		playdownfire1	] {self.frame = 38;}
-void() playdownfire1  	=[	2,		playdownfire1	] {self.frame = 39;} 
+void() playdownfire1  	=[	2,		playdownfire1	] {self.frame = 39;}
 //
 void() playaim 	 		=[	1,		playaim1		] {self.frame = 8;} // naievil -- player aimin anim
 void() playaim1 		=[	2,		playaim1		] {self.frame = 9;} // naievil -- second player aimin anim
@@ -94,7 +94,7 @@ void() playgetup8		=[	9,		playgetup9		] {self.frame = 46;}
 void() playgetup9		=[	10,		playgetup10		] {self.frame = 47;}
 void() playgetup10		=[	11,		playgetup10		] {self.frame = 48;}
 
-//MOTO - Choose our character, but check if they're already in the game, 
+//MOTO - Choose our character, but check if they're already in the game,
 //if so, choose someone else
 void() ChooseCharacter =
 {
@@ -145,12 +145,12 @@ void() returnWeapon =
 
 void() PlayerJump =
 {
-	if (!(self.flags & FL_ONGROUND) 
+	if (!(self.flags & FL_ONGROUND)
 	    || !(self.flags & FL_JUMPRELEASED)
 		|| self.downed) {
 		return;
 	}
-			
+
 	self.flags = self.flags - (self.flags & FL_JUMPRELEASED);
 	sound(self, CHAN_VOICE, "sounds/player/jump.wav", 1, 1.75);
 	self.button2 = 0;
@@ -192,7 +192,7 @@ void() PlayerPreThink =
 				sprint(self, PRINT_HIGH, "Now spectating ");
 				sprint(self, PRINT_HIGH, self.aiment.netname);
 				sprint(self, PRINT_HIGH, "\n");
-				
+
 				self.solid = SOLID_NOT;
 				self.movetype = MOVETYPE_NONE;
 			}
@@ -211,13 +211,13 @@ void() PlayerPreThink =
 		}
 		return;
 	}
-	
+
 	if (cvar("waypoint_mode")) {
 		Waypoint_Logic();
 	} else {
 		Weapon_Logic();
 	}
-	
+
 
 	if(self.button2)
 	{
@@ -236,7 +236,7 @@ void() PlayerPostThink =
 {
 	if(self.isspec)
 		return;
-	
+
 	//landsound
 	if((self.oldvelocity_z < -10) && (self.flags & FL_ONGROUND))
 	{
@@ -244,7 +244,7 @@ void() PlayerPostThink =
 			sound(self, CHAN_BODY, "sounds/player/land.wav", 1, 1.75);
 		self.lastsound_time = time - 0.15;
 	}
-	
+
 	//footsteps
 	if((vlen(self.velocity) > 100) &&(( time - self.lastsound_time > 0.4) || (time - self.lastsound_time > 0.3 && self.sprinting)) && (self.flags & FL_ONGROUND))
 	{
@@ -253,7 +253,7 @@ void() PlayerPostThink =
 		{
 			if (!self.sprinting)
 				playwalk();
-				
+
 			local float ran = random();
 			if(ran > 0.8)
 				sound(self, CHAN_BODY, "sounds/player/footstep1.wav", 0.8, 2.5);
@@ -268,27 +268,27 @@ void() PlayerPostThink =
 			self.lastsound_time = time;
 		}
 	}
-	
+
 	if (self.health_delay < time && self.health != self.max_health && !self.downed)
 	{
 		self.health = self.health + 5;
 		if (self.max_health < self.health)
 			self.health = self.max_health;
 	}
-	
+
 	if (self.progress_bar) {
 		if (self.progress_bar < time) {
 			if (self.downed)
 				GetUp();
-			
+
 			if (self.reviving)
 				self.revived = 1;
-			
+
 			self.progress_bar = 0;
 			self.progress_bar_time = 0;
 			self.progress_bar_percent = 0;
-			
-				
+
+
 		} else {
 			float remaining = self.progress_bar - time;
 			self.progress_bar_percent = invertfloat((remaining / self.progress_bar_time));
@@ -300,7 +300,7 @@ void() PlayerPostThink =
 		if (!self.velocity) {
 			W_SprintStop();
 		}
-		
+
 		if (self.perks & P_STAMIN) {
 			self.stamina = self.stamina - 5*frametime;
 		} else {
@@ -334,7 +334,7 @@ void() ClientConnect =
 		stuffcmd(self, "sky sky\n");
 		stuffcmd(self, "fog 0.075\n"); // naievil -- temp reliable fog
 	}
-	
+
 	bprint(PRINT_HIGH, self.netname); //print player name
 	bprint(PRINT_HIGH, " connected.\n");
 };
@@ -344,44 +344,44 @@ void() PollPlayerPoints =
 	float i, breakpoint;
 	entity pollent;
 	breakpoint = 0;
-	
+
 	for (i = 1; i <= 4 && !breakpoint; i++)
 	{
 		pollent = findfloat(world, playernum, i);
-		
+
 		if (pollent == world) {
 			breakpoint = 1;
 			break;
 		}
-		
-		
+
+
 		UpdatePlayerPoints(i, pollent.points, pollent.netname, pollent);
 	}
 }
 
 void() PlayerSpawn =
-{	
+{
 	local entity spawnpoint;
-	
+
 	spawnpoint = find(world, classname, "info_player_start");
 
 	if (spawnpoint.spawnflags & 1) {
 		self.spawnal = 1;
 	}
-	
+
 	self.isspec = FALSE;
 	self.classname = "player";
 	self.solid = SOLID_SLIDEBOX;
 	setmodel(self, "models/player.mdl");
 	self.movetype = MOVETYPE_WALK;
 	self.max_health = self.health = 100;
-	
+
 	entity who = find(world,classname,"player");
 	while(who != self && !self.playernum)
 	{
 		if(who)
 		{
-			coop = 1;	
+			coop = 1;
 			player_count++;
 			break;
 		}
@@ -393,7 +393,7 @@ void() PlayerSpawn =
 		case 2: spawnpoint = find(world, classname, "info_player_takeo");  if (!spawnpoint) {spawnpoint = find(world, classname, "info_player_start");} break;
 		case 3: spawnpoint = find(world, classname, "info_player_doctor");  if (!spawnpoint) {spawnpoint = find(world, classname, "info_player_start");}  break;
 	}
-	
+
 	if (self.playernum) {
 		switch(self.playernum) {
 			default: spawnpoint = find(world, classname, "info_player_start"); if (!spawnpoint) {spawnpoint = find(world, classname, "info_player_start");} break;
@@ -402,7 +402,7 @@ void() PlayerSpawn =
 			case 3: spawnpoint = find(world, classname, "info_player_doctor");  if (!spawnpoint) {spawnpoint = find(world, classname, "info_player_start");}  break;
 	    }
 	}
-	
+
 	self.origin = spawnpoint.origin + [0,0,1];
 	self.angles = spawnpoint.angles;
 	self.fixangle = TRUE;
@@ -433,16 +433,16 @@ void() PlayerSpawn =
 		if (self.weapon == W_COLT)
 			self.currentammo = 32;
 		else
-			self.currentammo = getWeaponAmmo(self.weapon);
+			self.currentammo = getWeaponAmmo(self, self.weapon);
 	}
-	
+
 	self.grenades = self.grenades | 1;  // add frag grenades to player inventory
-	
+
 	if (rounds)
 		self.primary_grenades = 2;
 	else
 		self.primary_grenades = 0; 		// start off without grenades
-		
+
 	self.pri_grenade_state = 0; 		// defines that frag grenades are for player first, not betty
 	self.secondary_grenades = -1;		// shows that we both don't have betties AND shouldn't draw the image onscreen
 	self.alcount = -1;
@@ -466,21 +466,21 @@ void() PlayerSpawn =
 	self.reviving = 0;
 	self.weaponnum = 0;
 	self.limit = world.limit;
-	
+
 	if (self.limit == 0) {
 		self.limit = 99;
 	}
 
 	//MOTO - Customization
 	self.chartype = world.chartype;
-	
+
 	if (!self.playernum)
 		self.playernum = player_count + 1;
 
 	if (rounds < 1 && self.spawnal == 0) {
 		sound (self, CHAN_AUTO, strcat("sounds/rounds/", roundstr, "/splash.wav"), 1, ATTN_NONE);//temporarily here.
 	}
-	
+
 	PollPlayerPoints();
 	if (self.spawnal == 0)
 		PromptLevelChange(self.nextthink + 3, 1, self);
@@ -520,7 +520,7 @@ void() SpectatorSpawn =
 {
 	local entity spawnpoint;
 	spawnpoint = find(world, classname, "info_player_start");
-	
+
 	self.isspec = TRUE;
 	self.classname = "spectator";
 	self.solid = SOLID_NOT;
@@ -536,12 +536,12 @@ void() SpectatorSpawn =
 //called when a client loads a map
 void() PutClientInServer =
 {
-	
+
 	if (spawn_time > time || !rounds)
 		PlayerSpawn();
-	else 
+	else
 		SpectatorSpawn();
-	
+
 	/*stuffcmd(self, "promptjoin\n");
 	SpectatorSpawn();*/
 };
@@ -588,7 +588,7 @@ void(string com) SV_ParseClientCommand =
 			/*SpectatorSpawn();
 			bprint(PRINT_HIGH, self.netname); //print player name
 			bprint(PRINT_HIGH, " has joined the spectators.\n");*/
-			
+
 			PlayerSpawn();
 		}
 	}
@@ -622,7 +622,7 @@ void(string com) SV_ParseClientCommand =
 					string modelname;
 
 					self.weapon = wep;
-					self.currentammo = getWeaponAmmo(wep);
+					self.currentammo = getWeaponAmmo(self, wep);
 					self.currentmag = getWeaponMag(wep);
 					if (IsDualWeapon(wep)) {
 						self.currentmag2 = self.currentmag;
@@ -633,9 +633,9 @@ void(string com) SV_ParseClientCommand =
 					modelname = GetWeaponModel(wep, 0);
 
 					SwitchWeapon(wep);
-					
+
 					Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, false, S_BOTH);
-					
+
 					self.reload_delay2 = self.fire_delay2 = self.reload_delay = self.fire_delay = 0;
 				}
 			break;

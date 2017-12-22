@@ -75,7 +75,7 @@ void() button_touch =
 {
 	if (other.classname != "player")
 		return;
-	
+
 	if(self.cost)
 	{
 		if(self.state == STATE_BOTTOM||self.state == STATE_DOWN)
@@ -134,14 +134,14 @@ When a button is touched, it moves some distance in the direction of it's angle,
 void() func_button =
 {
 	SetMovedir ();
-	
+
 	self.movetype = MOVETYPE_PUSH;
 	self.solid = SOLID_BSP;
 	setmodel (self, self.model);
 
 	self.blocked = button_blocked;
 	self.use = button_use;
-	
+
 	if (self.health)
 	{
 		self.max_health = self.health;
@@ -164,7 +164,7 @@ void() func_button =
 	self.pos2 = self.pos1 + self.movedir*(fabs(self.movedir*self.size) - self.lip);
 };
 
-void() flame_update = {		
+void() flame_update = {
 	particle (self.origin, v_up, 111, 0);
 	self.think = flame_update;
 	self.nextthink = time + random()+0.1;
@@ -177,16 +177,16 @@ void() place_fire =
 };
 
 void() place_model =
-{  
+{
   precache_model (self.model);
   setmodel (self, self.model);
-  
+
 	self.skin = 0;
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
 	self.angles = self.angles;
 	self.solid = SOLID_NOT;
 	self.frame = self.sequence;
-	
+
 	if (self.spawnflags & 1)
 		self.effects = self.effects | EF_FULLBRIGHT;
 };
@@ -204,12 +204,12 @@ void () buy_weapon_touch =
 	if (other.classname != "player") {
 		return;
 	}
-	
-	if (self.weapon == other.weapon || self.weapon == other.secondaryweapon 
-	|| self.weapon == EqualNonPapWeapon(other.weapon) 
+
+	if (self.weapon == other.weapon || self.weapon == other.secondaryweapon
+	|| self.weapon == EqualNonPapWeapon(other.weapon)
 	|| self.weapon == EqualNonPapWeapon(other.secondaryweapon)) {
 
-		if (self.weapon == EqualNonPapWeapon(other.secondaryweapon) 
+		if (self.weapon == EqualNonPapWeapon(other.secondaryweapon)
 		|| self.weapon == EqualNonPapWeapon(other.weapon))
 			useprint (other, 3, 4500, other.weapon);
 		else
@@ -218,8 +218,8 @@ void () buy_weapon_touch =
 		if (!other.button7 || other.semiuse) {
 			return;
 		}
-		if ((self.weapon == other.weapon && other.currentammo >= getWeaponAmmo(self.weapon))
-			||(self.weapon == other.secondaryweapon && other.secondaryammo >= getWeaponAmmo(self.weapon))) {
+		if ((self.weapon == other.weapon && other.currentammo >= getWeaponAmmo(other, self.weapon))
+			||(self.weapon == other.secondaryweapon && other.secondaryammo >= getWeaponAmmo(other, self.weapon))) {
 				return;
 			}
 
@@ -230,20 +230,20 @@ void () buy_weapon_touch =
 		}
 
 		if (self.weapon == other.weapon || (self.weapon == EqualNonPapWeapon(other.weapon))) {
-			other.currentammo = getWeaponAmmo(self.weapon);
+			other.currentammo = getWeaponAmmo(other, self.weapon);
 		} else if (self.weapon == other.secondaryweapon || (self.weapon == EqualNonPapWeapon(other.secondaryweapon)) ) {
-			other.secondaryammo = getWeaponAmmo(self.weapon);
+			other.secondaryammo = getWeaponAmmo(other, self.weapon);
 		}
-		
+
 
 		sound(other, 0,"sounds/misc/ching.wav", 1, 1);
 		other.reload_delay = 0;
-		
+
 		if (!IsPapWeapon(other.weapon))
 			addmoney(other, -1*self.cost2, 0);
 		else
 			addmoney(other, -1*4500, 0);
-			
+
 		if (self.enemy) {
 			oldent = self;
 			self = self.enemy;
@@ -320,7 +320,7 @@ void () buy_weapon_touch =
 	else
 	{
 		entity tempe;
-      
+
 		//centerprint(other, self.message);
       	useprint (other, 4, self.cost, self.weapon);
 
@@ -347,11 +347,11 @@ void () buy_weapon_touch =
 			other.weapon = other.secondaryweapon;
 			other.secondaryweapon = tempf2;
 		} else if (other.weapon && other.secondaryweapon) {
-		
+
 			other.currentammo = 0;
 			other.currentmag = 0;
 			other.weapon = 0;
-			
+
 		}
 		if (!other.thirdweapon && (other.perks & P_MULE)) {
 			tempf = self.currentammo;
@@ -386,7 +386,7 @@ void () buy_weapon_touch =
 			self.thirdweapon = self.secondaryweapon;
 			self.secondaryweapon = tempf5;
 		}
-		
+
 		/* insert here mule kick thingy*/
 		sound(other, 0,"sounds/misc/ching.wav", 1, 1);
 		other.reload_delay = 0;
@@ -398,8 +398,8 @@ void () buy_weapon_touch =
 			self = oldent;
 		}
 		other.weapon = self.weapon;
-		
-		other.currentammo = getWeaponAmmo(self.weapon);
+
+		other.currentammo = getWeaponAmmo(other, self.weapon);
 		other.currentmag = getWeaponMag(self.weapon);
 		tempe = self;
 		self = other;
@@ -415,9 +415,9 @@ void () buy_weapon_touch =
 void() buy_weapon_link_wall =
 {
 	entity ent;
-	
+
 	ent = find (world, targetname, self.target);
-	
+
 	if (ent.classname == "weapon_wall")
 		self.enemy = ent;
 }
@@ -432,13 +432,13 @@ void() buy_weapon =
 	weaponname = GetWeaponModel(self.weapon, 1);
 	if (weaponname != "")
 		precache_model (weaponname);
-	
-	
+
+
 	precache_extra (self.weapon);
 	self.touch = buy_weapon_touch;
-	
+
 	self.think = buy_weapon_link_wall;
-	self.nextthink = time + 0.2; 
+	self.nextthink = time + 0.2;
 
 	precache_sound("sounds/misc/ching.wav");
 };
@@ -447,7 +447,7 @@ void() buy_weapon =
 
 void() BarrelExplode =
 {
-	sound (self, CHAN_WEAPON, "sounds/weapons/grenade/explode.wav", 1, ATTN_NORM);	
+	sound (self, CHAN_WEAPON, "sounds/weapons/grenade/explode.wav", 1, ATTN_NORM);
 	DamgageExplode (self, self.enemy, 500, 75, 200);//was 256 inch radius, kicked it down to 128 because 21 feet exploding radius is... a bit overkill...
 	te_explosionquad(self.origin);
 
@@ -467,11 +467,11 @@ void() barrel_hit =
 			particle (self.origin + '0 0 30', v_up*8, 111, 0);
 		else
 			particle (self.origin + '0 0 30', v_up*8, 112, 0);
-    
+
 	}
 }
 
-void() explosive_barrel = 
+void() explosive_barrel =
 {
 	precache_model ("models/props/barrel_m.mdl");
 
@@ -510,14 +510,14 @@ void() radio_hit =
 	sound (self, CHAN_ITEM, "sounds/misc/radio.wav", 1, ATTN_NORM);
 	self.nextthink = time + 1;//getSoundLen("sounds/music/tune1.wav");
 	self.think = radioPlay;
-	
+
 	if (self.radioState == 0)
 		self.radioState = 1;
 	else if (self.radioState == 1)
 		self.radioState = 0;
 }
 
-void() item_radio = 
+void() item_radio =
 {
 	precache_model ("models/props/radio.mdl");
 	precache_sound ("sounds/misc/radio.wav");
@@ -556,7 +556,7 @@ void zap_zombie () {
 		tempe = self;
 		self = other;
 		self.th_die();
-		self = tempe;	
+		self = tempe;
 	} else if (other.classname == "player") {
 		if (other.damagetimer < time) {
 			DamageHandler (other, self, 50, S_ZAPPER);
@@ -574,7 +574,7 @@ void zapper_play () {
 	}
 
 	zents.touch = zap_zombie;
-	
+
 	self.think = zapper_play;
 	self.nextthink = time + (1*random());
 }
@@ -636,12 +636,12 @@ void zapper_start(string zapper) {
 void zapper_touch () {
 	if (other.classname != "player") {
 		return;
-	}	
-    
+	}
+
 	if (self.requirespower == true && !isPowerOn) {
 		useprint (other, 8, 0, 0);
 		return;
-	}	
+	}
 
 	if (self.state == 0) {
 		useprint (other, 11, self.cost, self.weapon);
@@ -662,7 +662,7 @@ void zapper_touch () {
 }
 
 
-void() zapper_switch = 
+void() zapper_switch =
 {
 	precache_model ("models/machines/zapper/z_switch.mdl");
 	self.movetype = MOVETYPE_NONE;
@@ -675,7 +675,7 @@ void() zapper_switch =
 	self.touch = zapper_touch;
 };
 
-void() zapper_node = 
+void() zapper_node =
 {
 	precache_model ("models/machines/zapper/z_zap.mdl");
 	self.movetype = MOVETYPE_NONE;
@@ -686,7 +686,7 @@ void() zapper_node =
 	setsize (self, '-4 -4 -4', '4 4 4');
 };
 
-void() zapper_light = 
+void() zapper_light =
 {
 	precache_model ("models/machines/zapper/z_light.mdl");
 	self.movetype = MOVETYPE_NONE;
@@ -710,7 +710,7 @@ void() trigger_electro =
    Custom Teddy Code
    ================*/
 
-void() teddy_spawn = 
+void() teddy_spawn =
 {
   precache_model ("progs/Props/teddy.mdl");
 

@@ -141,6 +141,7 @@ const float EVENT_BLACKOUT = 26;
 #define 	P_MULE 		64
 #define 	P_DEAD 		128
 #define 	P_BLOOD 	256
+#define 	P_CANDO 	512
 
 #define STAT_CURRENTMAG         50
 #define STAT_CURRENTMAG2        51
@@ -172,13 +173,16 @@ const float EVENT_BLACKOUT = 26;
 #define STATE_MELEE				3
 #define STATE_PAP				4
 
+
+.float perks;
+
 //
 // invert float takes in float value between 0 and 1, inverts position
 // eg: 0.1 returns 0.9, 0.34 returns 0.66
 float invertfloat(float input) {
-	
+
 	if (input <= 0 || input >= 1)
-		return input; 					// out of boundaries 
-	
-	return (1 - input);	
+		return input; 					// out of boundaries
+
+	return (1 - input);
 }
