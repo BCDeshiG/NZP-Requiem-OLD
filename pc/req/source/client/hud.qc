@@ -855,10 +855,7 @@ void(float width, float height) HUD_Perks =
 			}
 			else if (perk_order[i] == P_MULE)
 			{
-				if (directory == "demo" || directory == "beta")	//Moto (FIXME) - Make Mule Kick themed icons for demo and beta
-					drawpic([2,y,0], "gfx/hud/bo1/mule.tga", [25, 25, 1], [1,1,1], 1);
-				else
-					drawpic([x,y,0], strcat(directory, "mule.tga"), [25, 25, 1], [1,1,1], 1);
+				drawpic([x,y,0], strcat(directory, "mule.tga"), [25, 25, 1], [1,1,1], 1);
 				if (type)
 					y -= 27;
 				else
@@ -866,10 +863,7 @@ void(float width, float height) HUD_Perks =
 			}
 			else if (perk_order[i] == P_DEAD)
 			{
-				if (directory == "demo" || directory == "beta")	//Moto (FIXME) - Make Deadshot themed icons for beta
-					drawpic([2,y,0], "gfx/hud/bo1/dead.tga", [20, 20, 1], [1,1,1], 1);
-				else
-					drawpic([x,y,0], strcat(directory, "dead.tga"), [25, 25, 1], [1,1,1], 1);
+				drawpic([x,y,0], strcat(directory, "dead.tga"), [25, 25, 1], [1,1,1], 1);
 				if (type)
 					y -= 27;
 				else
