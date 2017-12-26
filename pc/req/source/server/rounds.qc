@@ -90,8 +90,9 @@ void() NewRound =
 	{
 		if (gotdog && rounds == (doground - 1))
 			playSoundAtPlayers("sounds/rounds/dog_start.wav");
-		else
+		else {
 			playSoundAtPlayers(strcat("sounds/rounds/", roundstr, "/nround.wav"));
+		}
 		rounds_change = 6;
 		SetUpdate(self, UT_ROUNDS_CHANGE, rounds_change, 0, 0);
 		blink_return = time + 2;
@@ -119,10 +120,8 @@ void() NewRound =
 			Remaining_Zombies = Total_Zombies = 13;//13 jukkihere 42
 		else if (rounds == 4)
 			Remaining_Zombies = Total_Zombies = 18;//18 jukkihere 42
-		else if (rounds == 5 && !gotdog)
+		else if (rounds == 5)
 			Remaining_Zombies = Total_Zombies = 24;
-		else if (rounds == 5 && gotdog)
-			Remaining_Zombies = Total_Zombies = 10; // naievil -- if we have dogs then we should have the true value
 		else if (rounds == 6)
 			Remaining_Zombies = Total_Zombies = 27;
 		else if (rounds == 7)
@@ -153,7 +152,7 @@ void() NewRound =
 		localcmd("fog 0.25\n"); 
 	} else {
 		roundtype = 1;
-		localcmd(strcat("fog ", world.fog));
+		localcmd("fog", world.fog, "\n");
 	}
 
 	set_z_health(); 		//moto -- put after roundtype for dog health
@@ -192,8 +191,8 @@ void() Round_Core =
 	}
 	if (Total_Zombies > Current_Zombies && spawn_time < time)
 	{
-		if (roundtype == 2 && (Current_Zombies >= 2 || Remaining_Zombies == 0)) { //moto -- make a special statement for dogs
-			if (dogEnd == 1) {
+		if (roundtype == 2 && Current_Zombies >= 2) { //moto -- make a special statement for dogs
+			if (!Remaining_Zombies) {
 				EndRound();
 			}
 			return;

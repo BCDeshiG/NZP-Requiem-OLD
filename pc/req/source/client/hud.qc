@@ -768,18 +768,6 @@ void(float width, float height) HUD_Useprint =
 int perk_order[11];
 int current_perk_order;
 
-void(int x, int y) PerkPositionChange =
-{
-	switch(getstatf(STAT_HUDTYPE)) {
-		case 0:
-		case 1:
-			y -= 22;
-			break;
-		default:
-			x -= 0.5;
-	}
-}
-
 void(float width, float height) HUD_Perks =
 {
 
@@ -1021,7 +1009,7 @@ void() Draw_Crosshair =
 
 		crosshair_offset_step += (crosshair_offset - crosshair_offset_step) * 0.5;
 		if (perk & P_DEAD)
-			crosshair_offset_step *= 0.65;
+			crosshair_offset_step *= 0.80;
 
 		x_value = ((480 - 8)/2 - crosshair_offset_step)*(g_width/480);
 		y_value = ((272 - 8)/2)*g_height/272;

@@ -1,3 +1,52 @@
+void() removeDog =
+{
+	self.classname = "dead_dog";
+	self.aistatus = "0";
+	setmodel(self,"");
+	
+	setorigin(self,'0 0 0');
+	setorigin (self.goaldummy, '0 0 0');
+	
+	self.think = SUB_Null;
+	
+	self.goalentity = world;
+	self.enemy = world;
+	self.solid = 0;
+	self.movetype = 0;
+
+	self.outside = TRUE;
+	self.hop_step = 0;
+	self.calc_time = 0;
+	self.tries = 0;
+	self.takedamage = DAMAGE_NO;
+	self.flags = 0;
+	self.crawling = 0;
+	self.bleedingtime = 0;
+	self.owner = world;
+
+	self.spawnflags = 0;
+	
+	
+	self.yaw_speed = 0;
+	
+	self.health = 0;
+	self.th_die = SUB_Null;
+	self.th_walk = SUB_Null;
+	self.th_melee = SUB_Null;
+	self.th_idle = SUB_Null;
+	self.th_windowhop = SUB_Null;
+	
+	self.th_fall = SUB_Null;
+	self.th_falling = SUB_Null;
+	self.th_land = SUB_Null;
+	
+	self.th_jump = SUB_Null;
+	self.th_grabledge = SUB_Null;
+	self.th_diewunder = SUB_Null;
+
+	Current_Zombies--;
+};
+
 // 37 - 47
 $frame dogdeath1 dogdeath2 dogdeath3 dogdeath4 dogdeath5 dogdeath6 dogdeath7 dogdeath8
 void()	dog_deathanim		=[	$dogdeath1,		dog_deathanim2	] 	{self.frame = 37;};
@@ -7,7 +56,7 @@ void()	dog_deathanim4		=[	$dogdeath4,		dog_deathanim5	] 	{self.frame = 41;};
 void()	dog_deathanim5		=[	$dogdeath5,		dog_deathanim6	] 	{self.frame = 44;};
 void()	dog_deathanim6		=[	$dogdeath6,		dog_deathanim7	] 	{self.frame = 45;};
 void()	dog_deathanim7		=[	$dogdeath7,		dog_deathanim8	] 	{self.frame = 46;};
-void()	dog_deathanim8		=[	$dogdeath8,		SUB_Null	] 	{self.nextthink = time + 3; self.think = removeZombie;  self.frame = 36;};
+void()	dog_deathanim8		=[	$dogdeath8,		SUB_Null	] 	{self.nextthink = time + 5; self.think = removeDog;  self.frame = 36;};
 
 
 void() Dog_Walk_Setup = 
@@ -48,7 +97,7 @@ void() Dog_Death =
 	self.usedent = world;
 	
 	self.health = 0;
-	Remaining_Zombies = Remaining_Zombies - 1;
+	Remaining_Zombies -= 1;
 	
 	play_sound_z(3);
 	//Gotta' make sure we set it back down instead of glitching it up, yo'
@@ -58,7 +107,7 @@ void() Dog_Death =
 		self.s_time = 0;
 	}
 	
-	if (rounds == 5 || rounds == 10 || rounds == 15)
+	if (rounds == doground)
 	{
 		if (!Remaining_Zombies) {
 			Spawn_Powerup(self.origin + '0 0 12', 1);
@@ -67,8 +116,6 @@ void() Dog_Death =
 	}
 	
 	dog_deathanim();		// FIXME real animation
-
-	Current_Zombies--;
 };
 
 void(entity where) spawn_a_dogB =

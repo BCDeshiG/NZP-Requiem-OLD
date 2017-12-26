@@ -970,7 +970,9 @@ void(float side) W_Fire =
 	}
 	
 	//get some basic info
-	damage = getWeaponDamage(self.weapon);   
+	damage = getWeaponDamage(self.weapon);
+	if (self.perks & P_DOUBLE)
+		damage *= 2;   
 	firetype = GetFiretype (self.weapon);
 	if (side == S_RIGHT) {
 		modelname = GetWeaponModel(self.weapon, 0);
@@ -1440,6 +1442,38 @@ void(float gum) setSpecial =
 /* ================
    Dolphin Dive Code
    ================*/
+
+void() divetonuke =
+{
+	if (other.classname == "player")
+		return;
+
+	sound (self, CHAN_WEAPON, "sounds/weapons/grenade/explode.wav", 1, ATTN_NORM);	
+	DamgageExplode (self, self.owner, 756, self.dmg, 128);//was 256 inch radius, kicked it down to 128 because 21 feet exploding radius is... a bit overkill...	
+	te_explosionquad(self.origin);
+	SUB_Remove ();
+	remove(self);
+}
+
+void() followplayer =
+{
+	setorigin(self, self.owner.origin);
+	self.nextthink = time + 0.1;
+}
+
+void() divesetup =
+{
+	local entity nuke;
+	nuke = spawn();
+	setorigin(nuke, self.origin);
+	nuke.owner = self;
+	nuke.solid = SOLID_TRIGGER;
+	setmodel(nuke, "models/player.mdl");
+	nuke.touch = divetonuke;
+	nuke.think = followplayer;
+	nuke.nextthink = time + 0.1;
+}
+
 void() Dolphin_dive =		//This was written by Naievil and used in the Unofficial Patch.
 {    
  	if (self.flags & FL_WATERJUMP)
@@ -1470,6 +1504,9 @@ void() Dolphin_dive =		//This was written by Naievil and used in the Unofficial 
 	self.view_ofs = VEC_VIEW_PRONE;
 	self.button2 = 0;
 	W_SprintStop();
+
+	/*if (self.perks & P_FLOP)
+		//divesetup();*/
 }
 
 
