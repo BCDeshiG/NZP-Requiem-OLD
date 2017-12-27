@@ -39,6 +39,9 @@ void GivePerk(float perk) {
 		case P_CANDO:
 			self.perks = self.perks | 512;
 			break;
+		case P_TOMB:
+			self.perks = self.perks | 1024;
+			break;
 		default:
 			print("Unknown perk type, wtf?\n");
 	}
@@ -59,6 +62,7 @@ void() give_mulekick = { GivePerk(P_MULE); ReturnWeaponModel(); }
 void() give_deadshot = { GivePerk(P_DEAD); ReturnWeaponModel(); }
 void() give_bloodbullets = { GivePerk(P_BLOOD); ReturnWeaponModel(); }
 void() give_candolier = { GivePerk(P_CANDO); ReturnWeaponModel(); }
+void() give_tombstone = { GivePerk(P_TOMB); ReturnWeaponModel(); }
 
 
 void DrinkPerk(float perk) {
@@ -105,6 +109,10 @@ void DrinkPerk(float perk) {
 		case P_CANDO:
 			other.weaponskin = 1;
 			func = give_candolier;
+			break;
+		case P_TOMB:
+			other.weaponskin = 4;
+			func = give_tombstone;
 			break;
 		default:
 			print("Unknown perk type, wtf?\n");
@@ -213,6 +221,7 @@ void() touch_perk =
 		{
 			addmoney (other, -self.cost, 0);
 			DrinkPerk(P_JUG);
+			RemovePerk(other, P_REVIVE);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/jug.wav", 1, 1);
 
@@ -327,6 +336,19 @@ void() touch_perk =
 			centerprint(other, "Not enough points\n");
 		}
 	}
+	if (self.classname == "perk_tombstone" && !(other.perks & P_TOMB) && self.fire_delay < time)
+	{
+		useprint (other, 9, self.cost, 11);
+		if (other.points >= self.cost && other.button7)
+		{
+			addmoney(other, -self.cost, 0);
+			DrinkPerk(P_TOMB);
+		}
+		else if (other.button7)
+		{
+			centerprint(other, "Not enough points\n");
+		}
+	}
 }
 
 void() setup_perk =
@@ -353,6 +375,7 @@ void() setup_perk =
 			case "perk_deadshot":
 			case "perk_speed":
 			case "perk_candolier":
+			case "perk_tombstone":
 				self.effects = EF_GREEN;
 				break;
 			case "perk_double":
@@ -551,6 +574,25 @@ void() perk_candolier =
 	setmodel (self, "models/machines/candolier.mdl");
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
 	self.classname = "perk_candolier";
+	self.touch = touch_perk;
+
+	self.think = setup_perk;
+	self.nextthink = time + 0.1;
+
+	if (!self.cost)
+		self.cost = 3000;
+}
+
+void() perk_tombstone =
+{
+	self.solid = SOLID_TRIGGER;
+	precache_model ("models/machines/juggernog.mdl");
+	precache_model ("models.machines/v_perk.mdl");
+	precache_sound ("sounds/machines/perk_drink.wav");
+	setorigin (self, self.origin);
+	setmodel (self, "models/machines/juggernog.mdl");
+	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+	self.classname = "perk_tombstone";
 	self.touch = touch_perk;
 
 	self.think = setup_perk;

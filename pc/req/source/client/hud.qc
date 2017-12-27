@@ -871,6 +871,13 @@ void(float width, float height) HUD_Perks =
 				else
 					x += 27;
 			}
+			else if (perk_order[i] == P_TOMB) {
+				drawpic([x,y,0], strcat(directory, "tomb.tga"), [25, 25, 1], [1,1,1], 1);
+				if (type)
+					y -= 27;
+				else
+					x += 27;
+			}
 		}
 	}
 }
@@ -1385,6 +1392,11 @@ void UpdatePerks (float newperks) {
 		perk_order[current_perk_order] = P_CANDO;
 		current_perk_order = current_perk_order + 1;
 	}
+	if (newperks & P_TOMB && !(perk & P_TOMB))
+	{
+		perk_order[current_perk_order] = P_TOMB;
+		current_perk_order = current_perk_order + 1;
+	}
 	if (perk & P_JUG && !(newperks & P_JUG))
 	{
 		for (s = 0; s < 11; s++)
@@ -1543,6 +1555,23 @@ void UpdatePerks (float newperks) {
 		for (s = 0; s < 11; s++)
 		{
 			if (perk_order[s] == P_CANDO)
+			{
+				perk_order[s] = 0;
+				while (perk_order[s+1])
+				{
+					perk_order[s] = perk_order[s+1];
+					perk_order[s+1] = 0;
+				}
+				break;
+			}
+		}
+		current_perk_order = current_perk_order - 1;
+	}
+	if (perk & P_TOMB && !(newperks & P_TOMB))
+	{
+		for (s = 0; s < 11; s++)
+		{
+			if (perk_order[s] == P_TOMB)
 			{
 				perk_order[s] = 0;
 				while (perk_order[s+1])

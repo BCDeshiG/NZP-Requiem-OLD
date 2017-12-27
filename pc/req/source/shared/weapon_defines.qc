@@ -165,6 +165,8 @@ string(float perk) GetPerkName =
 			return "Blood Bullets";
 		case 10:
 			return "Candolier Cola";
+		case 11:
+			return "Tombstone Soda";
 		default:
 			return "NULL";
 	}

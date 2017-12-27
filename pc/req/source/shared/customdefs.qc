@@ -142,6 +142,7 @@ const float EVENT_BLACKOUT = 26;
 #define 	P_DEAD 		128
 #define 	P_BLOOD 	256
 #define 	P_CANDO 	512
+#define 	P_TOMB 		1024
 
 #define STAT_CURRENTMAG         50
 #define STAT_CURRENTMAG2        51
