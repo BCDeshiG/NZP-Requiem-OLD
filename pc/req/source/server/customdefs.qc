@@ -21,6 +21,7 @@ float player_count;
 //money
 .float points;
 .float cost;
+float boxcost;
 .float cost2;
 void(entity person, float expamt , float doublepoint) addmoney;
 
@@ -392,3 +393,6 @@ float songam, songcount;
 
 //motolegacy -- max ammo text
 .float maxa;
+
+
+.float oldz, dive;

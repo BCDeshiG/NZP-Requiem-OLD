@@ -43,6 +43,7 @@ const float MENU_JOIN = 32;
 const float MENU_PAUSE = 64;
 const float MENU_IGS = 128;
 const float MENU_RES = 256;
+const float MENU_COMMUNITY = 512;
 
 
 float useprint_type;

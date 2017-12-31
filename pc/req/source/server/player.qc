@@ -514,6 +514,16 @@ void() PlayerSpawn =
 
 	//MOTO - gum
 	self.meleedamage = 150;
+
+	//moto -- temp fog fixes
+	switch(mapname) {
+		case "corner":
+		case "woodhut":
+			localcmd("fog 0.1\n");
+			break;
+		default:
+			break;
+	}
 };
 
 void() SpectatorSpawn =

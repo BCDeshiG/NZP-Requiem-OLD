@@ -765,7 +765,7 @@ void(float width, float height) HUD_Useprint =
 *    HUD_Perks     *
 *******************/
 
-int perk_order[11];
+int perk_order[13];
 int current_perk_order;
 
 void(float width, float height) HUD_Perks =
@@ -1399,7 +1399,7 @@ void UpdatePerks (float newperks) {
 	}
 	if (perk & P_JUG && !(newperks & P_JUG))
 	{
-		for (s = 0; s < 11; s++)
+		for (s = 0; s < 13; s++)
 		{
 			if (perk_order[s] == P_JUG)
 			{
@@ -1416,7 +1416,7 @@ void UpdatePerks (float newperks) {
 	}
 	if (perk & P_DOUBLE && !(newperks & P_DOUBLE))
 	{
-		for (s = 0; s < 11; s++)
+		for (s = 0; s < 13; s++)
 		{
 			if (perk_order[s] == P_DOUBLE)
 			{
@@ -1433,7 +1433,7 @@ void UpdatePerks (float newperks) {
 	}
 	if (perk & P_SPEED && !(newperks & P_SPEED))
 	{
-		for (s = 0; s < 11; s++)
+		for (s = 0; s < 13; s++)
 		{
 			if (perk_order[s] == P_SPEED)
 			{
@@ -1450,7 +1450,7 @@ void UpdatePerks (float newperks) {
 	}
 	if (perk & P_REVIVE && !(newperks & P_REVIVE))
 	{
-		for (s = 0; s < 11; s++)
+		for (s = 0; s < 13; s++)
 		{
 			if (perk_order[s] == P_REVIVE)
 			{
@@ -1467,7 +1467,7 @@ void UpdatePerks (float newperks) {
 	}
 	if (perk & P_FLOP && !(newperks & P_FLOP))
 	{
-		for (s = 0; s < 11; s++)
+		for (s = 0; s < 13; s++)
 		{
 			if (perk_order[s] == P_FLOP)
 			{
@@ -1484,7 +1484,7 @@ void UpdatePerks (float newperks) {
 	}
 	if (perk & P_STAMIN && !(newperks & P_STAMIN))
 	{
-		for (s = 0; s < 11; s++)
+		for (s = 0; s < 13; s++)
 		{
 			if (perk_order[s] == P_STAMIN)
 			{
@@ -1501,7 +1501,7 @@ void UpdatePerks (float newperks) {
 	}
 	if (perk & P_MULE && !(newperks & P_MULE))
 	{
-		for (s = 0; s < 11; s++)
+		for (s = 0; s < 13; s++)
 		{
 			if (perk_order[s] == P_MULE)
 			{
@@ -1518,7 +1518,7 @@ void UpdatePerks (float newperks) {
 	}
 	if (perk & P_DEAD && !(newperks & P_DEAD))
 	{
-		for (s = 0; s < 11; s++)
+		for (s = 0; s < 13; s++)
 		{
 			if (perk_order[s] == P_DEAD)
 			{
@@ -1535,7 +1535,7 @@ void UpdatePerks (float newperks) {
 	}
 	if (perk & P_BLOOD && !(newperks & P_BLOOD))
 	{
-		for (s = 0; s < 11; s++)
+		for (s = 0; s < 13; s++)
 		{
 			if (perk_order[s] == P_BLOOD)
 			{
@@ -1552,7 +1552,7 @@ void UpdatePerks (float newperks) {
 	}
 	if (perk & P_CANDO && !(newperks & P_CANDO))
 	{
-		for (s = 0; s < 11; s++)
+		for (s = 0; s < 13; s++)
 		{
 			if (perk_order[s] == P_CANDO)
 			{
@@ -1569,7 +1569,7 @@ void UpdatePerks (float newperks) {
 	}
 	if (perk & P_TOMB && !(newperks & P_TOMB))
 	{
-		for (s = 0; s < 11; s++)
+		for (s = 0; s < 13; s++)
 		{
 			if (perk_order[s] == P_TOMB)
 			{

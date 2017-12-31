@@ -205,34 +205,38 @@ void () buy_weapon_touch =
 		return;
 	}
 
-	if (self.weapon == other.weapon || self.weapon == other.secondaryweapon
-	|| self.weapon == EqualNonPapWeapon(other.weapon)
-	|| self.weapon == EqualNonPapWeapon(other.secondaryweapon)) {
+	if (self.weapon == other.weapon || self.weapon == other.secondaryweapon || self.weapon == EqualNonPapWeapon(other.weapon) || self.weapon == EqualNonPapWeapon(other.secondaryweapon) || self.weapon == EqualNonPapWeapon(other.thirdammo)) 
+	{
 
-		if (self.weapon == EqualNonPapWeapon(other.secondaryweapon)
-		|| self.weapon == EqualNonPapWeapon(other.weapon))
+		if (self.weapon == EqualNonPapWeapon(other.secondaryweapon) || self.weapon == EqualNonPapWeapon(other.weapon) || self.weapon == EqualNonPapWeapon(other.thirdweapon))
 			useprint (other, 3, 4500, other.weapon);
 		else
 			useprint (other, 3, self.cost2, self.weapon);
 
-		if (!other.button7 || other.semiuse) {
+		if (!other.button7 || other.semiuse)
 			return;
-		}
-		if ((self.weapon == other.weapon && other.currentammo >= getWeaponAmmo(other, self.weapon))
-			||(self.weapon == other.secondaryweapon && other.secondaryammo >= getWeaponAmmo(other, self.weapon))) {
-				return;
-			}
+
+		if ((self.weapon == other.weapon && other.currentammo >= getWeaponAmmo(other, self.weapon)) || (self.weapon == other.secondaryweapon && other.secondaryammo >= getWeaponAmmo(other, self.weapon)) || (self.weapon == other.thirdweapon && other.thirdammo >= getWeaponAmmo(other, self.weapon))) 
+			return;
 
 		other.semiuse = true;
-		if ((other.points < self.cost2 && !IsPapWeapon(other.weapon)) || (other.points < 4500 && IsPapWeapon(other.weapon))) {
+		if ((other.points < self.cost2 && !IsPapWeapon(other.weapon)) || (other.points < 4500 && IsPapWeapon(other.weapon))) 
+		{
 			centerprint(other, "You do not have enough points\n");
 			return;
 		}
 
-		if (self.weapon == other.weapon || (self.weapon == EqualNonPapWeapon(other.weapon))) {
+		if (self.weapon == other.weapon || (self.weapon == EqualNonPapWeapon(other.weapon))) 
+		{
 			other.currentammo = getWeaponAmmo(other, self.weapon);
-		} else if (self.weapon == other.secondaryweapon || (self.weapon == EqualNonPapWeapon(other.secondaryweapon)) ) {
+		} 
+		else if (self.weapon == other.secondaryweapon || (self.weapon == EqualNonPapWeapon(other.secondaryweapon))) 
+		{
 			other.secondaryammo = getWeaponAmmo(other, self.weapon);
+		} 
+		else if (self.weapon == other.thirdweapon || (self.weapon == EqualNonPapWeapon(other.thirdweapon))) 
+		{
+			other.thirdammo = getWeaponAmmo(other, self.weapon);
 		}
 
 
@@ -244,7 +248,8 @@ void () buy_weapon_touch =
 		else
 			addmoney(other, -1*4500, 0);
 
-		if (self.enemy) {
+		if (self.enemy) 
+		{
 			oldent = self;
 			self = self.enemy;
 			self.use();
@@ -321,20 +326,59 @@ void () buy_weapon_touch =
 	{
 		entity tempe;
 
-		//centerprint(other, self.message);
       	useprint (other, 4, self.cost, self.weapon);
 
-		if (!other.button7 || other.semiuse) {
+		if (!other.button7 || other.semiuse)
 			return;
-		}
 
 		other.semiuse = 1;
-		if (other.points < self.cost) {
+		if (other.points < self.cost) 
+		{
 			centerprint (other, "Not enough points\n");
 			return;
 		}
+		if (!other.thirdweapon && (other.perks & P_MULE)) 
+		{
+			tempf = other.currentammo;
+			other.currentammo = other.secondaryammo;
+			other.secondaryammo = tempf;
 
-		if (other.weapon && !other.secondaryweapon) {
+			tempf1 = other.currentmag;
+			other.currentmag = other.secondarymag;
+			other.secondarymag = tempf1;
+
+			tempf1 = other.currentmag2;
+			other.currentmag2 = other.secondarymag2;
+			other.secondarymag2 = tempf1;
+
+			tempf2 = other.weapon;
+			other.weapon = other.secondaryweapon;
+			other.secondaryweapon = tempf2;
+
+			tempf3 = other.thirdammo;
+			other.thirdammo = other.secondaryammo;
+			other.secondaryammo = tempf3;
+
+			tempf4 = other.thirdmag;
+			other.thirdmag = other.secondarymag;
+			other.secondarymag = tempf4;
+
+			tempf4 = other.thirdmag2;
+			other.thirdmag2 = other.secondarymag2;
+			other.secondarymag2 = tempf4;
+
+			tempf5 = other.thirdweapon;
+			other.thirdweapon = other.secondaryweapon;
+			other.secondaryweapon = tempf5;
+		} 
+		else if (other.thirdweapon && (other.perks & P_MULE))
+		{
+			other.currentammo = 0;
+			other.currentmag = 0;
+			other.weapon = 0;
+		} 
+		else if (other.weapon && !other.secondaryweapon) 
+		{
 			tempf = other.currentammo;
 			other.currentammo = other.secondaryammo;
 			other.secondaryammo = tempf;
@@ -346,52 +390,20 @@ void () buy_weapon_touch =
 			tempf2 = other.weapon;
 			other.weapon = other.secondaryweapon;
 			other.secondaryweapon = tempf2;
-		} else if (other.weapon && other.secondaryweapon) {
-
+		} 
+		else if (other.weapon && other.secondaryweapon) 
+		{
 			other.currentammo = 0;
 			other.currentmag = 0;
 			other.weapon = 0;
-
-		}
-		if (!other.thirdweapon && (other.perks & P_MULE)) {
-			tempf = self.currentammo;
-			self.currentammo = self.secondaryammo;
-			self.secondaryammo = tempf;
-
-			tempf1 = self.currentmag;
-			self.currentmag = self.secondarymag;
-			self.secondarymag = tempf1;
-
-			tempf1 = self.currentmag2;
-			self.currentmag2 = self.secondarymag2;
-			self.secondarymag2 = tempf1;
-
-			tempf2 = self.weapon;
-			self.weapon = self.secondaryweapon;
-			self.secondaryweapon = tempf2;
-
-			tempf3 = self.thirdammo;
-			self.thirdammo = self.secondaryammo;
-			self.secondaryammo = tempf3;
-
-			tempf4 = self.thirdmag;
-			self.thirdmag = self.secondarymag;
-			self.secondarymag = tempf4;
-
-			tempf4 = self.thirdmag2;
-			self.thirdmag2 = self.secondarymag2;
-			self.secondarymag2 = tempf4;
-
-			tempf5 = self.thirdweapon;
-			self.thirdweapon = self.secondaryweapon;
-			self.secondaryweapon = tempf5;
 		}
 
 		/* insert here mule kick thingy*/
 		sound(other, 0,"sounds/misc/ching.wav", 1, 1);
 		other.reload_delay = 0;
 		addmoney(other, -1*self.cost, 0);
-		if (self.enemy) {
+		if (self.enemy) 
+		{
 			oldent = self;
 			self = self.enemy;
 			self.use();
@@ -872,4 +884,33 @@ void() menu_door =
 	self.solid = SOLID_BSP;
 	setmodel (self, self.model);
 	setorigin(self, self.origin);
+}
+
+
+//motolegady -- soulbox
+void think_soulbox() =
+{
+	local entity ent;
+	ent = findradius(self.origin, 240);
+	
+	while(ent) {
+		if(ent.classname == "soul") {
+			setmodel(ent, "models/player.mdl");
+		}
+		ent = ent.chain;
+	}
+	self.nextthink = time + 0.1;
+}
+
+void func_soulbox() =
+{
+	self.classname = "func_soulbox";
+	self.movetype = MOVETYPE_NONE;
+	self.solid = SOLID_BBOX;
+	self.think = think_soulbox;
+	self.nextthink = time + 0.1;
+	precache_model(self.model);
+	setmodel(self, self.model);
+	setorigin(self, self.origin);
+	setsize(self, VEC_HULL2_MIN, VEC_HULL2_MAX);
 }

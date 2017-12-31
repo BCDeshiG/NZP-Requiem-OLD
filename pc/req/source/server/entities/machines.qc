@@ -221,7 +221,6 @@ void() touch_perk =
 		{
 			addmoney (other, -self.cost, 0);
 			DrinkPerk(P_JUG);
-			RemovePerk(other, P_REVIVE);
 			if (world.hudtype != 0 && world.hudtype != 1)
 				sound(self, 0,"sounds/music/sting/jug.wav", 1, 1);
 
@@ -366,21 +365,25 @@ void() setup_perk =
 	{
 		switch(self.classname) {
 			case "perk_revive":
-				self.effects = EF_BLUE;
+				self.effects = self.effects | EF_BLUE;
 				break;
 			case "perk_juggernog":
-				self.effects = EF_RED;
+				self.effects = self.effects | EF_RED;
 				break;
 			case "perk_mulekick":
 			case "perk_deadshot":
 			case "perk_speed":
 			case "perk_candolier":
 			case "perk_tombstone":
-				self.effects = EF_GREEN;
+				self.effects = self.effects | EF_GREEN;
 				break;
 			case "perk_double":
 			case "perk_staminup":
-				self.effects = EF_ORANGE;
+				self.effects = self.effects | EF_ORANGE;
+				break;
+			case "perk_flopper":
+				self.effects = self.effects | EF_RED;
+				self.effects = self.effects | EF_BLUE;
 				break;
 			default:
 				self.effects = 0;
@@ -529,11 +532,11 @@ void() perk_mulekick =
 void() perk_deadshot =
 {
 	self.solid = SOLID_TRIGGER;
-	precache_model ("models/machines/deadshot.mdl");
+	precache_model ("models/machines/deadshot.md2");
 	precache_model ("models.machines/v_perk.mdl");
 	precache_sound ("sounds/machines/perk_drink.wav");
 	setorigin (self, self.origin);
-	setmodel (self, "models/machines/deadshot.mdl");
+	setmodel (self, "models/machines/deadshot.md2");
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
 	self.classname = "perk_deadshot";
 	self.touch = touch_perk;
@@ -741,7 +744,7 @@ float (float r) Getweaponid =
 	else if (r== 5)
 		return W_THOMPSON;
 	else if (r== 6)
-		return W_M2;
+		return W_THOMPSON;
 	else if (r== 7)
 		return W_PPSH;
 	else if (r== 8)
@@ -769,7 +772,7 @@ float (float r) Getweaponid =
 	else if (r==19)
 		return W_KAR_SCOPE;
 	else if (r == 20)
-		return W_PANZER;
+		return W_TYPE;
 	else if (r==21)
 		return W_PTRS;
 	else if (r==22)
@@ -777,7 +780,7 @@ float (float r) Getweaponid =
 	else if (r==23)
 		return W_STG;
 	else if (r==24)
-		return W_BK;
+		return W_STG;
 	else if (r==25)
 		return W_M1;
 
@@ -1036,11 +1039,11 @@ void() findboxspot =
 
 	newspot.angles_y += 90;
 	if (!(self.owner.spawnflags & 2))
-	{
+	{	//motolegacy (fixme) -- add transparent textures
 		local entity g;
 		g = spawn();
 		newspot.goaldummy = g;
-		setmodel(g,"models/machines/mglow$.mdl");
+		//setmodel(g,"models/machines/mglow$.mdl");
 		setorigin(g,newspot.origin);
 		g.angles = newspot.angles;
 	}
@@ -1185,6 +1188,7 @@ void() mystery_box_tp_spot =
 
 	if (self.model == "progs/Misc/teddy.mdl")
 		self.angles_y -= 90;
+	self.cost = boxcost;
 };
 
 void() mystery_touch =
@@ -1563,7 +1567,7 @@ void() mystery_box =
 	Load_Mbox_Data();
 
 	precache_model ("models/machines/mystery.mdl");
-	precache_model ("models/machines/mglow$.mdl");
+	//precache_model ("models/machines/mglow$.mdl");
 	precache_model ("progs/Misc/teddy.mdl");
 	precache_sound ("sounds/machines/mbox_open.wav");
 	precache_sound ("sounds/machines/mbox_close.wav");
@@ -1580,14 +1584,14 @@ void() mystery_box =
 		local entity g;
 		g = spawn();
 		self.goaldummy = g;
-		setmodel(g,"models/machines/mglow$.mdl");
+		//setmodel(g,"models/machines/mglow$.mdl");
 		setorigin(g,self.origin);
 		g.angles = self.angles;
 	}
 
 	self.touch = mystery_touch;
 	if (!self.cost)
-		self.cost = 950;
+		self.cost = boxcost = 950;
 }
 
 //PACK A PUNCH

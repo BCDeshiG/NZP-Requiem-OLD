@@ -1211,7 +1211,8 @@ void() GrenadeExplode =
 	sound (self, CHAN_WEAPON, "sounds/weapons/grenade/explode.wav", 1, ATTN_NORM);	
 	DamgageExplode (self, self.owner, 225, self.dmg, 128);//was 256 inch radius, kicked it down to 128 because 21 feet exploding radius is... a bit overkill...	
 	te_explosionquad(self.origin);
-	SUB_Remove ();
+	if (self.classname != "player")
+		SUB_Remove ();
 };
 void() NadeStraighten =
 {
@@ -1316,7 +1317,13 @@ void() W_ThrowGrenade =
 			betty.touch = betty_touch;
 			setmodel (betty, "progs/GModels/g_betty.mdl");
 			setsize (betty, '-16 -16 -4', '16 16 1');
-			betty.origin = betty.owner.origin - self.view_ofs + '0 0 1';
+			betty.origin = betty.owner.origin;
+			local entity tempe;
+			tempe = self;
+			self = betty;
+			droptofloor();
+			betty = self;
+			self = tempe;
 			betty.origin += v_forward * 0;
 			setorigin (betty, betty.origin);
 
@@ -1442,38 +1449,6 @@ void(float gum) setSpecial =
 /* ================
    Dolphin Dive Code
    ================*/
-
-void() divetonuke =
-{
-	if (other.classname == "player")
-		return;
-
-	sound (self, CHAN_WEAPON, "sounds/weapons/grenade/explode.wav", 1, ATTN_NORM);	
-	DamgageExplode (self, self.owner, 756, self.dmg, 128);//was 256 inch radius, kicked it down to 128 because 21 feet exploding radius is... a bit overkill...	
-	te_explosionquad(self.origin);
-	SUB_Remove ();
-	remove(self);
-}
-
-void() followplayer =
-{
-	setorigin(self, self.owner.origin);
-	self.nextthink = time + 0.1;
-}
-
-void() divesetup =
-{
-	local entity nuke;
-	nuke = spawn();
-	setorigin(nuke, self.origin);
-	nuke.owner = self;
-	nuke.solid = SOLID_TRIGGER;
-	setmodel(nuke, "models/player.mdl");
-	nuke.touch = divetonuke;
-	nuke.think = followplayer;
-	nuke.nextthink = time + 0.1;
-}
-
 void() Dolphin_dive =		//This was written by Naievil and used in the Unofficial Patch.
 {    
  	if (self.flags & FL_WATERJUMP)
@@ -1496,7 +1471,7 @@ void() Dolphin_dive =		//This was written by Naievil and used in the Unofficial 
   
 	self.flags = self.flags - (self.flags & FL_JUMPRELEASED);
 	self.flags = self.flags - FL_ONGROUND;	// don't stairwalk
-	self.origin = self.origin + '0 0 15'; //MOTO -- This is new, just a little asthetic change so it looks like you're diving, not hopping.
+	//self.origin = self.origin + '0 0 15'; //fuck that lol
 	makevectors (self.v_angle);
     self.velocity = self.velocity * 1.2;		
 	self.velocity_z = self.velocity_z + 270;
@@ -1505,8 +1480,8 @@ void() Dolphin_dive =		//This was written by Naievil and used in the Unofficial 
 	self.button2 = 0;
 	W_SprintStop();
 
-	/*if (self.perks & P_FLOP)
-		//divesetup();*/
+	self.oldz = self.origin_z;
+	self.dive = 1;
 }
 
 
@@ -1747,6 +1722,14 @@ void() CheckPlayer =
 			ent.velocity += push;
 		}
 		ent = ent.chain;
+	}
+
+	if (!self.button2 && (self.perks & P_FLOP) && self.flags & FL_ONGROUND && self.dive) { //dive (credit goes to ryan)
+		if (fabs(self.oldz - self.origin_z) > 90) {
+			GrenadeExplode();		
+		}
+		self.oldz = self.origin_z;
+		self.dive = 0;
 	}
 
 	if (self.isBuying == true)

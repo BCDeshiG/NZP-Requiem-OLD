@@ -347,6 +347,14 @@
 		2 : "Random use place" : 0
 	]
 ]
+
+@PointClass size(-32 -32 -32, 32 32 56) base(Item, Appearflags) color(125 196 187) studio() = func_soulbox : "Soulbox"
+[	
+	model(studio) : "Model" : "progs/props/"
+	cost(integer) : "Kills required" : 2
+	
+]
+
 //
 // NZP Weapons
 //

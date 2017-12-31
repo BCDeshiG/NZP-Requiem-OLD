@@ -486,6 +486,7 @@ float(entity who, float wep) getWeaponAmmo =
 		case W_TRENCH:
 		case W_GUT:
 			reserve = 60;
+			break;
 		case W_TYPE:
 			reserve = 160;
 			break;
@@ -1233,7 +1234,7 @@ vector GetWeaponADSPos(float wep) {
 			return [-2.19, 2.67, 0.42];
 		case W_M1:
 		case W_M1000:
-			return [-2.6, 2.46, 1.12];
+			return [-2.6, 1.46, 1.12];
 		case W_M1A1:
 		case W_WIDDER:
 			return [-0.6, 2.7, 1.94];
@@ -1257,11 +1258,15 @@ vector GetWeaponADSPos(float wep) {
 			return [0, 2.85, 1.4];
 		case W_TYPE:
 		case W_SAMURAI:
-			return [0.41, 2.8, 1.34];
+			//0 0 4.34
+			return [-7.79, 4.5, 4.34];
 		case W_M14:
 			return [-2.99, 2.77, 0.92];
 		case W_MNESIA:
 			return [-2.99, 2.77, 0.92];
+		case W_RAY:
+		case W_PORTER:
+			return [-4, 8.15, 2];
 		default:
 			return [0, 0, 0];
 	}

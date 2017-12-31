@@ -1,6 +1,7 @@
 void() crawler_rip_board1;
 void() crawler_da1;
 void() crawler_die1;
+void(vector where) spawnSoul;
 
 void(float what) play_sound_z =
 {
@@ -906,6 +907,7 @@ void() Zombie_Death =
 		te_explosionquad(self.origin);
 		SUB_Remove ();
 	}
+	spawnSoul(self.origin);
 };
 
 
@@ -1210,3 +1212,13 @@ void() zombie_dummy =
 	self.flags = self.flags | FL_PARTIALGROUND | FL_MONSTER;
 	self.health = 999999;
 };
+
+
+//motolegacy -- soulbox
+void(vector where) spawnSoul =
+{
+	entity soul;
+	soul = spawn();
+	soul.classname = "soul";
+	setorigin(soul, where);
+}
