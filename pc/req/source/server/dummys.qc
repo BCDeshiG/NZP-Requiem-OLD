@@ -10,6 +10,8 @@
 +=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+
 */
 
+void() perk_deadshot;
+
 // Triggers
 void() trigger_relay            = {remove(self);};
 void() trigger_multiple         = {remove(self);};
@@ -136,3 +138,5 @@ void() change_frame =
 	self.think = change_frame;
 	self.nextthink = time + 1;
 }*/
+
+void() perk_dead = {perk_deadshot();}

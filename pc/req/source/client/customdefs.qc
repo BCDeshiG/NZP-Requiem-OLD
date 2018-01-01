@@ -44,6 +44,7 @@ const float MENU_PAUSE = 64;
 const float MENU_IGS = 128;
 const float MENU_RES = 256;
 const float MENU_COMMUNITY = 512;
+const float MENU_BETA = 1024;
 
 
 float useprint_type;

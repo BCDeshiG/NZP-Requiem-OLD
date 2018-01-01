@@ -40,7 +40,7 @@ void() M_Menu_Main_Draw =
 	if (M_Menu_Main_Cursor == 3)
 		drawstring([0.025*g_width, 0.275*g_height, 0], "Settings (In Progress)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	if (M_Menu_Main_Cursor == 4)
-		drawstring([0.025*g_width, 0.325*g_height, 0], "Credits (In Progress)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.325*g_height, 0], "Credits (N/A)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	if (M_Menu_Main_Cursor == 5)
 		drawstring([0.025*g_width, 0.375*g_height, 0], "Quit", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 
@@ -96,7 +96,7 @@ void() M_Menu_Solo_Draw =
 	if (M_Menu_Solo_Cursor != 0)
 		drawstring([0.025*g_width, 0.125*g_height, 0], "Classic", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 	if (M_Menu_Solo_Cursor != 1)
-		drawstring([0.025*g_width, 0.175*g_height, 0], "NZ:P Beta (N/A)", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+		drawstring([0.025*g_width, 0.175*g_height, 0], "NZ:P Beta", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 	if (M_Menu_Solo_Cursor != 2)
 		drawstring([0.025*g_width, 0.225*g_height, 0], "Community Maps", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 
@@ -107,7 +107,7 @@ void() M_Menu_Solo_Draw =
 		drawstring([0.025*g_width, 0.900*g_height, 0], "Maps from the Call of Duty Series", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	}
 	if (M_Menu_Solo_Cursor == 1) {
-		drawstring([0.025*g_width, 0.175*g_height, 0], "NZ:P Beta (N/A)", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.175*g_height, 0], "NZ:P Beta", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 		drawstring([0.025*g_width, 0.900*g_height, 0], "Maps from Nazi Zombies: Portable Beta", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	}
 	if (M_Menu_Solo_Cursor == 2) {
@@ -150,6 +150,7 @@ void() M_Menu_Solo_Keys =
 		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
 		switch (M_Menu_Solo_Cursor) {
 			case 0: in_menu = MENU_CLASSIC; menuTime = time + 0.2; break;
+			case 1: in_menu = MENU_BETA; menuTime = time + 0.2; break;
 			case 2: in_menu = MENU_COMMUNITY; menuTime = time + 0.2; break;
 		}
 	}
@@ -290,6 +291,77 @@ void() M_Menu_Settings_Keys =
 	}
 }
 
+/* ===========
+	Beta Maps
+   =========== */
+
+#define M_Menu_Beta_CursorMax 	1
+float M_Menu_Beta_Cursor;
+
+void() M_Menu_Beta_Draw =
+{
+	drawstring([0.025*g_width, 0.050*g_height, 0], "NZ:P Beta Maps", [g_height * 0.04, g_height * 0.04, 1], [1, 0.5, 0], 1, 1); //Title
+
+	//FIXME - Text is opaque so we can't draw over each other without a weird effect
+
+	if (M_Menu_Beta_Cursor != 0)
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Warehouse", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	if (M_Menu_Beta_Cursor != 1)
+		drawstring([0.025*g_width, 0.175*g_height, 0], "Christmas Special", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+
+	if (M_Menu_Beta_Cursor == 0) {
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Warehouse", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.850*g_height, 0], "Old warehouse full of zombies! Fight your way", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.900*g_height, 0], "to the power switch through the hordes.", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawpic([0.025 * g_width, 0.550 * g_height, 0], "menu/warehouse", [g_width * 0.25, g_height * 0.25, 1], [1,1,1], 1);
+	}
+	if (M_Menu_Beta_Cursor == 1) {
+		drawstring([0.025*g_width, 0.175*g_height, 0], "Christmas Special", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.850*g_height, 0], "No Santa this year, but I'm sure you will get some", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.900*g_height, 0], "presents from the undead.", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawpic([0.025 * g_width, 0.550 * g_height, 0], "menu/cs", [g_width * 0.25, g_height * 0.25, 1], [1,1,1], 1);
+	}
+
+	//Directions
+	drawstring([0.025*g_width, 0.950*g_height, 0], "W/S: Navigate      D: Load Map      A: Return", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+}
+
+void() M_Menu_Beta_Keys =
+{
+	if (menuTime > time)
+		return;
+
+	if (K_BACKDOWN) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_Beta_Cursor++;
+		if (M_Menu_Beta_Cursor > M_Menu_Beta_CursorMax)
+			M_Menu_Beta_Cursor = 0;
+		menuTime = time + 0.2;
+	}
+
+	if (K_FORWARDDOWN) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_Beta_Cursor--;
+		if (M_Menu_Beta_Cursor == -1)
+			M_Menu_Beta_Cursor = M_Menu_Beta_CursorMax;
+		menuTime = time + 0.2;
+	}
+
+	if (K_LEFTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		in_menu = MENU_SINGLE;
+		menuTime = time + 0.2;
+	}
+
+	if (K_RIGHTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		switch (M_Menu_Beta_Cursor) {
+			case 0: localcmd("map warehouse\n"); break;
+			case 1: localcmd("map christmas_special\n"); break;
+		}
+	}
+}
+
 /* ================
 	Community Maps
    ================ */
@@ -318,12 +390,12 @@ void() M_Menu_Community_Draw =
 	if (M_Menu_Community_Cursor == 1) {
 		drawstring([0.025*g_width, 0.175*g_height, 0], "Farmhouse - By Slugparty", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 		drawstring([0.025*g_width, 0.850*g_height, 0], "Farmhouse from SAS: Zombie Assault 3 recreated", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
-		drawstring([0.025*g_width, 0.900*g_height, 0], "in NZ:P. How long will you survive?", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.900*g_height, 0], "in NZ:P.", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	}
 	if (M_Menu_Community_Cursor == 2) {
 		drawstring([0.025*g_width, 0.225*g_height, 0], "Woodhut - By True Nightmare", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 		drawstring([0.025*g_width, 0.850*g_height, 0], "Woodhut from NZ:P Beta ported by Naievil. One box.", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
-		drawstring([0.025*g_width, 0.900*g_height, 0], "Three windows. Five perks. How long will you last?", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.900*g_height, 0], "Four windows. Four perks. How long will you last?", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	}
 
 	//Selection
@@ -355,7 +427,7 @@ void() M_Menu_Community_Keys =
 
 	if (K_LEFTDOWN) {
 		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
-		in_menu = MENU_MAIN;
+		in_menu = MENU_SINGLE;
 		menuTime = time + 0.2;
 	}
 
@@ -420,8 +492,57 @@ void() M_Menu_Credits_Keys =
 	}
 }
 
+float songTime;
+
+void() Draw_Menu =
+{
+	if (songTime < time && mapname == "menu") {
+		sound(self, 0, "sounds/menu/theme.wav", 1, ATTN_NONE);
+		songTime = 196 + time;
+	}
+
+	if(getstatf(STAT_ISNOCLIP)) {
+		setcursormode(FALSE);
+		return;
+	}
+
+	local string title = "";
+	switch(in_menu)
+	{
+		case MENU_MAIN:
+			M_Menu_Main_Draw();
+			M_Menu_Main_Keys();
+			break;
+		case MENU_SINGLE:
+			M_Menu_Solo_Draw();
+			M_Menu_Solo_Keys();
+			break;
+		case MENU_CLASSIC:
+			M_Menu_Classic_Draw();
+			M_Menu_Classic_Keys();
+			break;
+		case MENU_SETTINGS:
+			M_Menu_Settings_Draw();
+			M_Menu_Settings_Keys();
+			break;
+		case MENU_CREDITS:
+			M_Menu_Credits_Draw();
+			M_Menu_Credits_Keys();
+			break;
+		case MENU_COMMUNITY:
+			M_Menu_Community_Draw();
+			M_Menu_Community_Keys();
+			break;
+		case MENU_BETA:
+			M_Menu_Beta_Draw();
+			M_Menu_Beta_Keys();
+		default:
+			break;
+	}
+};
+
 //
-//	Menu stuff
+//	OLD MENU
 //
 
 
@@ -623,68 +744,5 @@ void() Menu_Click =
 	for(i = 0; i < BUTTONS_COUNT; i++)
 	{
 		Button_Click(i);
-	}
-};
-
-float songTime;
-
-void() Draw_Menu =
-{
-	if (songTime < time && mapname == "menu") {
-		sound(self, 0, "sounds/menu/theme.wav", 1, ATTN_NONE);
-		songTime = 196 + time;
-	}
-
-	if(getstatf(STAT_ISNOCLIP)) {
-		setcursormode(FALSE);
-		return;
-	}
-
-	local string title = "";
-	switch(in_menu)
-	{
-		case MENU_MAIN:
-			M_Menu_Main_Draw();
-			M_Menu_Main_Keys();
-			break;
-		case MENU_SINGLE:
-			M_Menu_Solo_Draw();
-			M_Menu_Solo_Keys();
-			break;
-		case MENU_CLASSIC:
-			M_Menu_Classic_Draw();
-			M_Menu_Classic_Keys();
-			break;
-		case MENU_SETTINGS:
-			M_Menu_Settings_Draw();
-			M_Menu_Settings_Keys();
-			break;
-		case MENU_CREDITS:
-			M_Menu_Credits_Draw();
-			M_Menu_Credits_Keys();
-			break;
-		case MENU_COMMUNITY:
-			M_Menu_Community_Draw();
-			M_Menu_Community_Keys();
-			break;
-		case MENU_PAUSE:
-			title = "PAUSED";
-			break;
-		case MENU_IGS:
-			title = "SETTINGS";
-			break;
-		case MENU_RES:
-			title = "RESTART";
-			break;
-		default:
-			title = "Nazi Zombies: Portable";
-	}
-
-	//Update buttons
-	local float i;
-
-	for(i = 0; i < BUTTONS_COUNT; i++)
-	{
-		Update_Button(i);
 	}
 };
