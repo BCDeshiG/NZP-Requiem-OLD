@@ -42,6 +42,9 @@ void GivePerk(float perk) {
 		case P_TOMB:
 			self.perks = self.perks | 1024;
 			break;
+		case P_AMMO:
+			giveAmmo(self);
+			break;
 		default:
 			print("Unknown perk type, wtf?\n");
 	}
@@ -63,6 +66,7 @@ void() give_deadshot = { GivePerk(P_DEAD); ReturnWeaponModel(); }
 void() give_bloodbullets = { GivePerk(P_BLOOD); ReturnWeaponModel(); }
 void() give_candolier = { GivePerk(P_CANDO); ReturnWeaponModel(); }
 void() give_tombstone = { GivePerk(P_TOMB); ReturnWeaponModel(); }
+void() give_ammomatic = { GivePerk(P_AMMO); ReturnWeaponModel(); }
 
 
 void DrinkPerk(float perk) {
@@ -113,6 +117,10 @@ void DrinkPerk(float perk) {
 		case P_TOMB:
 			other.weaponskin = 4;
 			func = give_tombstone;
+			break;
+		case P_AMMO:
+			other.weaponskin = 3;
+			func = give_ammomatic;
 			break;
 		default:
 			print("Unknown perk type, wtf?\n");
@@ -348,6 +356,19 @@ void() touch_perk =
 			centerprint(other, "Not enough points\n");
 		}
 	}
+	if (self.classname == "perk_ammomatic" && self.fire_delay < time)
+	{
+		useprint (other, 9, self.cost, 12);
+		if (other.points >= self.cost && other.button7)
+		{
+			addmoney(other, -self.cost, 0);
+			DrinkPerk(P_AMMO);
+		}
+		else if (other.button7)
+		{
+			centerprint(other, "Not enough points\n");
+		}
+	}
 }
 
 void() setup_perk =
@@ -365,6 +386,7 @@ void() setup_perk =
 	{
 		switch(self.classname) {
 			case "perk_revive":
+			case "perk_ammomatic":
 				self.effects = self.effects | EF_BLUE;
 				break;
 			case "perk_juggernog":
@@ -603,6 +625,25 @@ void() perk_tombstone =
 
 	if (!self.cost)
 		self.cost = 3000;
+}
+
+void() perk_ammomatic =
+{
+	self.solid = SOLID_TRIGGER;
+	precache_model ("models/machines/ammomatic.mdl");
+	precache_model ("models.machines/v_perk.mdl");
+	precache_sound ("sounds/machines/perk_drink.wav");
+	setorigin (self, self.origin);
+	setmodel (self, "models/machines/ammomatic.mdl");
+	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+	self.classname = "perk_ammomatic";
+	self.touch = touch_perk;
+
+	self.think = setup_perk;
+	self.nextthink = time + 0.1;
+
+	if (!self.cost)
+		self.cost = 5000;
 }
 
 void()	turnpower1	=[	1,		turnpower2	] {self.frame = 1;};

@@ -1,3 +1,15 @@
+/* ====================================
+    stats.qc - Misc. stats for players
+   ==================================== */
+
+void giveAmmo(entity who)
+{
+	who.currentammo = getWeaponAmmo(who, who.weapon);
+	who.secondaryammo = getWeaponAmmo(who, who.secondaryweapon);
+	if (who.perks & P_MULE)
+		who.thirdammo = getWeaponAmmo(who, who.thirdweapon);
+}
+
 void RemovePerk(entity who, float perk)
 {
 	//temp entity
