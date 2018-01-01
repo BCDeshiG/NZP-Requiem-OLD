@@ -1237,6 +1237,9 @@ void() mystery_touch =
 	entity tempe;
 	float startframe, endframe;
 	string modelname;
+	float tempf;
+
+	tempf = 0;
 
 	if (firesale_finished)
 		self.cost2 = 10;
@@ -1282,41 +1285,61 @@ void() mystery_touch =
 				other.reload_delay = 0;
 				self.boxstatus = 0;
 				self.owner = world;
-				if (other.weapon != self.boxweapon.weapon && other.secondaryweapon != self.boxweapon.weapon && other.secondaryweapon)
-				{
-					if (other.weapon == other.isthird)
-						other.isthird = self.boxweapon.weapon;
-					other.weapon = self.boxweapon.weapon;
-          			other.currentammo = getWeaponAmmo(other, self.boxweapon.weapon);
-					other.currentmag = getWeaponMag(self.boxweapon.weapon);
-					other.weaponskin = 0;
+				if ((other.perks & P_MULE)) {
+					if (!other.secondaryweapon) {
+						WeaponSwitch(other);
+						other.weapon = self.boxweapon.weapon;
+						other.currentammo = getWeaponAmmo(other, other.weapon);
+						other.currentmag = getWeaponMag(other.weapon);
+						other.secondary = other.weapon;
+					}
+					else if (other.secondaryweapon && !other.thirdweapon) {
+						other.tertiary = self.boxweapon.weapon;
+						if (other.weapon == other.secondary)
+							tempf = 1;
+						other.thirdweapon = self.boxweapon.weapon;
+						other.thirdammo = getWeaponAmmo(other, other.thirdweapon);
+						other.thirdmag = getWeaponMag(other.thirdweapon);
+						WeaponSwitch(other);
+					}
+					else if (other.weapon && other.secondaryweapon && other.thirdweapon) {
+						if (other.weapon == other.primary)
+							other.primary = self.boxweapon.weapon;
+						else if (other.weapon == other.secondary)
+							other.secondary = self.boxweapon.weapon;
+						else
+							other.tertiary = self.boxweapon.weapon;
+						other.weapon = self.boxweapon.weapon;
+						other.currentammo = getWeaponAmmo(other, other.weapon);
+						other.currentmag = getWeaponMag(other.weapon);
+					}
 				}
-				else if (other.weapon == self.boxweapon.weapon)
-				{
-					other.currentammo = getWeaponAmmo(other, self.boxweapon.weapon);
-					other.currentmag = getWeaponMag(self.boxweapon.weapon);
-				}
-				else if (other.secondaryweapon == self.boxweapon.weapon)
-				{
-					other.secondaryammo = getWeaponAmmo(other, self.boxweapon.weapon);
-					other.secondarymag = getWeaponMag(self.boxweapon.weapon);
-				}
-				else if (!other.secondaryweapon)
-				{
-					WeaponSwitch(other);
-					other.weapon = self.boxweapon.weapon;
-					other.currentammo = getWeaponAmmo(other, self.boxweapon.weapon);
-					other.currentmag = getWeaponMag(self.boxweapon.weapon);
-					other.weaponskin = GetWepSkin(self.boxweapon.weapon);
-					other.isthird = 0;
-				}
-				if (other.thirdweapon == 0 && other.secondaryweapon && (other.perks & P_MULE)) {
-					other.thirdweapon = self.boxweapon.weapon;
-					other.thirdmag = getWeaponMag(other.thirdweapon);
-					other.thirdammo = getWeaponAmmo(other, other.thirdweapon);
-					other.isthird = other.thirdweapon;
-					WeaponSwitch(other);
-					WeaponSwitch(other);
+				else {
+					if (other.weapon != self.boxweapon.weapon && other.secondaryweapon != self.boxweapon.weapon && other.secondaryweapon)
+					{
+						other.weapon = self.boxweapon.weapon;
+       		   			other.currentammo = getWeaponAmmo(other, self.boxweapon.weapon);
+						other.currentmag = getWeaponMag(self.boxweapon.weapon);
+						other.weaponskin = 0;
+					}
+					else if (other.weapon == self.boxweapon.weapon)
+					{
+						other.currentammo = getWeaponAmmo(other, self.boxweapon.weapon);
+						other.currentmag = getWeaponMag(self.boxweapon.weapon);
+					}
+					else if (other.secondaryweapon == self.boxweapon.weapon)
+					{
+						other.secondaryammo = getWeaponAmmo(other, self.boxweapon.weapon);
+						other.secondarymag = getWeaponMag(self.boxweapon.weapon);
+					}
+					else if (!other.secondaryweapon)
+					{
+						WeaponSwitch(other);
+						other.weapon = self.boxweapon.weapon;
+						other.currentammo = getWeaponAmmo(other, self.boxweapon.weapon);
+						other.currentmag = getWeaponMag(self.boxweapon.weapon);
+						other.weaponskin = GetWepSkin(self.boxweapon.weapon);
+					}
 				}
 				sound(self, 0,"sounds/misc/ching.wav", 1, 1);
 				tempe = self;

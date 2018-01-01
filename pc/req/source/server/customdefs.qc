@@ -399,3 +399,8 @@ float songam, songcount;
 
 //motolegacy -- bank
 .float balance, bankdelay;
+
+//motolegacy -- mulekick fix
+.float primary;
+.float secondary;
+.float tertiary;

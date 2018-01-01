@@ -197,7 +197,7 @@ void() place_model =
 void () buy_weapon_touch =
 {
 	entity oldent;
-	float tempf,tempf1,tempf2, tempf3, tempf4, tempf5;
+	float tempf,tempf1,tempf2;
 	local float startframe,endframe;
 	local string modelname;
 
@@ -337,46 +337,35 @@ void () buy_weapon_touch =
 			centerprint (other, "Not enough points\n");
 			return;
 		}
-		if (!other.thirdweapon && (other.perks & P_MULE)) 
+		else if (other.secondaryweapon && !other.thirdweapon && (other.perks & P_MULE))
 		{
-			tempf = other.currentammo;
+			local float tempf3, tempf4, tempf5;
+			tempf = other.secondaryammo;
+			other.secondaryammo = other.thirdammo;
+			other.thirdammo = tempf;
+
+			tempf1 = other.secondarymag;
+			other.secondarymag = other.thirdmag;
+			other.thirdmag = tempf1;
+
+			tempf2 = other.secondaryweapon;
+			other.secondaryweapon = other.thirdweapon;
+			other.thirdweapon = tempf2;
+
+			tempf3 = other.currentammo;
 			other.currentammo = other.secondaryammo;
-			other.secondaryammo = tempf;
-
-			tempf1 = other.currentmag;
-			other.currentmag = other.secondarymag;
-			other.secondarymag = tempf1;
-
-			tempf1 = other.currentmag2;
-			other.currentmag2 = other.secondarymag2;
-			other.secondarymag2 = tempf1;
-
-			tempf2 = other.weapon;
-			other.weapon = other.secondaryweapon;
-			other.secondaryweapon = tempf2;
-
-			tempf3 = other.thirdammo;
-			other.thirdammo = other.secondaryammo;
 			other.secondaryammo = tempf3;
 
-			tempf4 = other.thirdmag;
-			other.thirdmag = other.secondarymag;
+			tempf4 = other.currentmag;
+			other.currentmag = other.secondarymag;
 			other.secondarymag = tempf4;
 
-			tempf4 = other.thirdmag2;
-			other.thirdmag2 = other.secondarymag2;
-			other.secondarymag2 = tempf4;
-
-			tempf5 = other.thirdweapon;
-			other.thirdweapon = other.secondaryweapon;
+			tempf5 = other.weapon;
+			other.weapon = other.secondaryweapon;
 			other.secondaryweapon = tempf5;
-		} 
-		else if (other.thirdweapon && (other.perks & P_MULE))
-		{
-			other.currentammo = 0;
-			other.currentmag = 0;
-			other.weapon = 0;
-		} 
+
+			other.tertiary = other.weapon;
+		}
 		else if (other.weapon && !other.secondaryweapon) 
 		{
 			tempf = other.currentammo;
@@ -391,8 +380,10 @@ void () buy_weapon_touch =
 			other.weapon = other.secondaryweapon;
 			other.secondaryweapon = tempf2;
 		} 
-		else if (other.weapon && other.secondaryweapon) 
+		else if ((other.weapon && other.secondaryweapon && !(other.perks & P_MULE)) || ((other.perks & P_MULE) && other.weapon && other.secondaryweapon && other.thirdweapon))
 		{
+			if (other.weapon == other.tertiary)
+				other.tertiary = self.weapon;
 			other.currentammo = 0;
 			other.currentmag = 0;
 			other.weapon = 0;
