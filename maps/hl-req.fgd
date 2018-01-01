@@ -355,6 +355,16 @@
 	
 ]
 
+@PointClass size(-32 -32 -32, 32 32 56) base(Item, Appearflags) color(125 196 187) studio() = func_bank_withdrawal : "bo2 withdrawal"
+[	
+	model(studio) : "Model" : "progs/props/"	
+]
+
+@PointClass size(-32 -32 -32, 32 32 56) base(Item, Appearflags) color(125 196 187) studio() = func_bank_deposit : "bo2 deposit"
+[	
+	model(studio) : "Model" : "progs/props/"	
+]
+
 //
 // NZP Weapons
 //

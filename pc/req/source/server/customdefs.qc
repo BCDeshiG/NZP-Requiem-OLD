@@ -396,3 +396,6 @@ float songam, songcount;
 
 
 .float oldz, dive;
+
+//motolegacy -- bank
+.float balance, bankdelay;

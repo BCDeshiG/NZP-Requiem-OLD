@@ -597,7 +597,6 @@ noref void() CSQC_Parse_Event =
 
 			useprint_time = time + 0.1;
 			break;
-			
 		case EVENT_NEWROUND:
 			rounds = readbyte();
 			HUD_Change_time = time + 6;

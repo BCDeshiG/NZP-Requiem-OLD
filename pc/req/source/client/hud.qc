@@ -753,6 +753,12 @@ void(float width, float height) HUD_Useprint =
 			case 18:
 				usestring = strcat("Press ",usebutton, " to fuckin go");
 				break;
+			case 19:
+				usestring = strcat("Hold ",usebutton, " to widthdrawal 1000");
+				break;
+			case 20:
+				usestring = strcat("Hold ",usebutton, " to deposit 1000 [Fee: 100]");
+				break;
 			default:
 				usestring = "This should not happen you dum fuck";
 				break;

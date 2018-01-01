@@ -2,6 +2,7 @@
 //	Player.qc - Various stuff done for the player, including per-frame functions like PlayerPreThink and PlayerPostThink, also client specific stuff like PutClientInServer etc.
 //
 
+void setup_bank(entity who);
 void() ExitChair;
 void(vector where, float type) Spawn_Powerup;
 
@@ -524,6 +525,7 @@ void() PlayerSpawn =
 		default:
 			break;
 	}
+	setup_bank(self);
 };
 
 void() SpectatorSpawn =
