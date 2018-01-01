@@ -926,7 +926,7 @@ void() item_jeep_touch =
   if (other.button1)
   {
   	setorigin(other, self.origin);
-  	localcmd("chase_active 1")
+  	localcmd("chase_active 1");
     centerprint (other, "Not enough points\n");
     setmodel (other, "progs/Props/jeep.mdl");
   }
