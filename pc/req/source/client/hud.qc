@@ -750,6 +750,9 @@ void(float width, float height) HUD_Useprint =
 			case 17:
 				usestring = strcat("Hold ",usebutton, " to take ", getGumName(useprint_weapon));
 				break;
+			case 420:
+				usestring = strcat("Press ",usebutton, " to fuckin go");
+				break;
 			default:
 				usestring = "This should not happen you dum fuck";
 				break;

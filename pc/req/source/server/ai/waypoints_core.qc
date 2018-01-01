@@ -343,7 +343,7 @@ void() Save_Waypoints
 	float i;
 	entity tempe;
 
-	h = strcat(mappath, ".way");
+	h = strcat("data/maps/", mapname, ".way");
 	file = fopen (h, FILE_WRITE);
 	dprint ("Saving waypoints ", h, "\n");
 	
@@ -436,7 +436,7 @@ void() Load_Waypoints
 
 	entity new_way;
 
-	h = strcat(mappath, ".way");
+	h = strcat("data/maps/", mapname, ".way");
 	file = fopen (h, FILE_READ);
 
 	if (file == -1)
@@ -552,7 +552,7 @@ void() Load_Waypoints_Legacy
 	string h, special, trg, trg2, trg3, trg4, trg5, trg6, trg7, trg8;
 	local vector where;
 
-	h = strcat(mappath, ".way");
+	h = strcat("data/maps/", mapname, ".way");
 	file = fopen (h, FILE_READ);
 
 	if (file == -1)

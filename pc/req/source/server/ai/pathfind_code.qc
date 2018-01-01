@@ -277,7 +277,7 @@ void LoadWaypointData() {
 	float targetcount, loop, waycount;
 	entity new_way;
 
-	h = strcat(mappath, ".way");
+	h = strcat("data/maps/", mapname, ".way");
 	file = fopen (h, FILE_READ);
 
 	if (file == -1)

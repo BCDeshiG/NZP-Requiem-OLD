@@ -914,3 +914,33 @@ void func_soulbox() =
 	setorigin(self, self.origin);
 	setsize(self, VEC_HULL2_MIN, VEC_HULL2_MAX);
 }
+
+/* ======================
+     Drivable Car Model       
+   ====================== */
+   //naievil tribute xdddd
+void() item_jeep_touch =
+{
+  useprint (other, 420, 0, 0);
+  
+  if (other.button1)
+  {
+  	setorigin(other, self.origin);
+  	localcmd("chase_active 1")
+    centerprint (other, "Not enough points\n");
+    setmodel (other, "progs/Props/jeep.mdl");
+  }
+};
+
+void() item_jeep = 
+{
+  precache_model ("progs/Props/jeep.mdl");
+    
+  setmodel (self, "progs/Props/jeep.mdl");
+  self.movetype = MOVETYPE_NONE;
+  self.solid = SOLID_TRIGGER;
+  self.classname = "item_jeep";
+  setorigin (self, self.origin);
+	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+  self.touch = item_jeep_touch;
+};
