@@ -921,14 +921,16 @@ void func_soulbox() =
    //naievil tribute xdddd
 void() item_jeep_touch =
 {
-  useprint (other, 420, 0, 0);
+  useprint (other, 18, 0, 0);
   
-  if (other.button1)
+  if (other.button7)
   {
   	setorigin(other, self.origin);
+  	other.angles = self.angles;
   	localcmd("chase_active 1");
     centerprint (other, "Not enough points\n");
     setmodel (other, "progs/Props/jeep.mdl");
+    remove(self);
   }
 };
 
