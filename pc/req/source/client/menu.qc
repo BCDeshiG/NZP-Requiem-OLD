@@ -44,6 +44,9 @@ void() M_Menu_Main_Draw =
 	if (M_Menu_Main_Cursor == 5)
 		drawstring([0.025*g_width, 0.375*g_height, 0], "Quit", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 
+	//Version info
+	drawstring([0.025*g_width, 0.900*g_height, 0], "Requiem Alpha I", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+
 	//Directions
 	drawstring([0.025*g_width, 0.950*g_height, 0], "W/S: Navigate      D: Enter      A: Return", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 }
@@ -366,7 +369,7 @@ void() M_Menu_Beta_Keys =
 	Community Maps
    ================ */
 
-#define M_Menu_Community_CursorMax 	2
+#define M_Menu_Community_CursorMax 	3
 float M_Menu_Community_Cursor;
 
 void() M_Menu_Community_Draw =
@@ -381,6 +384,8 @@ void() M_Menu_Community_Draw =
 		drawstring([0.025*g_width, 0.175*g_height, 0], "Farmhouse - By Slugparty", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 	if (M_Menu_Community_Cursor != 2)
 		drawstring([0.025*g_width, 0.225*g_height, 0], "Woodhut - By True Nightmare", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	if (M_Menu_Community_Cursor != 3)
+		drawstring([0.025*g_width, 0.275*g_height, 0], "Corner - By Naievil", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 
 	if (M_Menu_Community_Cursor == 0) {
 		drawstring([0.025*g_width, 0.125*g_height, 0], "Cavern - By Naievil", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
@@ -396,6 +401,10 @@ void() M_Menu_Community_Draw =
 		drawstring([0.025*g_width, 0.225*g_height, 0], "Woodhut - By True Nightmare", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 		drawstring([0.025*g_width, 0.850*g_height, 0], "Woodhut from NZ:P Beta ported by Naievil. One box.", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 		drawstring([0.025*g_width, 0.900*g_height, 0], "Four windows. Four perks. How long will you last?", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+	}
+	if (M_Menu_Community_Cursor == 3) {
+		drawstring([0.025*g_width, 0.275*g_height, 0], "Corner - By Naievil", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.900*g_height, 0], "Challenge yourself in another small map by Naievil.", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	}
 
 	//Selection
@@ -436,7 +445,8 @@ void() M_Menu_Community_Keys =
 		switch (M_Menu_Community_Cursor) {
 			case 0: localcmd("map cavern\n"); break;
 			case 1: localcmd("map farmhouse\n"); break;
-			case 2: localcmd("map woodhut\n");
+			case 2: localcmd("map woodhut\n"); break;
+			case 3: localcmd("map corner\n"); break;
 		}
 	}
 }
@@ -492,6 +502,68 @@ void() M_Menu_Credits_Keys =
 	}
 }
 
+#define M_Menu_Pause_CursorMax 	1
+float M_Menu_Pause_Cursor;
+
+void() M_Menu_Pause_Draw =
+{
+	drawstring([0.025*g_width, 0.050*g_height, 0], "Requiem", [g_height * 0.04, g_height * 0.04, 1], [1, 0.5, 0], 1, 1); //Title
+
+	//FIXME - Text is opaque so we can't draw over each other without a weird effect
+
+	if (M_Menu_Pause_Cursor != 0)
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Resume Carnage", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	if (M_Menu_Pause_Cursor != 1)
+		drawstring([0.025*g_width, 0.175*g_height, 0], "Main Menu", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+
+	//Selection
+
+	if (M_Menu_Pause_Cursor == 0)
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Resume Carnage", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+	if (M_Menu_Pause_Cursor == 1)
+		drawstring([0.025*g_width, 0.175*g_height, 0], "Main Menu", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+
+	//Directions
+	drawstring([0.025*g_width, 0.950*g_height, 0], "W/S: Navigate      D: Enter      A: Return", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+}
+
+void() M_Menu_Pause_Keys =
+{
+	if (menuTime > time)
+		return;
+
+	if (K_BACKDOWN) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_Pause_Cursor++;
+		if (M_Menu_Pause_Cursor > M_Menu_Pause_CursorMax)
+			M_Menu_Pause_Cursor = 0;
+		menuTime = time + 0.2;
+	}
+
+	if (K_FORWARDDOWN) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_Pause_Cursor--;
+		if (M_Menu_Pause_Cursor == -1)
+			M_Menu_Pause_Cursor = M_Menu_Pause_CursorMax;
+		menuTime = time + 0.2;
+	}
+
+	if (K_LEFTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		in_menu = MENU_NONE;
+		setcursormode(FALSE);
+		menuTime = time + 0.2;
+	}
+
+	if (K_RIGHTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		switch (M_Menu_Pause_Cursor) {
+			case 0: in_menu = MENU_NONE; setcursormode(FALSE); break;
+			case 1: localcmd("map menu"); break;
+		}
+	}
+}
+
 float songTime;
 
 void() Draw_Menu =
@@ -536,6 +608,11 @@ void() Draw_Menu =
 		case MENU_BETA:
 			M_Menu_Beta_Draw();
 			M_Menu_Beta_Keys();
+			break;
+		case MENU_PAUSE:
+			M_Menu_Pause_Draw();
+			M_Menu_Pause_Keys();
+			break;
 		default:
 			break;
 	}
