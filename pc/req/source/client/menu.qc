@@ -502,7 +502,7 @@ void() M_Menu_Credits_Keys =
 	}
 }
 
-#define M_Menu_Pause_CursorMax 	1
+#define M_Menu_Pause_CursorMax 	2
 float M_Menu_Pause_Cursor;
 
 void() M_Menu_Pause_Draw =
@@ -514,14 +514,18 @@ void() M_Menu_Pause_Draw =
 	if (M_Menu_Pause_Cursor != 0)
 		drawstring([0.025*g_width, 0.125*g_height, 0], "Resume Carnage", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 	if (M_Menu_Pause_Cursor != 1)
-		drawstring([0.025*g_width, 0.175*g_height, 0], "Main Menu", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+		drawstring([0.025*g_width, 0.175*g_height, 0], "Restart", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	if (M_Menu_Pause_Cursor != 2)
+		drawstring([0.025*g_width, 0.225*g_height, 0], "Main Menu", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 
 	//Selection
 
 	if (M_Menu_Pause_Cursor == 0)
 		drawstring([0.025*g_width, 0.125*g_height, 0], "Resume Carnage", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	if (M_Menu_Pause_Cursor == 1)
-		drawstring([0.025*g_width, 0.175*g_height, 0], "Main Menu", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.175*g_height, 0], "Restart", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+	if (M_Menu_Pause_Cursor == 2)
+		drawstring([0.025*g_width, 0.225*g_height, 0], "Main Menu", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 
 	//Directions
 	drawstring([0.025*g_width, 0.950*g_height, 0], "W/S: Navigate      D: Enter      A: Return", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
@@ -559,7 +563,8 @@ void() M_Menu_Pause_Keys =
 		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
 		switch (M_Menu_Pause_Cursor) {
 			case 0: in_menu = MENU_NONE; setcursormode(FALSE); break;
-			case 1: localcmd("map menu"); break;
+			case 1: localcmd("restart"); break;
+			case 2: localcmd("map menu"); break;
 		}
 	}
 }

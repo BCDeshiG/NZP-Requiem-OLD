@@ -95,6 +95,8 @@ void W_SprintStart () {
 		self.fire_delay2 > time ||
 		self.new_anim_stop ||
 		self.new_anim2_stop ||
+		self.zoom ||
+		self.view_ofs != VEC_VIEW_OFS ||
 		self.isBuying || 
 		self.downed ||
 		!(self.flags & FL_ONGROUND)) {
@@ -902,11 +904,11 @@ void() W_FireExplosive =
 	nade.movetype = MOVETYPE_BOUNCE;
 	nade.solid = SOLID_BBOX;
 	nade.classname = "explosive";
-	nade.dmg = 300000;
+	nade.dmg = 500;
 	makevectors (self.v_angle);
 	nade.velocity = v_forward*5000;
 	nade.avelocity = '400 -400 400';
-	nade.angles = vectoangles(v_forward);
+	nade.angles = self.angles;
 	nade.angles_z -= 15;
 	nade.touch = Velocity_reduce;
 	setmodel (nade, "progs/GModels/g_grenade.mdl");
@@ -914,6 +916,15 @@ void() W_FireExplosive =
 	nade.origin = self.origin + self.view_ofs;
 	nade.origin += v_forward * 12;
 	setorigin (nade, nade.origin);
+
+	if (self.weapon == W_RAY || self.weapon == W_PORTER) {
+		if (self.weapon == W_RAY)
+			nade.effects = EF_GREEN;
+		else
+			nade.effects = EF_RED;
+		setmodel(nade, "progs/raybeam.mdl");
+		nade.angles -= '0 0 -90';
+	}
 }
 
 void(float side) W_Fire =
@@ -1005,7 +1016,7 @@ void(float side) W_Fire =
 		playdownfire();
 
 	//Fire weapons
-	if (firetype == 1 || firetype == 3)
+	if (firetype == 1 || firetype == 3 && self.weapon != W_RAY)
 	{
 		if (side == S_RIGHT) {
 			if (self.semi) {
@@ -1792,12 +1803,12 @@ void () Weapon_Logic =
 	if (self.button5 && !self.semireload)
 	{
 		if (IsDualWeapon(self.weapon)) {
-			if ((self.currentmag != getWeaponMag(self.weapon)) && (self.currentmag2 != getWeaponMag(self.weapon)))
+			if ((self.currentmag < getWeaponMag(self.weapon)) && (self.currentmag2 < getWeaponMag(self.weapon)))
 				W_ReloadBoth();
-			else if (self.currentmag != getWeaponMag(self.weapon))
+			else if (self.currentmag < getWeaponMag(self.weapon))
 				W_Reload(S_RIGHT);
 			else 
-				W_Reload(S_LEFT);
+				W_ReloadSecond();
 		
 		} else 
 				W_Reload(S_RIGHT);

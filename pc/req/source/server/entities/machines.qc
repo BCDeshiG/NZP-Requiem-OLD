@@ -660,14 +660,18 @@ void() Turn_Lights =
 			tempe.effects = EF_BLUE;
 		/*else if (tempe.classname == "perk_flopper")
 			tempe.effects = EF_PURPLELIGHT;*/
+		else if (tempe.classname == "perk_flopper") {
+			tempe.effects = tempe.effects | EF_BLUE;
+			tempe.effects = tempe.effects | EF_RED;
+		}
 		else if (tempe.classname == "perk_juggernog")
 			tempe.effects = EF_RED;
 		/*else if (tempe.classname == "perk_staminup")
 			tempe.effects = EF_ORANGELIGHT;*/
 		else if (tempe.classname == "perk_speed")
 			tempe.effects = EF_GREEN;
-		/*else if (tempe.classname == "perk_double")
-			tempe.effects = EF_ORANGELIGHT;*/
+		else if (tempe.classname == "perk_double")
+			tempe.effects = EF_ORANGE;
 		else if (tempe.classname == "perk_mulekick")
 			tempe.effects = EF_GREEN;
 		else if (tempe.classname == "perk_deadshot")

@@ -239,7 +239,7 @@ float(float wep) GetFiretype =
 			return 0;
 		case W_RAY:
 		case W_PORTER:
-			return 4;
+			return 3;
 		case W_SAWNOFF:
 		case W_SNUFF:
 			return 1;
@@ -340,7 +340,7 @@ float(float wep) getWeaponMag =
 		case W_RAY:
 			return 20;
 		case W_PORTER:
-			return 20;
+			return 40;
 		case W_SAWNOFF:
 		case W_SNUFF:
 			return 2;
@@ -1268,7 +1268,7 @@ vector GetWeaponADSPos(float wep) {
 			return [-2.99, 2.77, 0.92];
 		case W_RAY:
 		case W_PORTER:
-			return [-4, 8.15, 2];
+			return [-4, 8.15, 3];
 		default:
 			return [0, 0, 0];
 	}
@@ -2980,7 +2980,7 @@ void(float weptype) precache_extra =
 			precache_sound("sounds/weapons/raygun/in.wav");
 			precache_sound("sounds/weapons/raygun/close.wav");
 			precache_sound("sounds/weapons/raygun/shoot.wav");
-			//precache_model ("progs/raybeam.mdl");
+			precache_model ("progs/raybeam.mdl");
 			break;
 		case W_STG:
 		case W_SPATZ:

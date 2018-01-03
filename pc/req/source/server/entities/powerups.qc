@@ -348,6 +348,8 @@ void(vector where, float type) Spawn_Powerup =
 	sound(twlt_Sparkle,CHAN_VOICE,"sounds/pu/powerup.wav",0.6,ATTN_NORM);
 
 	sound(new_powerup,CHAN_AUTO,"sounds/pu/drop.wav",1,ATTN_NONE);
+
+	new_powerup.effects = EF_GREEN;
 	//========================================================
 	t = random();
 

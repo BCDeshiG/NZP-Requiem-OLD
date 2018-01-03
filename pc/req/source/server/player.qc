@@ -152,6 +152,11 @@ void() PlayerJump =
 		return;
 	}
 
+	if (self.view_ofs != VEC_VIEW_OFS) {
+		self.view_ofs = VEC_VIEW_OFS;
+		return;
+	}
+
 	self.flags = self.flags - (self.flags & FL_JUMPRELEASED);
 	sound(self, CHAN_VOICE, "sounds/player/jump.wav", 1, 1.75);
 	self.button2 = 0;
