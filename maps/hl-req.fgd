@@ -233,6 +233,18 @@
 		2 : "Switch location" : 0
 	]
 ]
+
+@PointClass size(-16 -16 -32, 16 16 56) base(Item, Appearflags) color(107 29 20) studio("models/machines/cherry.mdl") = 
+	perk_cherry : "Electric Cherry" 
+[
+	cost(integer) : "Cost" : 2000
+	spawnflags(Flags) =
+	[
+		1 : "Random location" : 0
+		2 : "Switch location" : 0
+	]
+]
+
 @PointClass size(-16 -16 -32, 16 16 56) base(Item, Appearflags) color(131 63 148) studio("models/machines/flopper.mdl") = 
 	perk_flopper : "Phd-Flopper" 
 [
