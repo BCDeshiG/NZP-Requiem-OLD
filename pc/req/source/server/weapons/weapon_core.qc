@@ -1,5 +1,6 @@
 void() W_PutOut;
 void() firesale;
+void(optional float damage) GrenadeExplode;
 
 void() ReturnWeaponModel =
 {
@@ -376,6 +377,9 @@ void() W_ReloadBoth =
 		Primary_frame = 0;
 		return;
 	}
+
+	if (self.perks & P_CHERRY)
+		GrenadeExplode(1500);
 		
 	float startframe_l = 0, startframe_r = 0, reloadcancelframe, delay;
 	string modelname_l = "";
@@ -454,6 +458,9 @@ void() W_ReloadSecond =
 	float endframe, startframe, reloadcancelframe, delay;
 	string modelname;
 
+	if (self.perks & P_CHERRY)
+		GrenadeExplode(1500);
+
 	modelname = GetLeftWeaponModel(self.weapon); 
 
 	if (self.currentammo)
@@ -509,6 +516,9 @@ void(float side) W_Reload =
 			modelname = GetLeftWeaponModel(self.weapon); 
 		}
 	}
+
+	if (self.perks & P_CHERRY)
+		GrenadeExplode(1500);
 	
 	if (self.currentammo)
 	{
@@ -904,7 +914,7 @@ void() W_FireExplosive =
 	nade.movetype = MOVETYPE_BOUNCE;
 	nade.solid = SOLID_BBOX;
 	nade.classname = "explosive";
-	nade.dmg = 500;
+	nade.dmg = 1500;
 	makevectors (self.v_angle);
 	nade.velocity = v_forward*5000;
 	nade.avelocity = '400 -400 400';
@@ -1217,10 +1227,13 @@ void() switch_nade =
 
 };
 
-void() GrenadeExplode =
+void(optional float damage) GrenadeExplode =
 {
 	sound (self, CHAN_WEAPON, "sounds/weapons/grenade/explode.wav", 1, ATTN_NORM);	
-	DamgageExplode (self, self.owner, 225, self.dmg, 128);//was 256 inch radius, kicked it down to 128 because 21 feet exploding radius is... a bit overkill...	
+	if (!damage)
+		DamgageExplode (self, self.owner, 225, self.dmg, 128);//was 256 inch radius, kicked it down to 128 because 21 feet exploding radius is... a bit overkill...	
+	else
+		DamgageExplode (self, self.owner, 225, damage, 128);
 	te_explosionquad(self.origin);
 	if (self.classname != "player")
 		SUB_Remove ();
