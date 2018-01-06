@@ -468,17 +468,23 @@ void(vector where, float type) Spawn_Powerup =
 		setmodel(new_powerup,"progs/Misc/maxammo!.mdl");
 		new_powerup.zombie_drop_id = 1;
 	} else if (type == 2) {
-		setmodel(new_powerup,"progs/Misc/instakill!.mdl");
-		new_powerup.zombie_drop_id = 3;
-	} else if (type == 3) {
-		setmodel(new_powerup,"progs/Misc/sale!.mdl");
-		new_powerup.zombie_drop_id = 6;
-	} else if (type == 4) {
 		setmodel(new_powerup,"progs/Misc/x2!.mdl");
 		new_powerup.zombie_drop_id = 2;
+	} else if (type == 3) {
+		setmodel(new_powerup,"progs/Misc/instakill!.mdl");
+		new_powerup.zombie_drop_id = 3;
+	} else if (type == 4) {
+		setmodel(new_powerup,"progs/Misc/nuke!.mdl");
+		new_powerup.zombie_drop_id = 4;
 	} else if (type == 5) {
 		setmodel(new_powerup,"progs/Misc/carpenter!.mdl");
 		new_powerup.zombie_drop_id = 5;
+	} else if (type == 6) {
+		setmodel(new_powerup,"progs/Misc/sale!.mdl");
+		new_powerup.zombie_drop_id = 6;
+	} else if (type == 7) {
+		//setmodel(new_powerup,"progs/Misc/blood!.mdl"); //motolegacy (FIXME) -- zombie blood icon
+		new_powerup.zombie_drop_id = 7;
 	}
 	last_pu = new_powerup.zombie_drop_id;
 	new_powerup.touch = powerup_touch;

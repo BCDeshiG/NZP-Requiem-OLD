@@ -22,6 +22,8 @@ const float EVENT_BLACKOUT = 26;
 #define G_SCORE 		5 		//Whos' Keeping Score?
 #define G_IMMOLATION 	6 		//Immolation Liquidation
 #define G_CARPENTER 	7 		//Licensed Contractor
+#define G_WINTER 		8 		//Dead of Nuclear Winter
+#define G_CACHE 		9 		//Cache Back
 
 //nzp weapon defines
 //id list

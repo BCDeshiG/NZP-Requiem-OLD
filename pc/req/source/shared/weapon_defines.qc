@@ -136,6 +136,10 @@ string(float gum) getGumName =
 			return "Immolation Liquidation";
 		case G_CARPENTER:
 			return "Licensed Contractor";
+		case G_WINTER:
+			return "Dead of Nuclear Winter";
+		case G_CACHE:
+			return "Cache Back";
 		default:
 			return "NULL";
 	}

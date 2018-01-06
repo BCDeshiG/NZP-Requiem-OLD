@@ -1454,12 +1454,14 @@ void() CheckButtonTwo = {if (self.weaponnum == 0) {W_Switch();}}	// weapon switc
 
 void(float gum) setSpecial =
 {
-	//moto -- always make value one greater than what it gives.. don't ask me why.
+	//moto -- always make value one greater than what it gives.. don't ask me why.. cuz idk lol
 	self.holdgum = gum;
 	switch(gum) {
 		case G_KILLJOY:
 		case G_SCORE:
 		case G_CARPENTER:
+		case G_CACHE:
+		case G_WINTER:
 			self.gumcount = 3;
 			break;
 		case G_IMMOLATION:
