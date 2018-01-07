@@ -1144,8 +1144,13 @@ void() HUD_Scores =
 
 void() HUD_Endgame = {
 
+	string roundstr;
+	if (rounds == 1)
+		roundstr = " round";
+	else
+		roundstr = " rounds";
 	string message = "GAME OVER";
-	string survive = strcat("You survived ",ftos(rounds)," rounds");
+	string survive = strcat("You survived ",ftos(rounds),roundstr);
 
 	// first message
 	float print_width = stringwidth(message, 0, [(1/30)*g_width, (1/30)*g_width, 0]);
