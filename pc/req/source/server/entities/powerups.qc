@@ -283,6 +283,12 @@ void() powerup_touch =
 			sale_end = 0;
 			firesale();
 		}
+		else if (self.zombie_drop_id == 7)
+		{
+			zblood_finished = time + 30;
+			other.zblood_icon = true;
+			other.classname = "player_blood";
+		}
 		/*else if(self.zombie_drop_id == 6)
 		{
 			give_perk();

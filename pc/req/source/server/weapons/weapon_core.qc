@@ -2,7 +2,7 @@ void() W_PutOut;
 void() firesale;
 void(optional float damage) GrenadeExplode;
 
-void() ReturnWeaponModel =
+void(optional float scoped) ReturnWeaponModel =
 {
 	if (self.perkweapon) {
 		self.weapon = self.perkweapon;
@@ -23,7 +23,8 @@ void() ReturnWeaponModel =
 	float startframe = GetFrame(self.weapon, TAKE_OUT_START);
 	float endframe = GetFrame(self.weapon, TAKE_OUT_END);
 	string modelname = GetWeaponModel(self.weapon, 0);
-	Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, true, S_BOTH);
+	if (!scoped)
+		Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, true, S_BOTH);
 }
 
 void() W_AimIn =
@@ -61,7 +62,7 @@ void() W_AimOut =
 	}
 	if (self.weapon == 11 || self.weapon == 19 ||
 	    self.weapon == 49 || self.weapon == 51)
-		ReturnWeaponModel();
+		ReturnWeaponModel(1);
 	
 	self.zoom = 0;
 	self.viewzoom = 1;

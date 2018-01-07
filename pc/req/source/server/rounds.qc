@@ -22,7 +22,7 @@ void(string s) playSoundAtPlayers =
 	p = find(world,classname,"player");
 	while(p)
 	{
-		sound(p,CHAN_AUTO,s,1,ATTN_NONE);
+		sound(p,CHAN_AUTO,s,1,ATTN_NORM);
 		p = find(p,classname,"player");
 	}
 }

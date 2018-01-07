@@ -3,7 +3,7 @@ float backupWepSkin;
 float sound_perk_delay;
 void() W_Switch;
 void() mystery_touch;
-void() ReturnWeaponModel;
+void(optional float scoped) ReturnWeaponModel;
 void(entity who) SetupBlood;
 void(string to, float skin) UpdateV2model;
 
