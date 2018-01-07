@@ -410,3 +410,6 @@ float songam, songcount;
 //motolegacy -- buyabl ending
 .string gmsg, gmsg2;
 .float msgc;
+
+//motolegacy - ec
+.float canE;

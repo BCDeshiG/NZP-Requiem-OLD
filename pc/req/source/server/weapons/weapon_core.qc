@@ -289,6 +289,7 @@ void(float side) W_Give_Ammo =
 	} else {
 		self.currentmag = loadammo;
 	}
+	self.canE = 0;
 };
 
 void () W_LoadAmmo;
@@ -379,8 +380,10 @@ void() W_ReloadBoth =
 		return;
 	}
 
-	if (self.perks & P_CHERRY)
+	if (self.perks & P_CHERRY && !self.canE) {
+		self.canE = 1;
 		GrenadeExplode(1500);
+	}
 		
 	float startframe_l = 0, startframe_r = 0, reloadcancelframe, delay;
 	string modelname_l = "";
@@ -459,8 +462,10 @@ void() W_ReloadSecond =
 	float endframe, startframe, reloadcancelframe, delay;
 	string modelname;
 
-	if (self.perks & P_CHERRY)
+	if (self.perks & P_CHERRY && !self.canE) {
+		self.canE = 1;
 		GrenadeExplode(1500);
+	}
 
 	modelname = GetLeftWeaponModel(self.weapon); 
 
@@ -518,8 +523,10 @@ void(float side) W_Reload =
 		}
 	}
 
-	if (self.perks & P_CHERRY)
+	if (self.perks & P_CHERRY && !self.canE) {
+		self.canE = 1;
 		GrenadeExplode(1500);
+	}
 	
 	if (self.currentammo)
 	{

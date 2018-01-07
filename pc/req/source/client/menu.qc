@@ -45,7 +45,7 @@ void() M_Menu_Main_Draw =
 		drawstring([0.025*g_width, 0.375*g_height, 0], "Quit", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 
 	//Version info
-	drawstring([0.025*g_width, 0.900*g_height, 0], "Requiem Alpha I", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+	drawstring([0.025*g_width, 0.900*g_height, 0], "Requiem Alpha II", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 
 	//Directions
 	drawstring([0.025*g_width, 0.950*g_height, 0], "W/S: Navigate      D: Enter      A: Return", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
