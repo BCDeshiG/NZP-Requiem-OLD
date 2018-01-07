@@ -10,8 +10,24 @@ void(float which) QuotePlay;
 
 void() ALDie =
 {
-	self.aldowned = 1;
+	local entity tempe;
+	tempe = self;
+	self = self.owner;
+	returnWeapon();
 	GetDown();
+}
+
+void() SubtractAL =
+{
+	if (self.owner.altime == 0) {
+		if (self.owner.weapon == AL)
+			ALDie();
+		remove(self);
+	}
+	self.owner.altime -= 0.01;
+	if (self.owner.isrevivingal)
+		self.owner.altime += 0.01;
+	self.nextthink = time + 0.01;
 }
 
 void() getUpAL =
@@ -21,10 +37,15 @@ void() getUpAL =
 	setorigin(self, dummy.origin);
 	remove(dummy);
 
-	self.gravity *= 2;
+	local entity alcheck;
+	alcheck = find(world, classname, "alcheck");
+	remove(alcheck);
+
+	self.gravity *= 10;
 	self.classname = "player";
 	self.movetype = MOVETYPE_WALK;
 	self.isrevivingal = false;
+	self.altime = 0;
 	returnWeapon();
 
 	if (self.spawnal == 1 && self.hasentered == 0) {
@@ -38,9 +59,7 @@ void() getUpAL =
 
 void() dummyRevive =
 {
-	//So we don't die out.
-	other.nextthink = time + 0.1;
-	other.think = SUB_Null;
+	//So we don't die out
 
 	other.movetype = MOVETYPE_NONE;
 	other.isrevivingal = true;
@@ -79,17 +98,22 @@ void() stage2 =
 	placeDummy();
 	self.movetype = MOVETYPE_WALK;
 	self.view_ofs = VEC_VIEW_OFS;
-	self.gravity *= 0.5;
+	self.gravity *= 0.1;
 
 	backupWeapon();
 	self.weapon = AL;
 	self.currentmag = getWeaponMag(self.weapon);
 	self.weaponmodel = GetWeaponModel(self.weapon, 0);
 	self.secondaryweapon = 0;
+	self.altime = 30;
 	SwitchWeapon(AL);
 
-	/*self.nextthink = time + 60;
-	self.think = ALDie;*/
+	local entity aldecrease;
+	aldecrease = spawn();
+	aldecrease.owner = self;
+
+	aldecrease.nextthink = time + 0.01;
+	aldecrease.think = SubtractAL;
 }
 
 void() enterAfterlife =

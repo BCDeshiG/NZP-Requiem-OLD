@@ -51,9 +51,19 @@ void(float width, float height) HUD_ALCount =
 	}
 }
 
-void(float width, float height) HUD_ALBlue =
+void(float width, float height) HUD_ALHUD =
 {
-	drawfill ([0, 0, 0], [g_width, g_height, 0], [0, 102, 255], 0.2);
+	drawfill ([0, 0, 0], [g_width, g_height, 0], [0, 102, 255], 0.2); //blue overlay
+
+	local float atime = getstatf(STAT_ALTIME) / 30;
+
+	float bar_width = 0.0175*width * 20;
+	float bar_height = 0.0175*width;
+	float bar_x = (width - bar_width)/2;
+	float bar_y = height*0.75;
+
+	drawfill ([bar_x - 1, bar_y - 1, 0], [bar_width+2, bar_height, 0], [0, 0, 0], 0.4);
+	drawfill ([bar_x, bar_y, 0], [bar_width * atime, bar_height-2, 0], [0, 102, 255], 0.4);
 }
 
 /*******************
@@ -1313,7 +1323,7 @@ void(float width, float height) HUD_Draw =
 		Draw_Crosshair();
 
 		if (getstatf(STAT_ACTIVEWEAPON) == AL)
-			HUD_ALBlue(width, height);
+			HUD_ALHUD(width, height);
 
 		if (getstatf(STAT_ACTIVEWEAPON) != AL) {
 			HUD_Health(width, height);
