@@ -228,6 +228,72 @@ void() M_Menu_Classic_Keys =
 	Settings
    ========== */
 
+#define M_Menu_VSettings_CursorMax 	0
+float M_Menu_VSettings_Cursor;
+
+void() M_Menu_VSettings_Draw =
+{
+	drawstring([0.025*g_width, 0.050*g_height, 0], "Video Settings", [g_height * 0.04, g_height * 0.04, 1], [1, 0.5, 0], 1, 1); //Title
+
+	//FIXME - Text is opaque so we can't draw over each other without a weird effect
+
+	if (M_Menu_VSettings_Cursor != 0)
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Fullbright", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+
+	if (M_Menu_VSettings_Cursor == 0)
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Fullbright", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+
+	if (cvar("r_fullbright"))
+		drawstring([0.900*g_width, 0.125*g_height, 0], "On", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	else
+		drawstring([0.900*g_width, 0.125*g_height, 0], "Off", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+
+	//Selection
+
+	//Directions
+	drawstring([0.025*g_width, 0.950*g_height, 0], "W/S: Navigate      D: Enter/Apply      A: Return", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+}
+
+void() M_Menu_VSettings_Keys =
+{
+	if (menuTime > time)
+		return;
+
+	if (K_BACKDOWN) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_VSettings_Cursor++;
+		if (M_Menu_VSettings_Cursor > M_Menu_VSettings_CursorMax)
+			M_Menu_VSettings_Cursor = 0;
+		menuTime = time + 0.2;
+	}
+
+	if (K_FORWARDDOWN) {
+		sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+		M_Menu_VSettings_Cursor--;
+		if (M_Menu_VSettings_Cursor == -1)
+			M_Menu_VSettings_Cursor = M_Menu_VSettings_CursorMax;
+		menuTime = time + 0.2;
+	}
+
+	if (K_LEFTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		in_menu = MENU_SETTINGS;
+		menuTime = time + 0.2;
+	}
+
+	if (K_RIGHTDOWN) {
+		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
+		if (M_Menu_VSettings_Cursor == 0) {
+			if (cvar("r_fullbright"))
+				cvar_set("r_fullbright", "0");
+			else
+				cvar_set("r_fullbright", "1");
+			localcmd("vid_restart\n");
+			menuTime = 0.2 + time;
+		}
+	}
+}
+
 #define M_Menu_Settings_CursorMax 	0
 float M_Menu_Settings_Cursor;
 
@@ -238,15 +304,10 @@ void() M_Menu_Settings_Draw =
 	//FIXME - Text is opaque so we can't draw over each other without a weird effect
 
 	if (M_Menu_Settings_Cursor != 0)
-		drawstring([0.025*g_width, 0.125*g_height, 0], "Fullbright", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Video Settings", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 
 	if (M_Menu_Settings_Cursor == 0)
-		drawstring([0.025*g_width, 0.125*g_height, 0], "Fullbright", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
-
-	if (cvar("r_fullbright"))
-		drawstring([0.900*g_width, 0.125*g_height, 0], "On", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
-	else
-		drawstring([0.900*g_width, 0.125*g_height, 0], "Off", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+		drawstring([0.025*g_width, 0.125*g_height, 0], "Video Settings", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 
 	//Selection
 
@@ -286,13 +347,8 @@ void() M_Menu_Settings_Keys =
 
 	if (K_RIGHTDOWN) {
 		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
-		if (M_Menu_Settings_Cursor == 0) {
-			if (cvar("r_fullbright"))
-				cvar_set("r_fullbright", "0");
-			else
-				cvar_set("r_fullbright", "1");
-			localcmd("vid_restart\n");
-			menuTime = 0.2 + time;
+		switch (M_Menu_Settings_Cursor) {
+			case 0: in_menu = MENU_VSET; menuTime = 0.2 + time; break;
 		}
 	}
 }
@@ -609,6 +665,10 @@ void() Draw_Menu =
 		case MENU_SETTINGS:
 			M_Menu_Settings_Draw();
 			M_Menu_Settings_Keys();
+			break;
+		case MENU_VSET:
+			M_Menu_VSettings_Draw();
+			M_Menu_VSettings_Keys();
 			break;
 		case MENU_CREDITS:
 			M_Menu_Credits_Draw();
