@@ -770,7 +770,7 @@ void(float width, float height) HUD_Useprint =
 				usestring = strcat("Hold ",usebutton, " to deposit 1000 [Fee: 100]");
 				break;
 			case 21:
-				usestring = strcat("Hold ",usebutton, " to win [Cost: ", ftos(useprint_cost), "]");
+				usestring = strcat("Hold ",usebutton, " to End Game [Cost:", ftos(useprint_cost), "]");
 				break;
 			default:
 				usestring = "This should not happen you dum fuck";
