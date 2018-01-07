@@ -76,7 +76,7 @@ void() M_Menu_Main_Keys =
 		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
 		switch (M_Menu_Main_Cursor) {
 			case 0: in_menu = MENU_SINGLE; menuTime = time + 0.2; break;
-			case 3: in_menu = MENU_SETTINGS; menuTime = time + 0.2; break;
+			case 3: in_menu = MENU_SETTINGS; setMen = 0; menuTime = time + 0.2; break;
 			//case 4: in_menu = MENU_CREDITS; menuTime = time + 0.2; break; //motolegacy -- credits are fucked :pp
 			case 5: localcmd("quit\n"); break;
 		}
@@ -277,7 +277,10 @@ void() M_Menu_Settings_Keys =
 
 	if (K_LEFTDOWN) {
 		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
-		in_menu = MENU_MAIN;
+		if (!setMen)
+			in_menu = MENU_MAIN;
+		else
+			in_menu = MENU_PAUSE;
 		menuTime = time + 0.2;
 	}
 
@@ -502,7 +505,7 @@ void() M_Menu_Credits_Keys =
 	}
 }
 
-#define M_Menu_Pause_CursorMax 	2
+#define M_Menu_Pause_CursorMax 	3
 float M_Menu_Pause_Cursor;
 
 void() M_Menu_Pause_Draw =
@@ -516,7 +519,9 @@ void() M_Menu_Pause_Draw =
 	if (M_Menu_Pause_Cursor != 1)
 		drawstring([0.025*g_width, 0.175*g_height, 0], "Restart", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 	if (M_Menu_Pause_Cursor != 2)
-		drawstring([0.025*g_width, 0.225*g_height, 0], "Main Menu", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+		drawstring([0.025*g_width, 0.225*g_height, 0], "Settings", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	if (M_Menu_Pause_Cursor != 3)
+		drawstring([0.025*g_width, 0.275*g_height, 0], "Main Menu", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 
 	//Selection
 
@@ -525,7 +530,9 @@ void() M_Menu_Pause_Draw =
 	if (M_Menu_Pause_Cursor == 1)
 		drawstring([0.025*g_width, 0.175*g_height, 0], "Restart", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	if (M_Menu_Pause_Cursor == 2)
-		drawstring([0.025*g_width, 0.225*g_height, 0], "Main Menu", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.225*g_height, 0], "Settings", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+	if (M_Menu_Pause_Cursor == 3)
+		drawstring([0.025*g_width, 0.275*g_height, 0], "Main Menu", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 
 	//Directions
 	drawstring([0.025*g_width, 0.950*g_height, 0], "W/S: Navigate      D: Enter      A: Return", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
@@ -564,7 +571,8 @@ void() M_Menu_Pause_Keys =
 		switch (M_Menu_Pause_Cursor) {
 			case 0: in_menu = MENU_NONE; setcursormode(FALSE); break;
 			case 1: localcmd("restart"); break;
-			case 2: localcmd("map menu"); break;
+			case 2: in_menu = MENU_SETTINGS; menuTime = time + 0.2; setMen = 1; break;
+			case 3: localcmd("map menu"); break;
 		}
 	}
 }
