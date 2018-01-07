@@ -34,8 +34,8 @@ void() DumpSettings =
 	h = "settings.dat";
 	file = fopen (h, FILE_WRITE);
 
-	fputs(file, strcat("fov ", ftos(cvar("fov"))));
-	fputs(file, strcat("r_fullbright ", ftos(cvar("r_fullbright"))));
+	fputs(file, strcat("fov ", ftos(cvar("fov")), "\n"));
+	fputs(file, strcat("r_fullbright ", ftos(cvar("r_fullbright")), "\n"));
 	fclose(file);
 }
 
