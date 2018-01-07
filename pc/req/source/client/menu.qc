@@ -1,6 +1,6 @@
 //==-           Menu.qc           -==//
 //==- Menu Revamped By MotoLegacy -==//
-
+void() DumpSettings;
 float menuTime; //Used to prevent flickering
 
 /* ===========
@@ -280,8 +280,10 @@ void() M_Menu_GSettings_Keys =
 		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
 		if (M_Menu_GSettings_Cursor == 0)
 			localcmd(strcat("fov ", ftos(cvar("fov") - 5)));
-		if (M_Menu_GSettings_Cursor == 1)
+		if (M_Menu_GSettings_Cursor == 1) {
+			DumpSettings();
 			in_menu = MENU_SETTINGS;
+		}
 		menuTime = time + 0.2;
 	}
 
@@ -289,8 +291,10 @@ void() M_Menu_GSettings_Keys =
 		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
 		if (M_Menu_GSettings_Cursor == 0)
 			localcmd(strcat("fov ", ftos(cvar("fov") + 5)));
-		if (M_Menu_GSettings_Cursor == 1)
+		if (M_Menu_GSettings_Cursor == 1) {
+			DumpSettings();
 			in_menu = MENU_SETTINGS;
+		}
 		menuTime = 0.2 + time;
 	}
 }
@@ -355,8 +359,10 @@ void() M_Menu_VSettings_Keys =
 				cvar_set("r_fullbright", "1");
 			localcmd("vid_restart\n");
 		}
-		if (M_Menu_VSettings_Cursor == 1)
+		if (M_Menu_VSettings_Cursor == 1) {
+			DumpSettings();
 			in_menu = MENU_SETTINGS;
+		}
 	}
 
 	if (K_RIGHTDOWN) {
@@ -368,8 +374,10 @@ void() M_Menu_VSettings_Keys =
 				cvar_set("r_fullbright", "1");
 			localcmd("vid_restart\n");
 		}
-		if (M_Menu_VSettings_Cursor == 1)
+		if (M_Menu_VSettings_Cursor == 1) {
+			DumpSettings();
 			in_menu = MENU_SETTINGS;
+		}
 		menuTime = 0.2 + time;
 	}
 }

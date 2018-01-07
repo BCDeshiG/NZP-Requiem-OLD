@@ -26,6 +26,52 @@ void() ToggleMenu =
 	}
 }
 
+void() DumpSettings =
+{
+	float file;
+	string h;
+
+	h = "settings.dat";
+	file = fopen (h, FILE_WRITE);
+
+	fputs(file, strcat("fov ", ftos(cvar("fov"))));
+	fputs(file, strcat("r_fullbright ", ftos(cvar("r_fullbright"))));
+	fclose(file);
+}
+
+void() LoadSettings =
+{
+	float file, point;
+	string h;
+	float targetcount, loop;
+
+	h = "settings.dat";
+	file = fopen (h, FILE_READ);
+
+	if (file == -1)
+		return;
+
+	targetcount = 0;
+	point = 0;
+	loop = 1;
+	while (loop)
+	{
+		string line;
+		line = fgets(file);
+		if not (line) {
+			loop = 0;
+			break;
+		}
+		localcmd(line);
+
+		if (h == "")
+			continue;
+		break;
+	}
+
+	fclose(file);
+}
+
 noref void(float apiver, string enginename, float enginever) CSQC_Init =
 {
 	precache_sound("sounds/menu/navigate.wav");
@@ -42,6 +88,8 @@ noref void(float apiver, string enginename, float enginever) CSQC_Init =
 	if(serverkey("constate") == "disconnected")
 		ToggleMenu();
 	//bgpos = 0;
+
+	LoadSettings();
 };
 
 noref void() CSQC_WorldLoaded =
