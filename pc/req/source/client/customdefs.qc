@@ -46,6 +46,7 @@ const float MENU_RES = 256;
 const float MENU_COMMUNITY = 512;
 const float MENU_BETA = 1024;
 const float MENU_VSET = 2048;
+const float MENU_GSET = 4096;
 
 
 float useprint_type;
@@ -96,3 +97,4 @@ float fade_time;
 float fade_type;
 
 float setMen;
+float statfov;
