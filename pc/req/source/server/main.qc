@@ -239,6 +239,8 @@ void() worldspawn =
 	clientstat(STAT_ISNOCLIP, EV_FLOAT, isnoclip);
 	clientstat(STAT_MAX, EV_FLOAT, maxa);
 	clientstat(STAT_ALTIME, EV_FLOAT, altime);
+	clientstat(STAT_GMSG, EV_STRING, gmsg);
+	clientstat(STAT_GMSG2, EV_STRING, gmsg2);
 
 	mappath = strcat("maps/", mapname);
 	mappath = strzone(mappath);

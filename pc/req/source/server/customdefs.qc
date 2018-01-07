@@ -406,3 +406,7 @@ float songam, songcount;
 .float primary;
 .float secondary;
 .float tertiary;
+
+//motolegacy -- buyabl ending
+.string gmsg, gmsg2;
+.float msgc;

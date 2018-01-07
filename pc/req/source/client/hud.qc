@@ -769,6 +769,9 @@ void(float width, float height) HUD_Useprint =
 			case 20:
 				usestring = strcat("Hold ",usebutton, " to deposit 1000 [Fee: 100]");
 				break;
+			case 21:
+				usestring = strcat("Hold ",usebutton, " to win [Cost: ", ftos(useprint_cost), "]");
+				break;
 			default:
 				usestring = "This should not happen you dum fuck";
 				break;
@@ -1144,13 +1147,22 @@ void() HUD_Scores =
 
 void() HUD_Endgame = {
 
-	string roundstr;
+	string roundstr, message, survive, survived;
 	if (rounds == 1)
 		roundstr = " round";
 	else
 		roundstr = " rounds";
-	string message = "GAME OVER";
-	string survive = strcat("You survived ",ftos(rounds),roundstr);
+	if (getstats(STAT_GMSG) != "")
+		message = getstats(STAT_GMSG);
+	else
+		message = "GAME OVER";
+	if (getstats(STAT_GMSG2) != "")
+		survived = getstats(STAT_GMSG2);
+	else
+		survived = "You survived ";
+
+	survive = strcat(survived,ftos(rounds),roundstr);
+
 
 	// first message
 	float print_width = stringwidth(message, 0, [(1/30)*g_width, (1/30)*g_width, 0]);

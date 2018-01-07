@@ -157,8 +157,10 @@ void() rec_downed =
 	self.nextthink = time + 0.1;
 }
 
-void() GetDown =
+void(optional entity who) GetDown =
 {
+	if (who)
+		self = who;
 	if (self.alcount > 0 && self.aldowned == 0) {
 		DownAL();
 		return;

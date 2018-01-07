@@ -367,6 +367,14 @@
 	
 ]
 
+@PointClass color(114 224 172) studio() = func_ending : "Buyable Ending"
+[	
+	model(studio) : "Model" : "progs/props/"
+	cost(integer) : "Cost" : 10000
+	gmsg(string) : "Game Over" : "GAME OVER"
+	gmsg2(string) : "You survived" : "You survived "
+]
+
 @PointClass size(-32 -32 -32, 32 32 56) base(Item, Appearflags) color(125 196 187) studio() = func_bank_withdrawal : "bo2 withdrawal"
 [	
 	model(studio) : "Model" : "progs/props/"	

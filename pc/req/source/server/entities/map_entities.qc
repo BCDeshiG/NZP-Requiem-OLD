@@ -937,3 +937,42 @@ void() item_jeep =
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
   self.touch = item_jeep_touch;
 };
+
+//motolegacy -- buyable ending
+void() setCustomMessage =
+{
+	local entity plr;
+	plr = find(world, classname, "player");
+	while (plr && !plr.msgc) {
+		plr.gmsg = self.gmsg;
+		plr.gmsg2 = self.gmsg2;
+		plr.msgc = 1;
+		plr.perks = 0;
+		GetDown(plr);
+		plr = find(world, classname, "player");
+	}
+}
+
+void() touch_ending =
+{
+	if (other.classname != "player")
+		return;
+	useprint (other, 21, self.cost, 0);
+	if (other.button7 && other.points >= self.cost) {
+		addmoney(other, -self.cost, 0);
+		setCustomMessage();
+	}
+}
+
+void() func_ending =
+{
+	precache_model(self.model);
+	precache_sound("sounds/misc/ching.wav");
+	setmodel(self, self.model);
+	self.movetype = MOVETYPE_NONE;
+	self.solid = SOLID_TRIGGER;
+	self.classname = "func_ending";
+	setorigin(self, self.origin);
+	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+	self.touch = touch_ending;
+}

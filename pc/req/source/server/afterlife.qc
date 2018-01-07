@@ -4,7 +4,7 @@ void() backupWeapon;
 void() returnWeapon;
 void() InitRounds;
 void() turnpower1;
-void() GetDown;
+void(optional entity who) GetDown;
 void() door_go_up;
 void(float which) QuotePlay;
 
