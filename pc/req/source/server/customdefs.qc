@@ -413,3 +413,6 @@ float songam, songcount;
 
 //motolegacy - ec
 .float canE;
+
+//motolegacy -- tombstone
+.entity perkholder;

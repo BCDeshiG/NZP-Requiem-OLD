@@ -36,6 +36,7 @@ void() DumpSettings =
 
 	fputs(file, strcat("fov ", ftos(cvar("fov")), "\n"));
 	fputs(file, strcat("r_fullbright ", ftos(cvar("r_fullbright")), "\n"));
+	fputs(file, strcat("sprintrun ", ftos(cvar("sprintrun")), "\n"));
 	fclose(file);
 }
 

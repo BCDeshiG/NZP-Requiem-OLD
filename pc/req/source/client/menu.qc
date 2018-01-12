@@ -228,7 +228,7 @@ void() M_Menu_Classic_Keys =
 	Settings
    ========== */
 
-#define M_Menu_GSettings_CursorMax 	1
+#define M_Menu_GSettings_CursorMax 	2
 float M_Menu_GSettings_Cursor;
 
 void() M_Menu_GSettings_Draw =
@@ -240,14 +240,23 @@ void() M_Menu_GSettings_Draw =
 	if (M_Menu_GSettings_Cursor != 0)
 		drawstring([0.025*g_width, 0.125*g_height, 0], "FOV", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 	if (M_Menu_GSettings_Cursor != 1)
+		drawstring([0.025*g_width, 0.175*g_height, 0], "Running While Sprinting", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	if (M_Menu_GSettings_Cursor != 2)
 		drawstring([0.025*g_width, 0.900*g_height, 0], "Back", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 
 	if (M_Menu_GSettings_Cursor == 0)
 		drawstring([0.025*g_width, 0.125*g_height, 0], "FOV", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 	if (M_Menu_GSettings_Cursor == 1)
+		drawstring([0.025*g_width, 0.175*g_height, 0], "Running While Sprinting", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+	if (M_Menu_GSettings_Cursor == 2)
 		drawstring([0.025*g_width, 0.900*g_height, 0], "Back", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 
 	drawstring([0.900*g_width, 0.125*g_height, 0], ftos(cvar("fov")), [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+
+	if (cvar("sprintrun"))
+		drawstring([0.900*g_width, 0.175*g_height, 0], "On", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	else
+		drawstring([0.900*g_width, 0.175*g_height, 0], "Off", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
 
 	//Selection
 
@@ -281,6 +290,12 @@ void() M_Menu_GSettings_Keys =
 		if (M_Menu_GSettings_Cursor == 0)
 			localcmd(strcat("fov ", ftos(cvar("fov") - 5)));
 		if (M_Menu_GSettings_Cursor == 1) {
+			if (cvar("sprintrun"))
+				localcmd("sprintrun 0");
+			else
+				localcmd("sprintrun 1");
+		}
+		if (M_Menu_GSettings_Cursor == 2) {
 			DumpSettings();
 			in_menu = MENU_SETTINGS;
 		}
@@ -292,6 +307,12 @@ void() M_Menu_GSettings_Keys =
 		if (M_Menu_GSettings_Cursor == 0)
 			localcmd(strcat("fov ", ftos(cvar("fov") + 5)));
 		if (M_Menu_GSettings_Cursor == 1) {
+			if (cvar("sprintrun"))
+				localcmd("sprintrun 0");
+			else
+				localcmd("sprintrun 1");
+		}
+		if (M_Menu_GSettings_Cursor == 2) {
 			DumpSettings();
 			in_menu = MENU_SETTINGS;
 		}

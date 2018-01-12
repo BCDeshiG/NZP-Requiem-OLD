@@ -116,7 +116,9 @@ void W_SprintStart () {
 	}
 
 	self.sprinting = true;
-	self.reload_delay2 = self.fire_delay2 = self.reload_delay = self.fire_delay = 0;
+	self.fire_delay = self.fire_delay2 = 0;
+	if (!cvar("sprintrun"))
+		self.reload_delay2 = self.reload_delay = 0;
 }
 
 void() W_MuleSwitch =
@@ -374,7 +376,7 @@ void() W_ReloadBoth =
 		playreload();
 	}
 	
-	if (self.sprinting) {
+	if (self.sprinting && !cvar("sprintrun")) {
 		Secondary_frame = 0;
 		Primary_frame = 0;
 		return;
@@ -458,7 +460,8 @@ void() W_ReloadSecond =
 	if (self.reload_delay2 > time || self.new_anim2_stop || !self.currentammo || self.currentmag2 >= getWeaponMag(self.weapon))
 		return;
 
-	W_SprintStop();
+	if (!cvar("sprintrun"))
+		W_SprintStop();
 	float endframe, startframe, reloadcancelframe, delay;
 	string modelname;
 
@@ -511,7 +514,8 @@ void(float side) W_Reload =
 		return;
 	}
 	W_AimOut();
-	W_SprintStop();
+	if (!cvar("sprintrun"))
+		W_SprintStop();
 
 	float endframe, startframe, reloadcancelframe, delay;
 	string modelname;

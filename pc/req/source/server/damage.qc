@@ -157,10 +157,40 @@ void() rec_downed =
 	self.nextthink = time + 0.1;
 }
 
+void() TombQuit =
+{
+	useprint(self.owner, 22, 0, 0);
+	self.nextthink = time + 0.1;
+}
+
+void() DownTomb =
+{
+	local entity useprintguy;
+	useprintguy = spawn();
+	RemovePerk(self, P_TOMB); //don't want the record of having tombstone..
+	BackUpPerks(self);
+	self.view_ofs = VEC_VIEW_PRONE;
+
+	backupWeapon();
+
+	if (self.weapon != W_BIATCH) {
+		self.weapon = W_BIATCH;
+		self.currentmag = 6;
+		self.currentmag2 = 6;
+		self.currentammo = 12;
+	}
+
+	useprintguy.owner = self;
+	useprintguy.think = TombQuit;
+	useprintguy.nextthink = time + 0.1;
+	localcmd("god");
+}
+
 void(optional entity who) GetDown =
 {
 	if (who)
 		self = who;
+
 	if (self.alcount > 0 && self.aldowned == 0) {
 		DownAL();
 		return;
@@ -366,7 +396,12 @@ void(entity victim,entity attacker, float damage, float d_style) DamageHandler =
 		{
 			old_self = self;
 			self = victim;
-			GetDown();
+			if (!(self.perks & P_TOMB))
+				GetDown();
+			else {
+				self.health = 100; //override death 
+				DownTomb();
+			}
 			self = old_self;
 		}
 	}

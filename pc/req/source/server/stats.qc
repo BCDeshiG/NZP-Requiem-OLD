@@ -57,3 +57,19 @@ void RemovePerk(entity who, float perk)
 	//kill fuck
 	remove(fuck);
 }
+
+void RecoverPerks(entity who) =
+{
+	who.perks = who.perkholder.perks;
+}
+
+void BackUpPerks(entity who) =
+{
+	local entity oof;
+	oof = spawn();
+	oof.owner = who;
+
+	oof.perks = oof.owner.perks;
+
+	who.perkholder = oof;
+}
