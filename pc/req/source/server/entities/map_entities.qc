@@ -948,7 +948,7 @@ void() setCustomMessage =
 		plr.gmsg2 = self.gmsg2;
 		plr.msgc = 1;
 		plr.perks = 0;
-		GetDown(plr);
+		DamageHandler(plr, self, 1000, S_KNIFE);
 		plr = find(world, classname, "player");
 	}
 }

@@ -4,7 +4,7 @@ void() backupWeapon;
 void() returnWeapon;
 void() InitRounds;
 void() turnpower1;
-void(optional entity who) GetDown;
+void(entity who, optional float end) GetDown;
 void() door_go_up;
 void(float which) QuotePlay;
 
@@ -14,7 +14,7 @@ void() ALDie =
 	tempe = self;
 	self = self.owner;
 	returnWeapon();
-	GetDown();
+	GetDown(self);
 }
 
 void() SubtractAL =

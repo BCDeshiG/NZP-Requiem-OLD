@@ -23,12 +23,14 @@ void(optional float scoped) ReturnWeaponModel =
 	float startframe = GetFrame(self.weapon, TAKE_OUT_START);
 	float endframe = GetFrame(self.weapon, TAKE_OUT_END);
 	string modelname = GetWeaponModel(self.weapon, 0);
-	if (!scoped)
-		Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, true, S_BOTH);
+	Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, true, S_BOTH);
 }
 
 void() W_AimIn =
 {	
+	if (self.knife_delay > time)
+		return;
+
 	if (IsDualWeapon(self.weapon) ||
 		self.zoom ||
 		self.reload_delay > time ||
@@ -60,9 +62,6 @@ void() W_AimOut =
 		self.new_anim_stop) {
 		return;
 	}
-	if (self.weapon == 11 || self.weapon == 19 ||
-	    self.weapon == 49 || self.weapon == 51)
-		ReturnWeaponModel(1);
 	
 	self.zoom = 0;
 	self.viewzoom = 1;
@@ -926,7 +925,7 @@ void() W_FireExplosive =
 	nade.movetype = MOVETYPE_BOUNCE;
 	nade.solid = SOLID_BBOX;
 	nade.classname = "explosive";
-	nade.dmg = 1500;
+	nade.dmg = 10000;
 	makevectors (self.v_angle);
 	nade.velocity = v_forward*5000;
 	nade.avelocity = '400 -400 400';
@@ -1101,7 +1100,7 @@ void(float side) W_Fire =
 void () W_Knife =
 {
 	if (time < self.knife_delay || self.new_anim_stop ||
-	  self.zoom == 2 || self.zoom == 3 || self.health == 10 || 
+	  self.zoom || self.health == 10 || 
 	  (!(self.flags & FL_ONGROUND)))
 		return;
 

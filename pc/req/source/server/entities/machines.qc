@@ -1689,6 +1689,7 @@ void() mystery_box =
 	setmodel (self, "models/machines/mystery.mdl");
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
 
+
 	if (!(self.spawnflags & 2))
 	{
 		//self.effects = EF_BLUELIGHT;

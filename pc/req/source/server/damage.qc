@@ -170,6 +170,7 @@ void() DownTomb =
 	RemovePerk(self, P_TOMB); //don't want the record of having tombstone..
 	BackUpPerks(self);
 	self.view_ofs = VEC_VIEW_PRONE;
+	self.classname = "downed";
 
 	backupWeapon();
 
@@ -178,20 +179,17 @@ void() DownTomb =
 		self.currentmag = 6;
 		self.currentmag2 = 6;
 		self.currentammo = 12;
+		SwitchWeapon(self.weapon);
 	}
 
 	useprintguy.owner = self;
 	useprintguy.think = TombQuit;
 	useprintguy.nextthink = time + 0.1;
-	localcmd("god");
 }
 
-void(optional entity who) GetDown =
+void(entity who, optional float end) GetDown =
 {
-	if (who)
-		self = who;
-
-	if (self.alcount > 0 && self.aldowned == 0) {
+	if (who.alcount > 0 && who.aldowned == 0) {
 		DownAL();
 		return;
 	}
@@ -201,64 +199,64 @@ void(optional entity who) GetDown =
 	
 	playdown();
 	
-	self.view_ofs = '0 0 -15';
-	self.velocity = '-80 0 -80';           			// Stop any old movement
-	self.zoom = 0;
-	self.downed = true;
-	self.movetype = MOVETYPE_NONE;
+	who.view_ofs = '0 0 -15';
+	who.velocity = '-80 0 -80';           			// Stop any old movement
+	who.zoom = 0;
+	who.downed = true;
+	who.movetype = MOVETYPE_NONE;
 	
 	float gotalive = PollPlayersAlive();
 	
-	if (!(self.perks & P_REVIVE) || (coop && !gotalive))
+	if (!(who.perks & P_REVIVE) || (coop && !gotalive) || end)
 	{
 		EndGameSetup();
 		return;
 	}
 	else if (coop) {
-	self.health = 19; 
-	self.downed = true;
+	who.health = 19; 
+	who.downed = true;
 	} else {
-		self.health = 19;
+		who.health = 19;
 	}
 	
-	if ((self.perks & P_REVIVE) && !coop) {	
-		self.progress_bar = 10 + time;     
-		self.progress_bar_time = 10;
-		self.progress_bar_percent = 1;
+	if ((who.perks & P_REVIVE) && !coop) {	
+		who.progress_bar = 10 + time;     
+		who.progress_bar_time = 10;
+		who.progress_bar_percent = 1;
 	}
-	self.points = 10*rint((self.points*0.95)/10);
-	addmoney(self, 0, true);						// used to call a broadcast
+	who.points = 10*rint((who.points*0.95)/10);
+	addmoney(who, 0, true);						// used to call a broadcast
 	BroadcastMessage(time + 3, 2);
 	
-	self.perks = 0;
-	SetPerk(self, self.perks);
-	self.weaponbk = self.weapon;
-	self.currentammobk = self.currentammo;
-	self.currentmagbk = self.currentmag;
-	self.currentmagbk2 = self.currentmag2;
-	if (self.tertiary == self.weapon)
-		self.weapon = 0;
-	else if (self.tertiary == self.secondaryweapon)
-		self.secondaryweapon = 0;
+	who.perks = 0;
+	SetPerk(who, who.perks);
+	who.weaponbk = who.weapon;
+	who.currentammobk = who.currentammo;
+	who.currentmagbk = who.currentmag;
+	who.currentmagbk2 = who.currentmag2;
+	if (who.tertiary == who.weapon)
+		who.weapon = 0;
+	else if (who.tertiary == who.secondaryweapon)
+		who.secondaryweapon = 0;
 	else
-		self.thirdweapon = 0;
-	if (self.weapon == W_BIATCH || self.secondaryweapon == W_BIATCH || self.thirdweapon == W_BIATCH || self.progress_bar_percent > 0) {
-		self.weapon = W_BIATCH;
-		self.currentammo = 12;
-		self.currentmag = 6;
-		self.currentmag2 = 6;
+		who.thirdweapon = 0;
+	if (who.weapon == W_BIATCH || who.secondaryweapon == W_BIATCH || who.thirdweapon == W_BIATCH || who.progress_bar_percent > 0) {
+		who.weapon = W_BIATCH;
+		who.currentammo = 12;
+		who.currentmag = 6;
+		who.currentmag2 = 6;
 	} else {
-		self.weapon = W_COLT;
-		self.currentammo = 16;
-		self.currentmag = 8;
+		who.weapon = W_COLT;
+		who.currentammo = 16;
+		who.currentmag = 8;
 	}
       
-  	modelname = GetWeaponModel(self.weapon, 0);
-	self.weaponmodel = modelname;
-	SwitchWeapon(self.weapon);
+  	modelname = GetWeaponModel(who.weapon, 0);
+	who.weaponmodel = modelname;
+	SwitchWeapon(who.weapon);
 	
-	startframe = GetFrame(self.weapon,TAKE_OUT_START);
-	endframe = GetFrame(self.weapon,TAKE_OUT_END);
+	startframe = GetFrame(who.weapon,TAKE_OUT_START);
+	endframe = GetFrame(who.weapon,TAKE_OUT_END);
 	Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, false, S_BOTH);
 
 	if (!coop)
@@ -267,20 +265,20 @@ void(optional entity who) GetDown =
 	local entity revive;
 	
 	revive = spawn ();
-	revive.owner = self;
+	revive.owner = who;
 	revive.movetype = MOVETYPE_NONE;
 	revive.solid = SOLID_NOT;
 	revive.think = remove_revive;
 	revive.nextthink = time + 0.1;
 
 	setmodel (revive, "progs/Sprites/revive.spr");
-	revive.origin = self.origin + VEC_VIEW_OFS;
+	revive.origin = who.origin + VEC_VIEW_OFS;
 	setorigin (revive, revive.origin);
 	
-	SetPerk(self, 0);
+	SetPerk(who, 0);
 	
-	self.think = rec_downed;
-	self.nextthink = time + 0.1;
+	who.think = rec_downed;
+	who.nextthink = time + 0.1;
 }
 
 void () GetUp =
@@ -397,7 +395,7 @@ void(entity victim,entity attacker, float damage, float d_style) DamageHandler =
 			old_self = self;
 			self = victim;
 			if (!(self.perks & P_TOMB))
-				GetDown();
+				GetDown(self);
 			else {
 				self.health = 100; //override death 
 				DownTomb();
