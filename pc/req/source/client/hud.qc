@@ -254,7 +254,7 @@ void(float width, float height) HUD_Rounds =
 		round_center_x = (g_width - (11*g_width/480)) /2;
 		round_center_y = (g_height - (48*g_height/272)) /2;
 
-		drawpic([round_center_x,round_center_y,0], sb_round[0], [roundwidth, roundheight, 1], [107/255,1/255,0], alphabling/255);
+		drawpic([round_center_x,round_center_y,0], sb_round[4], [roundwidth_4, roundheight_4, 1], [107/255,1/255,0], alphabling/255);
 
 	}
 	else if (rounds_change == 2)//this is the rounds icon moving from middle

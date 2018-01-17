@@ -121,7 +121,7 @@ noref void() CSQC_WorldLoaded =
 	playerpoints[1] = -1;
 	playerpoints[2] = -1;
 	playerpoints[3] = -1;
-	
+
 };
 
 #define ADS_THOMPSON    '-3 +5.80 +4.52'

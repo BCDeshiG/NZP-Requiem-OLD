@@ -86,7 +86,7 @@ void() NewRound =
 		if (delay_at_round < 0.08)
 			delay_at_round = 0.08;
 	}
-	if (rounds != 0)
+	if (rounds != (cvar("gm_round") - 1))
 	{
 		if (gotdog && rounds == (doground - 1))
 			playSoundAtPlayers("sounds/rounds/dog_start.wav");
@@ -223,5 +223,7 @@ void() InitRounds =
 	round_changetime = time + 2;
 	rounds_change = 1;
 	roundinit = 1;
+	localcmd("gm_round 1");
+	rounds = (cvar("gm_round") - 1);
 	SetUpdate(self, UT_ROUNDS_CHANGE, rounds_change, 0, 0);
 }

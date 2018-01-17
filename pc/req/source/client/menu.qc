@@ -77,7 +77,7 @@ void() M_Menu_Main_Keys =
 		switch (M_Menu_Main_Cursor) {
 			case 0: in_menu = MENU_SINGLE; menuTime = time + 0.2; break;
 			case 3: in_menu = MENU_SETTINGS; setMen = 0; menuTime = time + 0.2; break;
-			//case 4: in_menu = MENU_CREDITS; menuTime = time + 0.2; break; //motolegacy -- credits are fucked :pp
+			case 4: in_menu = MENU_CREDITS; menuTime = time + 0.2; break; //motolegacy -- credits are fucked :pp
 			case 5: localcmd("quit\n"); break;
 		}
 	}
@@ -635,29 +635,80 @@ float hasStartedCredits;
 void() M_Menu_Credits_Draw =
 {
 	setcursormode(TRUE,"menu/cursor");
-	float w1, w2, w3, w4;
+	float w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14, w15, w16, w17, w18, w19, w20, w21, w22;
+	float x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22;
 
 	if (hasStartedCredits == 0) {
 		creditsHeight = 0.950;
 		hasStartedCredits = 1;
 	}
 
-	w1 = stringwidth ("Nazi Zombies: Portable", 0, [0.03*g_width, 0.03*g_width, 0]);
-	w1 = w1/2;
-
-	w2 = stringwidth ("PROGRAMMING:", 0, [0.03*g_width, 0.03*g_width, 0]);
-	w2 = w2/2;
-
-	w3 = stringwidth ("Jukki", 0, [0.03*g_width, 0.03*g_width, 0]);
-	w3 = w3/2;
-
-	w4 = stringwidth ("Blubswillrule", 0, [0.03*g_width, 0.03*g_width, 0]);
-	w4 = w4/2;
-
-	drawstring([w1, creditsHeight*g_height, 0], "Nazi Zombies: Portable", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
-	drawstring([w2, (creditsHeight+0.150)*g_height, 0], "PROGRAMMING:", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
-	drawstring([w3, (creditsHeight+0.200)*g_height, 0], "Jukki", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
-	drawstring([w4, (creditsHeight+0.250)*g_height, 0], "Blubswillrule", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	x1 = stringwidth("Nazi Zombies: Portable", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w1 = (g_width - x1)/2;
+	x2 = stringwidth("PROGRAMMING:", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w2 = (g_width - x2)/2;
+	x3 = stringwidth("Jukki", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w3 = (g_width - x3)/2;
+	x4 = stringwidth("Blubswillrule", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w4 = (g_width - x4)/2;
+	x5 = stringwidth("MAPPING:", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w5 = (g_width - x5)/2;
+	x6 = stringwidth("Ju[s]tice", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w6 = (g_width - x6)/2;
+	x7 = stringwidth("MODELING & GRAPHICS:", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w7 = (g_width - x7)/2;
+	x8 = stringwidth("Blubswillrule", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w8 = (g_width - x8)/2;
+	x9 = stringwidth("Ju[s]tice", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w9 = (g_width - x9)/2;
+	x10 = stringwidth("SOUND DESIGN:", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w10 = (g_width - x10)/2;
+	x11 = stringwidth("Blubswillrule", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w11 = (g_width - x11)/2;
+	x12 = stringwidth("Biodude", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w12 = (g_width - x12)/2;
+	x13 = stringwidth("Nazi Zombies Portable: Unofficial Patch", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w13 = (g_width - x13)/2;
+	x14 = stringwidth("PROGRAMMING:", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w14 = (g_width - x14)/2;
+	x15 = stringwidth("PerikiyoXD", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w15 = (g_width - x15)/2;
+	x16 = stringwidth("Naievil", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w16 = (g_width - x16)/2;
+	x17 = stringwidth("Requiem", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w17 = (g_width - x17)/2;
+	x18 = stringwidth("PROGRAMMING:", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w18 = (g_width - x18)/2;
+	x19 = stringwidth("MotoLegacy", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w19 = (g_width - x19)/2;
+	x20 = stringwidth("MODELING:", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w20 = (g_width - x20)/2;
+	x21 = stringwidth("Derped_Crusader", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w21 = (g_width - x21)/2;
+	x22 = stringwidth("That One Lazy Animator", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	w22 = (g_width - x22)/2;
+	drawstring([w1, creditsHeight*g_height, 0], "Nazi Zombies: Portable", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w2, (creditsHeight+0.100)*g_height, 0], "PROGRAMMING:", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w3, (creditsHeight+0.150)*g_height, 0], "Jukki", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w4, (creditsHeight+0.200)*g_height, 0], "Blubswillrule", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w5, (creditsHeight+0.300)*g_height, 0], "MAPPING:", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w6, (creditsHeight+0.350)*g_height, 0], "Ju[s]tice", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w7, (creditsHeight+0.450)*g_height, 0], "MODELING & GRAPHICS:", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w8, (creditsHeight+0.500)*g_height, 0], "Blubswillrule", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w9, (creditsHeight+0.550)*g_height, 0], "Ju[s]tice", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w10, (creditsHeight+0.650)*g_height, 0], "SOUND DESIGN:", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w11, (creditsHeight+0.700)*g_height, 0], "Blubswillrule", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w12, (creditsHeight+0.750)*g_height, 0], "Biodude", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w13, (creditsHeight+0.850)*g_height, 0], "Nazi Zombies Portable: Unofficial Patch", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w14, (creditsHeight+0.950)*g_height, 0], "PROGRAMMING:", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w15, (creditsHeight+1.000)*g_height, 0], "PerikiyoXD", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w16, (creditsHeight+1.050)*g_height, 0], "Naievil", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w17, (creditsHeight+1.150)*g_height, 0], "Requiem", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w18, (creditsHeight+1.250)*g_height, 0], "PROGRAMMING:", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w19, (creditsHeight+1.300)*g_height, 0], "MotoLegacy", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w20, (creditsHeight+1.400)*g_height, 0], "MODELING:", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w21, (creditsHeight+1.450)*g_height, 0], "Derped_Crusader", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w22, (creditsHeight+1.500)*g_height, 0], "That One Lazy Animator", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
 
 	creditsHeight -= 0.0001;
 }
