@@ -175,6 +175,8 @@ string(float perk) GetPerkName =
 			return "Amm-O-Matic";
 		case 13:
 			return "Electric Cherry";
+		case 14:
+			return "Who's Who";
 		default:
 			return "NULL";
 	}

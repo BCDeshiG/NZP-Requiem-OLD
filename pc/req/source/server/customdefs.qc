@@ -416,3 +416,7 @@ float songam, songcount;
 
 //motolegacy -- tombstone
 .entity perkholder;
+
+//motolegacy -- whoswho
+.float revivingwho;
+.float isrevived;

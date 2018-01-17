@@ -5,6 +5,7 @@
 void setup_bank(entity who);
 void() ExitChair;
 void(vector where, float type) Spawn_Powerup;
+void() perk_whoswho;
 
 // player animations
 
@@ -629,6 +630,14 @@ void(string com) SV_ParseClientCommand =
 		switch(argv(0))
 		{
 			case "give":
+				if (argv(1) == "kms") { //moto (FIXME) -- remove completely (don't have jackhammer at skool so cheap way xddd)
+					local entity oof;
+					oof = self;
+					self = find(world, classname, "perk_tombstone");
+					perk_whoswho();
+					self = oof;
+					return;
+				}
 				float wep = stof(argv(1));
 
 				if (wep) {

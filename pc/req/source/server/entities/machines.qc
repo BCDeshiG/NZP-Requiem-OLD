@@ -48,6 +48,9 @@ void GivePerk(float perk) {
 		case P_CHERRY:
 			self.perks = self.perks | 4096;
 			break;
+		case P_WHO:
+			self.perks = self.perks | 8192;
+			break;
 		default:
 			print("Unknown perk type, wtf?\n");
 	}
@@ -71,6 +74,7 @@ void() give_candolier = { GivePerk(P_CANDO); ReturnWeaponModel(); }
 void() give_tombstone = { GivePerk(P_TOMB); ReturnWeaponModel(); }
 void() give_ammomatic = { GivePerk(P_AMMO); ReturnWeaponModel(); }
 void() give_electric = { GivePerk(P_CHERRY); ReturnWeaponModel(); }
+void() give_whoswho = { GivePerk(P_WHO); ReturnWeaponModel(); }
 
 
 void DrinkPerk(float perk) {
@@ -129,6 +133,10 @@ void DrinkPerk(float perk) {
 		case P_CHERRY:
 			other.weaponskin = 3;
 			func = give_electric;
+			break;
+		case P_WHO:
+			other.weaponskin = 3;
+			func = give_whoswho;
 			break;
 		default:
 			print("Unknown perk type, wtf?\n");
@@ -377,6 +385,19 @@ void() touch_perk =
 			centerprint(other, "Not enough points\n");
 		}
 	}
+	if (self.classname == "perk_whoswho" && !(other.perks & P_WHO) && self.fire_delay < time)
+	{
+		useprint (other, 9, self.cost, 14);
+		if (other.points >= self.cost && other.button7)
+		{
+			addmoney(other, -self.cost, 0);
+			DrinkPerk(P_WHO);
+		}
+		else if (other.button7)
+		{
+			centerprint(other, "Not enough points\n");
+		}
+	}
 	if (self.classname == "perk_ammomatic" && self.fire_delay < time)
 	{
 		useprint (other, 9, self.cost, 12);
@@ -419,6 +440,7 @@ void() setup_perk =
 			case "perk_speed":
 			case "perk_candolier":
 			case "perk_tombstone":
+			case "perk_whoswho":
 				self.effects = self.effects | EF_GREEN;
 				break;
 			case "perk_double":
@@ -687,6 +709,25 @@ void() perk_cherry =
 		self.cost = 2000;
 }
 
+void() perk_whoswho =
+{
+	self.solid = SOLID_TRIGGER;
+	precache_model ("models/machines/whoswho.mdl");
+	precache_model ("models.machines/v_perk.mdl");
+	precache_sound ("sounds/machines/perk_drink.wav");
+	setorigin (self, self.origin);
+	setmodel (self, "models/machines/whoswho.mdl");
+	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+	self.classname = "perk_whoswho";
+	self.touch = touch_perk;
+
+	self.think = setup_perk;
+	self.nextthink = time + 0.1;
+
+	if (!self.cost)
+		self.cost = 2000;
+}
+
 void()	turnpower1	=[	1,		turnpower2	] {self.frame = 1;};
 void()	turnpower2	=[	2,		turnpower3	] {self.frame = 2;};
 void()	turnpower3	=[	3,		turnpower4	] {self.frame = 3;};
@@ -712,6 +753,8 @@ void() Turn_Lights =
 		/*else if (tempe.classname == "perk_staminup")
 			tempe.effects = EF_ORANGELIGHT;*/
 		else if (tempe.classname == "perk_speed")
+			tempe.effects = EF_GREEN;
+		else if (tempe.classname == "perk_whoswho")
 			tempe.effects = EF_GREEN;
 		else if (tempe.classname == "perk_double")
 			tempe.effects = EF_ORANGE;
