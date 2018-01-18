@@ -161,6 +161,7 @@ void() removeDummy =
 {
 	local entity tempe;
 	tempe = spawn();
+	self.owner.revivingwho = 0;
 	SetPerk(self.owner, self.perks);
 	setorigin(self.owner, self.origin);
 	tempe = self;
@@ -188,7 +189,7 @@ void() touchDummy =
 		local entity tempe;
 		tempe = self;
 		self = other;
-		Set_W_Frame (0, 21, 0, 0, SPRINT, SUB_Null, "models/v_morphine.mdl", false, S_BOTH);
+		Set_W_Frame (0, 21, revtime/60, 0, SPRINT, SUB_Null, "models/v_morphine.mdl", false, S_BOTH);
 		other = self;
 		self = tempe;
 		other.isrevived = 1;
@@ -202,6 +203,10 @@ void() touchDummy =
 
 void() spawnWho =
 {
+	local entity tempe;
+	tempe = spawn();
+	local float startframe, endframe;
+	string modelname;
 	local entity spawn = find(world, classname, "info_player_start");
 	setorigin(self.owner, spawn.origin);
 	setmodel(self, "models/player.mdl");
@@ -217,7 +222,17 @@ void() spawnWho =
 	self.owner.weapon = W_COLT;
 	self.owner.currentmag = 8;
 	self.owner.currentammo = 32;
+	tempe = self;
+	self = self.owner;
+	startframe = GetFrame(self.weapon,TAKE_OUT_START);
+	endframe = GetFrame(self.weapon,TAKE_OUT_END);
+	modelname = GetWeaponModel(self.weapon, 0);
+
 	SwitchWeapon(self.weapon);
+
+	Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, false, S_BOTH);
+	self.owner = self;
+	self = tempe;
 	self.owner.secondaryweapon = 0;
 	self.owner.thirdweapon = 0;
 }

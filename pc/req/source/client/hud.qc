@@ -254,7 +254,7 @@ void(float width, float height) HUD_Rounds =
 		round_center_x = (g_width - (11*g_width/480)) /2;
 		round_center_y = (g_height - (48*g_height/272)) /2;
 
-		drawpic([round_center_x,round_center_y,0], sb_round[0], [roundwidth_4, roundheight_4, 1], [107/255,1/255,0], alphabling/255);
+		drawpic([round_center_x,round_center_y,0], sb_round[0], [roundwidth, roundheight, 1], [107/255,1/255,0], alphabling/255);
 
 	}
 	else if (rounds_change == 2)//this is the rounds icon moving from middle
@@ -957,6 +957,23 @@ void(float width, float height) HUD_Progressbar =
 	drawstring([(width - (88))/2, height*0.77 + 10, 0], "Reviving...", [0.0175*width, 0.0175*width, 0], [1, 1, 1], 1, 1);
 }
 
+void(float width, float height) HUD_WHOREV =
+{
+	if (getstatf(STAT_WHOREV) == 0)
+		return;
+	local float wtime = (getstatf(STAT_WHOREV) / 60) / 5;
+	if (perk & P_REVIVE)
+		wtime *= 2;
+
+	float bar_width = 0.0175*width * 20;
+	float bar_height = 0.0175*width;
+	float bar_x = (width - bar_width)/2;
+	float bar_y = height*0.75;
+
+	drawfill ([bar_x - 1, bar_y - 1, 0], [bar_width+2, bar_height, 0], [0, 0, 0], 0.4);
+	drawfill ([bar_x, bar_y, 0], [bar_width * wtime, bar_height-2, 0], [1, 1, 1], 0.4);
+}
+
 /*******************
 *    HUD Hitmark   *
 *******************/
@@ -1354,6 +1371,7 @@ void(float width, float height) HUD_Draw =
 			HUD_AmmoString();
 			HUD_MAXAMMO();
 		}
+		HUD_WHOREV(width, height);
 		HUD_Progressbar(width, height);
 
 		if (HUD_Change_time > time && getstatf(STAT_ACTIVEWEAPON) != AL)

@@ -133,6 +133,8 @@ void() backupWeapon =
 
 void() returnWeapon =
 {
+	float startframe, endframe;
+	string modelname;
 	self.weapon = self.backupweapon;
 	self.currentmag = self.backupmag;
 	self.currentammo = self.backupammo;
@@ -143,6 +145,13 @@ void() returnWeapon =
 
 	self.weaponmodel = GetWeaponModel(self.weapon, 0);
 	SwitchWeapon(self.weapon);
+	startframe = GetFrame(self.weapon,TAKE_OUT_START);
+	endframe = GetFrame(self.weapon,TAKE_OUT_END);
+	modelname = GetWeaponModel(self.weapon, 0);
+
+	SwitchWeapon(self.weapon);
+
+	Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, false, S_BOTH);
 }
 
 void() PlayerJump =
