@@ -9,6 +9,7 @@ void PlaceShield() =
 	shield = spawn();
 	setorigin(shield, self.origin + '0 0 26');
 	setmodel(shield, "models/craft/g_shield.mdl");
+	shield.angles_y -= 90;
 	self.craft = 1;
 }
 
