@@ -87,6 +87,7 @@ const float EVENT_BLACKOUT = 26;
 #define W_MNESIA 	   57 //m14
 
 #define AL 			   99
+#define SHIELD 		   100
 
 
 #define BASE_FRAME			1

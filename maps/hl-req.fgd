@@ -385,6 +385,26 @@
 	model(studio) : "Model" : "progs/props/"	
 ]
 
+@PointClass size(-32 -32 -32, 32 32 56) base(Item, Appearflags) color(125 196 187) studio("models/craft/table.mdl") = crafting_table : "Crafting Table"
+[	
+		
+]
+
+@PointClass size(-32 -32 -32, 32 32 56) base(Item, Appearflags) color(125 196 187) studio("models/craft/dolly.mdl") = part_dolly : "Shield Dolly"
+[	
+		
+]
+
+@PointClass size(-32 -32 -32, 32 32 56) base(Item, Appearflags) color(125 196 187) studio("models/craft/grate.mdl") = part_grate : "Shield Grate"
+[	
+		
+]
+
+@PointClass size(-32 -32 -32, 32 32 56) base(Item, Appearflags) color(125 196 187) studio("models/craft/clamps.mdl") = part_clamp : "Shield Clamps"
+[	
+		
+]
+
 //
 // NZP Weapons
 //

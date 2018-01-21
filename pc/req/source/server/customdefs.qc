@@ -420,3 +420,9 @@ float songam, songcount;
 //motolegacy -- whoswho
 .float revivingwho;
 .float isrevived;
+
+//motolegacy -- crafting
+#define PART_DOLLY 		1
+#define PART_GRATE 		2
+#define PART_CLAMP 		3
+.float craft, crafttime, inventory, special;

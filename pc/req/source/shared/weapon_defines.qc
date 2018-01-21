@@ -111,6 +111,8 @@ string(float wep) GetWeaponName =
       		return "M14";
       	case W_MNESIA:
       		return "Mnesia";
+      	case SHIELD:
+      		return "Zombie Shield";
 		default:
 			return " ";
 	}
@@ -142,6 +144,16 @@ string(float gum) getGumName =
 			return "Cache Back";
 		default:
 			return "NULL";
+	}
+}
+
+string(float inv) GetItemName =
+{
+	switch(inv) {
+		case 1:
+			return "Zombie Shield";
+		default:
+			return "";
 	}
 }
 

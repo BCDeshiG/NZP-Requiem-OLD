@@ -337,6 +337,12 @@ void() PlayerPostThink =
 
 	if (self.maxa < time)
 		self.maxa = 0;
+
+	if (self.crafttime < time && self.craft) {
+		self.velocity = 0; //stop old movement
+		self.movetype = MOVETYPE_WALK;
+		self.craft = 0;
+	}
 };
 
 void() ClientKill =

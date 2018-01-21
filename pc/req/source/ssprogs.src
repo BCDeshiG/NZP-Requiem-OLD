@@ -23,6 +23,7 @@ server/entities/window.qc
 server/entities/machines.qc
 server/entities/gobble.qc
 server/entities/bank.qc
+server/entities/craft.cpp
 
 server/weapons/frames_core.qc
 server/weapons/weapon_core.qc

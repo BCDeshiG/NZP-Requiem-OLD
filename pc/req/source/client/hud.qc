@@ -775,6 +775,18 @@ void(float width, float height) HUD_Useprint =
 			case 22:
 				usestring = strcat("Hold ",usebutton, " to take the coward's way out");
 				break;
+			case 23:
+				usestring = strcat("Hold ",usebutton, " to craft");
+				break;
+			case 24:
+				usestring = strcat("Hold ",usebutton, " to take ", GetItemName(useprint_weapon));
+				break;
+			case 25:
+				usestring = strcat("Hold ",usebutton, " to take part");
+				break;
+			case 26:
+				usestring = strcat("Insufficient Parts");
+				break;
 			default:
 				usestring = "This should not happen you dum fuck";
 				break;
