@@ -13,6 +13,9 @@ pc/req/iplog.txt
 pc/req/maps/*.map
 *.max
 *.rmx
+*.rmf
+*.jmf
+*.jmx
 *.lin
 *.log
 *.p0
