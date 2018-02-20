@@ -157,105 +157,6 @@ void() rec_downed =
 	self.nextthink = time + 0.1;
 }
 
-void() removeDummy =
-{
-	local entity tempe;
-	tempe = spawn();
-	self.owner.revivingwho = 0;
-	SetPerk(self.owner, self.perks);
-	setorigin(self.owner, self.origin);
-	tempe = self;
-	self = self.owner;
-	returnWeapon();
-	self.owner = self;
-	self = tempe;
-	remove(self);
-}
-
-void() touchDummy =
-{
-	if (other.classname != "player")
-		return;
-
-	local float revtime;
-	if (other.perks & P_REVIVE)
-		revtime = 120;
-	else
-		revtime = 240;
-
-	if (!other.isrevived)
-		useprint(other, 13, 0, 0);
-	if (other.button7 && !other.isrevived) {
-		local entity tempe;
-		tempe = self;
-		self = other;
-		Set_W_Frame (0, 21, revtime/60, 0, SPRINT, SUB_Null, "models/v_morphine.mdl", false, S_BOTH);
-		other = self;
-		self = tempe;
-		other.isrevived = 1;
-		other.revivingwho = 1;
-	}
-	if (other.revivingwho)
-		other.revivingwho += 1;
-	if (other.revivingwho >= revtime)
-		removeDummy();
-}
-
-void() spawnWho =
-{
-	local entity tempe;
-	tempe = spawn();
-	local float startframe, endframe;
-	string modelname;
-	local entity spawn = find(world, classname, "info_player_start");
-	setorigin(self.owner, spawn.origin);
-	setmodel(self, "models/player.mdl");
-	self.frame = 37;
-	self.solid = SOLID_TRIGGER;
-
-	self.owner.movetype = MOVETYPE_WALK;
-	self.owner.view_ofs = VEC_VIEW_OFS;
-	self.owner.classname = "player";
-
-	self.touch = touchDummy;
-
-	self.owner.weapon = W_COLT;
-	self.owner.currentmag = 8;
-	self.owner.currentammo = 32;
-	tempe = self;
-	self = self.owner;
-	startframe = GetFrame(self.weapon,TAKE_OUT_START);
-	endframe = GetFrame(self.weapon,TAKE_OUT_END);
-	modelname = GetWeaponModel(self.weapon, 0);
-
-	SwitchWeapon(self.weapon);
-
-	Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, false, S_BOTH);
-	self.owner = self;
-	self = tempe;
-	self.owner.secondaryweapon = 0;
-	self.owner.thirdweapon = 0;
-}
-
-void() WhoDown =
-{
-	RemovePerk(self, P_WHO);
-	local entity who;
-	who = spawn();
-	who.perks = self.perks;
-	self.perks = 0;
-	SetPerk(self, self.perks);
-	setorigin(who, self.origin);
-	who.owner = self;
-	who.think = spawnWho;
-	who.nextthink = time + 2;
-	self.view_ofs = VEC_VIEW_PRONE;
-	self.movetype = MOVETYPE_NONE;
-	self.classname = "downed_who"; //tells zombs to stop trying to kill us
-
-	backupWeapon();
-}
-
 void() TombQuit =
 {
 	useprint(self.owner, 22, 0, 0);
@@ -493,12 +394,11 @@ void(entity victim,entity attacker, float damage, float d_style) DamageHandler =
 		{
 			old_self = self;
 			self = victim;
-			if (self.perks & P_TOMB) {
-				self.health = 100;
+			if (!(self.perks & P_TOMB))
+				GetDown(self);
+			else {
+				self.health = 100; //override death 
 				DownTomb();
-			} else if (self.perks & P_WHO) {
-				self.health = 100;
-				WhoDown();
 			}
 			self = old_self;
 		}

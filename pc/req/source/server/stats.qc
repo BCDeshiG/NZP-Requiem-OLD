@@ -46,12 +46,6 @@ void RemovePerk(entity who, float perk)
 
 	if ((who.perks & P_CANDO) && perk != P_CANDO)
 		fuck.perks = fuck.perks | 512;
-	if ((who.perks & P_TOMB) && perk != P_TOMB)
-		fuck.perks = fuck.perks | 1024;
-	if ((who.perks & P_CHERRY) && perk != P_CHERRY)
-		fuck.perks = fuck.perks | 4096;
-	if ((who.perks & P_WHO) && perk != P_WHO)
-		fuck.perks = fuck.perks | 8192;
 
 	//reset player's perks and give the temp entity's perks
 	who.perks = 0;

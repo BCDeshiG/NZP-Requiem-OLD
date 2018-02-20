@@ -148,7 +148,6 @@ const float EVENT_BLACKOUT = 26;
 #define 	P_TOMB 		1024
 #define 	P_AMMO 		2048
 #define 	P_CHERRY 	4096
-#define 	P_WHO 		8192
 
 #define STAT_CURRENTMAG         50
 #define STAT_CURRENTMAG2        51
@@ -176,7 +175,6 @@ const float EVENT_BLACKOUT = 26;
 #define STAT_ALTIME 			73
 #define STAT_GMSG 				74
 #define STAT_GMSG2 				75
-#define STAT_WHOREV 			76
 
 //Weapon State
 #define STATE_RELOAD 			1

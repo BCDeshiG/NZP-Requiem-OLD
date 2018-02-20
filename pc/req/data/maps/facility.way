@@ -1,0 +1,1266 @@
+waypoint
+{
+ id: 105
+ origin: '-1343.9 657.7  70.0'
+ targets:
+ [
+  82
+  86
+ ]
+}
+
+waypoint
+{
+ id: 104
+ origin: '-1254.6 561.6  70.0'
+ targets:
+ [
+  86
+  88
+  87
+ ]
+}
+
+waypoint
+{
+ id: 103
+ origin: '-782.3 727.1 190.0'
+ targets:
+ [
+  71
+  73
+  74
+  75
+  76
+ ]
+}
+
+waypoint
+{
+ id: 102
+ origin: '-505.8 746.6 190.0'
+ targets:
+ [
+  64
+  65
+  66
+  63
+ ]
+}
+
+waypoint
+{
+ id: 101
+ origin: '-303.6   3.0  68.0'
+ targets:
+ [
+  29
+  27
+  28
+  30
+  39
+ ]
+}
+
+waypoint
+{
+ id: 100
+ origin: '-253.9 471.8 190.0'
+ targets:
+ [
+  51
+  50
+  48
+  49
+ ]
+}
+
+waypoint
+{
+ id: 99
+ origin: '-1477.9 184.8 190.0'
+ targets:
+ [
+  98
+ ]
+}
+
+waypoint
+{
+ id: 98
+ origin: '-1170.9 162.3  70.0'
+ targets:
+ [
+  94
+  99
+ ]
+}
+
+waypoint
+{
+ id: 97
+ origin: '-1329.0 249.0  70.0'
+ targets:
+ [
+  95
+  93
+ ]
+}
+
+waypoint
+{
+ id: 96
+ origin: '-1335.7 313.9  70.0'
+ targets:
+ [
+  95
+  93
+ ]
+}
+
+waypoint
+{
+ id: 95
+ origin: '-1256.1 289.4  70.0'
+ targets:
+ [
+  94
+  92
+  96
+  97
+  93
+  91
+ ]
+}
+
+waypoint
+{
+ id: 94
+ origin: '-1171.1 283.7  70.0'
+ targets:
+ [
+  91
+  95
+  98
+ ]
+}
+
+waypoint
+{
+ id: 93
+ origin: '-1345.0 386.7  70.0'
+ targets:
+ [
+  92
+  96
+  95
+  97
+ ]
+}
+
+waypoint
+{
+ id: 92
+ origin: '-1260.7 389.7  70.0'
+ targets:
+ [
+  91
+  93
+  90
+  95
+ ]
+}
+
+waypoint
+{
+ id: 91
+ origin: '-1168.0 374.6  70.0'
+ targets:
+ [
+  88
+  90
+  92
+  94
+  95
+ ]
+}
+
+waypoint
+{
+ id: 90
+ origin: '-1166.5 425.2  70.0'
+ targets:
+ [
+  88
+  91
+  92
+ ]
+}
+
+waypoint
+{
+ id: 89
+ origin: '-1115.0 526.2  70.0'
+ targets:
+ [
+  88
+ ]
+}
+
+waypoint
+{
+ id: 88
+ origin: '-1183.4 528.5  70.0'
+ targets:
+ [
+  87
+  89
+  90
+  91
+  86
+  104
+ ]
+}
+
+waypoint
+{
+ id: 87
+ origin: '-1188.4 642.1  70.0'
+ targets:
+ [
+  86
+  78
+  88
+  104
+ ]
+}
+
+waypoint
+{
+ id: 86
+ origin: '-1266.2 630.5  70.0'
+ targets:
+ [
+  105
+  87
+  88
+  104
+ ]
+}
+
+waypoint
+{
+ id: 82
+ origin: '-1350.3 789.2  70.0'
+ targets:
+ [
+  81
+ ]
+}
+
+waypoint
+{
+ id: 81
+ origin: '-1263.9 802.2  70.0'
+ targets:
+ [
+  79
+  82
+ ]
+}
+
+waypoint
+{
+ id: 80
+ origin: '-1130.9 870.5  70.0'
+ targets:
+ [
+  79
+ ]
+}
+
+waypoint
+{
+ id: 79
+ origin: '-1137.6 813.5  70.0'
+ targets:
+ [
+  78
+  80
+  81
+ ]
+}
+
+waypoint
+{
+ id: 78
+ origin: '-1141.5 714.9  70.0'
+ targets:
+ [
+  77
+  79
+  87
+ ]
+}
+
+waypoint
+{
+ id: 77
+ origin: '-1015.5 723.0  80.0'
+ targets:
+ [
+  76
+  78
+ ]
+}
+
+waypoint
+{
+ id: 76
+ origin: '-859.5 718.9 180.0'
+ targets:
+ [
+  71
+  77
+  73
+  103
+ ]
+}
+
+waypoint
+{
+ id: 75
+ origin: '-729.5 799.4 190.0'
+ targets:
+ [
+  74
+  73
+  71
+  103
+ ]
+}
+
+waypoint
+{
+ id: 74
+ origin: '-784.4 687.2 190.0'
+ targets:
+ [
+  73
+  75
+  103
+ ]
+}
+
+waypoint
+{
+ id: 73
+ origin: '-722.9 692.0 190.0'
+ targets:
+ [
+  71
+  74
+  75
+  72
+  76
+  103
+ ]
+}
+
+waypoint
+{
+ id: 72
+ origin: '-645.3 670.5 190.0'
+ targets:
+ [
+  70
+  71
+  73
+ ]
+}
+
+waypoint
+{
+ id: 71
+ origin: '-668.9 729.0 190.0'
+ targets:
+ [
+  70
+  72
+  73
+  76
+  75
+  103
+ ]
+}
+
+waypoint
+{
+ id: 70
+ origin: '-598.7 749.9 190.0'
+ targets:
+ [
+  66
+  71
+  72
+ ]
+}
+
+waypoint
+{
+ id: 69
+ origin: '-719.0 525.5 190.0'
+ targets:
+ [
+  68
+ ]
+}
+
+waypoint
+{
+ id: 68
+ origin: '-635.5 505.0 190.0'
+ targets:
+ [
+  67
+  69
+ ]
+}
+
+waypoint
+{
+ id: 67
+ origin: '-531.9 517.8 190.0'
+ targets:
+ [
+  63
+  68
+ ]
+}
+
+waypoint
+{
+ id: 66
+ origin: '-544.8 768.9 190.0'
+ targets:
+ [
+  65
+  63
+  70
+  102
+ ]
+}
+
+waypoint
+{
+ id: 65
+ origin: '-468.1 767.5 190.0'
+ targets:
+ [
+  64
+  66
+  63
+  102
+ ]
+}
+
+waypoint
+{
+ id: 64
+ origin: '-466.5 665.1 190.0'
+ targets:
+ [
+  63
+  65
+  62
+  102
+ ]
+}
+
+waypoint
+{
+ id: 63
+ origin: '-526.9 679.7 190.0'
+ targets:
+ [
+  62
+  64
+  65
+  66
+  67
+  102
+ ]
+}
+
+waypoint
+{
+ id: 62
+ origin: '-406.2 666.5 190.0'
+ targets:
+ [
+  60
+  63
+  64
+ ]
+}
+
+waypoint
+{
+ id: 61
+ origin: '-333.1 804.1 190.0'
+ targets:
+ [
+  59
+  60
+ ]
+}
+
+waypoint
+{
+ id: 60
+ origin: '-295.6 674.2 190.0'
+ targets:
+ [
+  59
+  62
+  61
+  58
+  56
+ ]
+}
+
+waypoint
+{
+ id: 59
+ origin: '-268.0 753.0 190.0'
+ targets:
+ [
+  58
+  56
+  60
+  61
+ ]
+}
+
+waypoint
+{
+ id: 58
+ origin: '-188.1 741.6 190.0'
+ targets:
+ [
+  57
+  56
+  59
+  60
+ ]
+}
+
+waypoint
+{
+ id: 57
+ origin: '-152.5 663.5 190.0'
+ targets:
+ [
+  56
+  55
+  52
+  58
+ ]
+}
+
+waypoint
+{
+ id: 56
+ origin: '-221.2 651.6 190.0'
+ targets:
+ [
+  52
+  57
+  58
+  59
+  60
+ ]
+}
+
+waypoint
+{
+ id: 55
+ origin: '-132.4 588.3 190.0'
+ targets:
+ [
+  53
+  52
+  51
+  57
+ ]
+}
+
+waypoint
+{
+ id: 54
+ origin: '-101.5 428.5 190.0'
+ targets:
+ [
+  53
+ ]
+}
+
+waypoint
+{
+ id: 53
+ origin: '-135.3 485.8 190.0'
+ targets:
+ [
+  51
+  54
+  55
+  52
+ ]
+}
+
+waypoint
+{
+ id: 52
+ origin: '-185.7 581.2 190.0'
+ targets:
+ [
+  51
+  55
+  56
+  57
+  53
+  50
+ ]
+}
+
+waypoint
+{
+ id: 51
+ origin: '-193.7 504.9 190.0'
+ targets:
+ [
+  50
+  52
+  53
+  55
+  100
+ ]
+}
+
+waypoint
+{
+ id: 50
+ origin: '-277.0 530.7 190.0'
+ targets:
+ [
+  48
+  51
+  52
+  100
+ ]
+}
+
+waypoint
+{
+ id: 49
+ origin: '-252.9 380.0 190.0'
+ targets:
+ [
+  48
+  100
+ ]
+}
+
+waypoint
+{
+ id: 48
+ origin: '-289.4 436.6 190.0'
+ targets:
+ [
+  47
+  49
+  50
+  100
+ ]
+}
+
+waypoint
+{
+ id: 47
+ origin: '-389.8 436.2 187.0'
+ targets:
+ [
+  46
+  48
+ ]
+}
+
+waypoint
+{
+ id: 46
+ origin: '-391.7 252.8 128.0'
+ targets:
+ [
+  45
+  47
+ ]
+}
+
+waypoint
+{
+ id: 45
+ origin: '-263.7 245.7  88.0'
+ targets:
+ [
+  44
+  46
+ ]
+}
+
+waypoint
+{
+ id: 44
+ origin: '-176.2 222.3  68.0'
+ targets:
+ [
+  43
+  45
+ ]
+}
+
+waypoint
+{
+ id: 43
+ origin: '-179.5 124.2  68.0'
+ targets:
+ [
+  42
+  44
+ ]
+}
+
+waypoint
+{
+ id: 42
+ origin: '-258.3 116.4  68.0'
+ targets:
+ [
+  40
+  43
+ ]
+}
+
+waypoint
+{
+ id: 41
+ origin: '-391.0 123.7  68.0'
+ targets:
+ [
+  40
+ ]
+}
+
+waypoint
+{
+ id: 40
+ origin: '-337.1 110.1  68.0'
+ targets:
+ [
+  39
+  41
+  42
+ ]
+}
+
+waypoint
+{
+ id: 39
+ origin: '-313.7  49.3  70.0'
+ targets:
+ [
+  27
+  40
+  29
+  101
+ ]
+}
+
+waypoint
+{
+ id: 38
+ origin: '-185.2 -228.4  68.0'
+ targets:
+ [
+  10
+  35
+ ]
+}
+
+waypoint
+{
+ id: 37
+ origin: '-191.3 -89.6  68.0'
+ targets:
+ [
+  36
+  32
+  30
+  33
+ ]
+}
+
+waypoint
+{
+ id: 36
+ origin: '-167.6 -140.3  68.0'
+ targets:
+ [
+  33
+  35
+  37
+ ]
+}
+
+waypoint
+{
+ id: 35
+ origin: '-191.6 -201.4  68.0'
+ targets:
+ [
+  33
+  36
+  38
+ ]
+}
+
+waypoint
+{
+ id: 34
+ origin: '-280.0 -144.0  69.0'
+ targets:
+ [
+  33
+  30
+ ]
+}
+
+waypoint
+{
+ id: 33
+ origin: '-221.9 -135.9  68.0'
+ targets:
+ [
+  32
+  34
+  30
+  35
+  36
+  37
+ ]
+}
+
+waypoint
+{
+ id: 32
+ origin: '-208.0 -59.5  68.0'
+ targets:
+ [
+  31
+  30
+  29
+  33
+  37
+ ]
+}
+
+waypoint
+{
+ id: 31
+ origin: '-214.4  -4.0  68.0'
+ targets:
+ [
+  29
+  32
+  30
+ ]
+}
+
+waypoint
+{
+ id: 30
+ origin: '-251.6 -70.6  69.0'
+ targets:
+ [
+  29
+  31
+  32
+  33
+  37
+  34
+  28
+  101
+
+}
+
+waypoint
+{
+ id: 29
+ origin: '-274.0  -5.2  68.0'
+ targets:
+ [
+  27
+  28
+  30
+  31
+  32
+  39
+  101
+ ]
+}
+
+waypoint
+{
+ id: 28
+ origin: '-316.1 -26.6  68.0'
+ targets:
+ [
+  27
+  25
+  29
+  30
+  26
+  101
+ ]
+}
+
+waypoint
+{
+ id: 27
+ origin: '-336.6   2.0  68.0'
+ targets:
+ [
+  26
+  28
+  25
+  29
+  39
+  101
+ ]
+}
+
+waypoint
+{
+ id: 26
+ origin: '-388.2 -12.5  68.0'
+ targets:
+ [
+  24
+  25
+  27
+  28
+ ]
+}
+
+waypoint
+{
+ id: 25
+ origin: '-372.7 -66.0  69.0'
+ targets:
+ [
+  24
+  26
+  21
+  28
+  23
+  27
+ ]
+}
+
+waypoint
+{
+ id: 24
+ origin: '-427.2 -45.5  68.0'
+ targets:
+ [
+  22
+  21
+  25
+  26
+ ]
+}
+
+waypoint
+{
+ id: 23
+ origin: '-361.9 -147.6  69.0'
+ targets:
+ [
+  22
+  21
+  25
+  20
+ ]
+}
+
+waypoint
+{
+ id: 22
+ origin: '-426.8 -140.3  68.0'
+ targets:
+ [
+  21
+  20
+  23
+  24
+ ]
+}
+
+waypoint
+{
+ id: 21
+ origin: '-417.6 -104.2  68.0'
+ targets:
+ [
+  20
+  22
+  24
+  25
+  23
+ ]
+}
+
+waypoint
+{
+ id: 20
+ origin: '-414.6 -176.1  68.0'
+ targets:
+ [
+  19
+  21
+  22
+  23
+ ]
+}
+
+waypoint
+{
+ id: 19
+ origin: '-419.5 -241.7  68.0'
+ targets:
+ [
+  16
+  18
+  20
+ ]
+}
+
+waypoint
+{
+ id: 18
+ origin: '-409.3 -315.1  68.0'
+ targets:
+ [
+  16
+  19
+  12
+  14
+  17
+ ]
+}
+
+waypoint
+{
+ id: 16
+ origin: '-378.0 -251.1  68.0'
+ targets:
+ [
+  17
+  18
+  19
+  14
+ ]
+}
+
+waypoint
+{
+ id: 17
+ origin: '-331.7 -272.3  68.0'
+ targets:
+ [
+  16
+  14
+  13
+  18
+ ]
+}
+
+waypoint
+{
+ id: 14
+ origin: '-350.9 -316.3  68.0'
+ targets:
+ [
+  3
+  12
+  13
+  17
+  18
+  16
+ ]
+}
+
+waypoint
+{
+ id: 12
+ origin: '-378.2 -350.2  68.0'
+ targets:
+ [
+ ]
+}
+
+waypoint
+{
+ id: 11
+ origin: '-210.8 -305.7  68.0'
+ targets:
+ [
+  9
+  10
+  7
+  4
+ ]
+}
+
+waypoint
+{
+ id: 10
+ origin: '-178.0 -297.5  68.0'
+ targets:
+ [
+  9
+  11
+  7
+  38
+ ]
+}
+
+waypoint
+{
+ id: 9
+ origin: '-175.5 -341.3  68.0'
+ targets:
+ [
+  6
+  7
+  8
+  10
+  11
+ ]
+}
+
+waypoint
+{
+ id: 8
+ origin: '-165.3 -382.2  68.0'
+ targets:
+ [
+  6
+  9
+ ]
+}
+
+waypoint
+{
+ id: 7
+ origin: '-211.7 -350.3  68.0'
+ targets:
+ [
+  5
+  6
+  9
+  10
+  11
+  4
+ ]
+}
+
+waypoint
+{
+ id: 6
+ origin: '-199.7 -386.5  68.0'
+ targets:
+ [
+  5
+  7
+  8
+  9
+ ]
+}
+
+waypoint
+{
+ id: 5
+ origin: '-240.8 -389.9  68.0'
+ targets:
+ [
+  1
+  4
+  6
+  7
+ ]
+}
+
+waypoint
+{
+ id: 4
+ origin: '-258.9 -347.3  68.0'
+ targets:
+ [
+  1
+  5
+  7
+  13
+  11
+ ]
+}
+
+waypoint
+{
+ id: 3
+ origin: '-340.0 -354.6  68.0'
+ targets:
+ [
+  1
+  13
+  12
+  14
+ ]
+}
+
+waypoint
+{
+ id: 13
+ origin: '-296.0 -322.6  68.0'
+ targets:
+ [
+  4
+  3
+  1
+  14
+  17
+ ]
+}
+
+waypoint
+{
+ id: 1
+ origin: '-296.7 -381.0  68.0'
+ targets:
+ [
+  13
+  3
+  4
+  5
+ ]
+}
+

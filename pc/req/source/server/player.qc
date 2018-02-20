@@ -5,7 +5,6 @@
 void setup_bank(entity who);
 void() ExitChair;
 void(vector where, float type) Spawn_Powerup;
-void() perk_whoswho;
 
 // player animations
 
@@ -133,8 +132,6 @@ void() backupWeapon =
 
 void() returnWeapon =
 {
-	float startframe, endframe;
-	string modelname;
 	self.weapon = self.backupweapon;
 	self.currentmag = self.backupmag;
 	self.currentammo = self.backupammo;
@@ -145,13 +142,6 @@ void() returnWeapon =
 
 	self.weaponmodel = GetWeaponModel(self.weapon, 0);
 	SwitchWeapon(self.weapon);
-	startframe = GetFrame(self.weapon,TAKE_OUT_START);
-	endframe = GetFrame(self.weapon,TAKE_OUT_END);
-	modelname = GetWeaponModel(self.weapon, 0);
-
-	SwitchWeapon(self.weapon);
-
-	Set_W_Frame (startframe, endframe, 0, 0, 0, SUB_Null, modelname, false, S_BOTH);
 }
 
 void() PlayerJump =
@@ -343,6 +333,7 @@ void() PlayerPostThink =
 		self.movetype = MOVETYPE_WALK;
 		self.craft = 0;
 	}
+
 };
 
 void() ClientKill =
@@ -355,6 +346,10 @@ void() ClientConnect =
 	if (mapname == "ndu")	{			// the only one we REALLY need to fix is NDU since I don't want to edit the file
 		stuffcmd(self, "sky sky\n");
 		stuffcmd(self, "fog 0.075\n"); // naievil -- temp reliable fog
+	}
+	else if (mapname == "Kino_Der_Toten")	{
+		stuffcmd(self, "sky sky\n");
+		stuffcmd(self, "fog 0.075\n"); // BCDGeshiG -- also did Kino in case
 	}
 
 	bprint(PRINT_HIGH, self.netname); //print player name
@@ -645,14 +640,6 @@ void(string com) SV_ParseClientCommand =
 		switch(argv(0))
 		{
 			case "give":
-				if (argv(1) == "kms") { //moto (FIXME) -- remove completely (don't have jackhammer at skool so cheap way xddd)
-					local entity oof;
-					oof = self;
-					self = find(world, classname, "perk_tombstone");
-					perk_whoswho();
-					self = oof;
-					return;
-				}
 				float wep = stof(argv(1));
 
 				if (wep) {
