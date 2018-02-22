@@ -351,6 +351,10 @@ void() ClientConnect =
 		stuffcmd(self, "sky sky\n");
 		stuffcmd(self, "fog 0.075\n"); // BCDGeshiG -- also did Kino in case
 	}
+	else if (mapname == "wahnsinn")	{
+		stuffcmd(self, "sky sky\n");
+		stuffcmd(self, "fog 0.075\n"); // BCDGeshiG -- side note: does wahnsinn have waypoints?
+	}
 
 	bprint(PRINT_HIGH, self.netname); //print player name
 	bprint(PRINT_HIGH, " connected.\n");

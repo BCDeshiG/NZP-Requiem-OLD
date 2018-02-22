@@ -76,6 +76,8 @@ void() M_Menu_Main_Keys =
 		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
 		switch (M_Menu_Main_Cursor) {
 			case 0: in_menu = MENU_SINGLE; menuTime = time + 0.2; break;
+			case 1: localcmd("echo Unavailable at this time\n"); menuTime = time + 0.2; break;
+			case 2: localcmd("echo Unavailable at this time\n"); menuTime = time + 0.2; break;
 			case 3: in_menu = MENU_SETTINGS; setMen = 0; menuTime = time + 0.2; break;
 			case 4: in_menu = MENU_CREDITS; menuTime = time + 0.2; break; //motolegacy -- credits are fucked :pp
 			case 5: localcmd("quit\n"); break;
@@ -163,7 +165,7 @@ void() M_Menu_Solo_Keys =
     Classic Maps
    ============== */
 
-#define M_Menu_Classic_CursorMax	0
+#define M_Menu_Classic_CursorMax	1
 float M_Menu_Classic_Cursor;
 
 void() M_Menu_Classic_Draw =
@@ -173,8 +175,12 @@ void() M_Menu_Classic_Draw =
 
 	//FIXME - Text is opaque so we can't draw over each other without a weird effect
 
-	if (M_Menu_Classic_Cursor != 0)
+	if (M_Menu_Classic_Cursor != 0) {
 		drawstring([0.025*g_width, 0.125*g_height, 0], "Nacht der Untoten", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	}
+	if (M_Menu_Classic_Cursor != 1) {
+		drawstring([0.025*g_width, 0.175*g_height, 0], "Kino der Toten", [g_height * 0.03, g_height * 0.03, 1], [0.8, 0.8, 0.8], 1, 1);
+	}
 
 	//Selection
 
@@ -183,6 +189,12 @@ void() M_Menu_Classic_Draw =
 		drawstring([0.025*g_width, 0.850*g_height, 0], "You drove them deep into the heart of the Reich.", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 		drawstring([0.025*g_width, 0.900*g_height, 0], "You thought they were dead. You were wrong.", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
 		drawpic([0.025 * g_width, 0.550 * g_height, 0], "menu/ndu", [g_width * 0.25, g_height * 0.25, 1], [1,1,1], 1);
+	}
+	if (M_Menu_Classic_Cursor == 1) {
+		drawstring([0.025*g_width, 0.175*g_height, 0], "Kino der Toten", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.850*g_height, 0], "Battle the undead in this theatrical installment.", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawstring([0.025*g_width, 0.900*g_height, 0], "New twists could uncover the final plan. It's show time!", [g_height * 0.03, g_height * 0.03, 1], [1, 0.5, 0], 1, 1);
+		drawpic([0.025 * g_width, 0.550 * g_height, 0], "menu/kino", [g_width * 0.25, g_height * 0.25, 1], [1,1,1], 1);
 	}
 
 	//Directions
@@ -220,6 +232,7 @@ void() M_Menu_Classic_Keys =
 		sound(self, 0, "sounds/menu/enter.wav", 1, ATTN_NONE);
 		switch (M_Menu_Classic_Cursor) {
 			case 0: localcmd("map ndu\n"); break;
+			case 1: localcmd("map Kino_Der_Toten\n"); break;
 		}
 	}
 }
@@ -675,7 +688,7 @@ void() M_Menu_Credits_Draw =
 	w15 = (g_width - x15)/2;
 	x16 = stringwidth("Naievil", 0, [0.015625*g_width, 0.015625*g_width, 0]);
 	w16 = (g_width - x16)/2;
-	x17 = stringwidth("Requiem", 0, [0.015625*g_width, 0.015625*g_width, 0]);
+	x17 = stringwidth("Nazi Zombies Portable: Requiem", 0, [0.015625*g_width, 0.015625*g_width, 0]);
 	w17 = (g_width - x17)/2;
 	x18 = stringwidth("PROGRAMMING:", 0, [0.015625*g_width, 0.015625*g_width, 0]);
 	w18 = (g_width - x18)/2;
@@ -687,6 +700,7 @@ void() M_Menu_Credits_Draw =
 	w21 = (g_width - x21)/2;
 	x22 = stringwidth("That One Lazy Animator", 0, [0.015625*g_width, 0.015625*g_width, 0]);
 	w22 = (g_width - x22)/2;
+	// One sad boi: BCDeshiG
 	drawstring([w1, creditsHeight*g_height, 0], "Nazi Zombies: Portable", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
 	drawstring([w2, (creditsHeight+0.100)*g_height, 0], "PROGRAMMING:", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
 	drawstring([w3, (creditsHeight+0.150)*g_height, 0], "Jukki", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
@@ -703,7 +717,7 @@ void() M_Menu_Credits_Draw =
 	drawstring([w14, (creditsHeight+0.950)*g_height, 0], "PROGRAMMING:", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
 	drawstring([w15, (creditsHeight+1.000)*g_height, 0], "PerikiyoXD", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
 	drawstring([w16, (creditsHeight+1.050)*g_height, 0], "Naievil", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
-	drawstring([w17, (creditsHeight+1.150)*g_height, 0], "Requiem", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
+	drawstring([w17, (creditsHeight+1.150)*g_height, 0], "Nazi Zombies Portable: Requiem", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
 	drawstring([w18, (creditsHeight+1.250)*g_height, 0], "PROGRAMMING:", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
 	drawstring([w19, (creditsHeight+1.300)*g_height, 0], "MotoLegacy", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
 	drawstring([w20, (creditsHeight+1.400)*g_height, 0], "MODELING:", [0.015625*g_width, 0.015625*g_width, 0], [1, 1, 1], 1, 1);
