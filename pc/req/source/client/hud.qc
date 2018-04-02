@@ -788,7 +788,7 @@ void(float width, float height) HUD_Useprint =
 				usestring = strcat("Insufficient Parts");
 				break;
 			default:
-				usestring = "This shouldn't happen you dum fuhhh... i mean donut!";
+				usestring = "This shouldn't happen you dum twat";
 				break;
 		}
 			print_width = stringwidth (usestring, 0, [0.015625*width, 0.015625*width, 0]);

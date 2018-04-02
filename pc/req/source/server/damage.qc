@@ -388,6 +388,7 @@ void(entity victim,entity attacker, float damage, float d_style) DamageHandler =
 			damage = ceil(damage*0.5);
 		
 		victim.health = victim.health - damage;
+		sound(self,CHAN_ITEM,"sounds/player/pain4.wav",1,ATTN_NONE);
 		victim.health_delay = time + 2;
 
 		if (victim.health <= 20)
