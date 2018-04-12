@@ -953,7 +953,7 @@ void(entity szombie) SetZombieWalk =
 		szombie.walktype = 5;
 	}
 
-	if (world.walktype == 1 && whichwalk < 0.15)
+	if (world.walktype == 1 && whichwalk < 0.15 && rounds >= runrnd)
 		szombie.walktype = 6;
 };
 
