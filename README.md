@@ -1,3 +1,5 @@
+## OUTDATED: https://github.com/hellomotolegacy/NZP-Reboot
+
 # Nazi Zombies Portable
 * A quake mod.
 * We have zombies, they are nazis too.
