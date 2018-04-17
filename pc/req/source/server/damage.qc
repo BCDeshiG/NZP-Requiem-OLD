@@ -207,7 +207,7 @@ void(entity who, optional float end) GetDown =
 	
 	float gotalive = PollPlayersAlive();
 	
-	if (!(who.perks & P_REVIVE) || (coop && !gotalive) || end)
+	if ((!deathmatch && !coop && !(who.perks & P_REVIVE)) || !gotalive)
 	{
 		EndGameSetup();
 		return;

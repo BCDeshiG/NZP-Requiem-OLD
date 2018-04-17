@@ -36,17 +36,13 @@ vector v2model_muzzleoffset;
 const float MENU_NONE = 0;
 const float MENU_MAIN = 1;
 const float MENU_SINGLE = 2;
-const float MENU_CLASSIC = 4;
+const float MENU_MULTI = 4;
 const float MENU_SETTINGS = 8;
-const float MENU_CREDITS = 16;
+const float MENU_ABOUT = 16;
 const float MENU_JOIN = 32;
 const float MENU_PAUSE = 64;
 const float MENU_IGS = 128;
 const float MENU_RES = 256;
-const float MENU_COMMUNITY = 512;
-const float MENU_BETA = 1024;
-const float MENU_VSET = 2048;
-const float MENU_GSET = 4096;
 
 
 float useprint_type;

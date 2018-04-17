@@ -224,6 +224,6 @@ void() InitRounds =
 	rounds_change = 1;
 	roundinit = 1;
 	localcmd("gm_round 1");
-	rounds = (cvar("gm_round") - 1);
+	rounds = (cvar("gm_round")); // previously gm_round -1
 	SetUpdate(self, UT_ROUNDS_CHANGE, rounds_change, 0, 0);
 }
