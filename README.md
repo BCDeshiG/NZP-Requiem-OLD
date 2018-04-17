@@ -10,9 +10,9 @@
 ## Requiem
 * An NZP mod (modception).
 * Fork of the NZP Reboot (technically).
-* Includes new perks and mapping features
+* Includes new perks and mapping features.
   * E.g. custom round transitions, change of starting weapon, buyable ending etc.
-* Brand new (but broken) menu!
+* Hopefully features coop.
 
 ## Installation
 * Navigate to pc/req/source
