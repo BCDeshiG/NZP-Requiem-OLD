@@ -5,7 +5,13 @@
 
 void() menu_single =
 {
-	in_menu = MENU_SINGLE;
+	in_menu = MENU_MAPS;
+	time_in_menu = 0;
+};
+
+void() menu_maps =
+{
+	in_menu = MENU_MAPS;
 	time_in_menu = 0;
 };
 
@@ -26,20 +32,22 @@ void() menu_resn =
 
 void() menu_multi =
 {
-	in_menu = MENU_MULTI;
-	time_in_menu = 0;
+	in_menu = MENU_MAIN;
+	localcmd("echo Enter Console and type 'join <host ip>'\n");
 };
 
 void() menu_settings =
 {
 	in_menu = MENU_SETTINGS;
 	time_in_menu = 0;
+	localcmd("help\n");
 };
 
 void() menu_settings2 =
 {
 	in_menu = MENU_IGS;
 	time_in_menu = 0;
+	localcmd("help\n");
 }
 
 void() menu_about =
@@ -70,10 +78,46 @@ void() menu_loadndu =
 	localcmd("map ndu\n");
 };
 
+void() menu_loadkino =
+{
+	print("loading Kino Der Toten\n");
+	localcmd("map Kino_Der_Toten\n");
+};
+
 void() menu_loadwh =
 {
 	print("loading warehouse\n");
 	localcmd("map warehouse\n");
+};
+
+void() menu_loadhut =
+{
+	print("loading Woodhut\n");
+	localcmd("map woodhut\n");
+};
+
+void() menu_loadcs =
+{
+	print("loading Christmas Special\n");
+	localcmd("map christmas_special\n");
+};
+
+void() menu_loadcve =
+{
+	print("loading Cavern\n");
+	localcmd("map cavern\n");
+};
+
+void() menu_loadfrm =
+{
+	print("loading Farmhouse\n");
+	localcmd("map farmhouse\n");
+};
+
+void() menu_loadcrn =
+{
+	print("loading Corner\n");
+	localcmd("map corner\n");
 };
 
 void() menu_join =
@@ -108,6 +152,30 @@ void() menu_main =
 	localcmd("disconnect\n");
 };
 
+void() menu_achv =
+{
+	in_menu = MENU_MAIN;
+	localcmd("echo Unavailable at this time\n");
+};
+
+void() menu_classic =
+{
+	in_menu = MENU_CLASSIC;
+	time_in_menu = 0;
+}
+
+void() menu_nzp =
+{
+	in_menu = MENU_NZP;
+	time_in_menu = 0;
+}
+
+void() menu_bs =
+{
+	in_menu = MENU_MAPS;
+	time_in_menu = 0;
+}
+
 //struct for all buttons, note pos and scale are going to be multiplied with width/height in draw step, so keep them between 0 and 1
 var struct
 {
@@ -122,12 +190,21 @@ var struct
 	{[0.025, 0.175, 0], [0.325, 0.06, 0], " Solo", -1, menu_single, MENU_MAIN},
 	{[0.025, 0.250, 0], [0.325, 0.06, 0], " Cooperative", -1, menu_multi, MENU_MAIN},
 	{[0.025, 0.325, 0], [0.325, 0.06, 0], " Settings", -1, menu_settings, MENU_MAIN},
-	{[0.025, 0.400, 0], [0.325, 0.06, 0], " Achievements", -1, menu_main, MENU_MAIN},
+	{[0.025, 0.400, 0], [0.325, 0.06, 0], " Achievements", -1, menu_achv, MENU_MAIN},
 	{[0.025, 0.475, 0], [0.325, 0.06, 0], " Credits", -1, menu_about, MENU_MAIN},
 	{[0.025, 0.550, 0], [0.325, 0.06, 0], " Quit", -1, menu_quit, MENU_MAIN},
-	{[0.025, 0.900, 0], [0.325, 0.06, 0], "Back", -1, menu_back, MENU_SINGLE + MENU_MULTI + MENU_SETTINGS + MENU_ABOUT},
-	{[0.025, 0.175, 0], [0.425, 0.06, 0], "Nacht Der Untoten", -1, menu_loadndu, MENU_SINGLE},
-	//{[0.025, 0.575, 0], [0.250, 0.05, 0], "Warehouse", -1, menu_loadwh, MENU_SINGLE},
+	{[0.025, 0.900, 0], [0.325, 0.06, 0], "Back", -1, menu_back, MENU_MAPS + MENU_MULTI + MENU_SETTINGS + MENU_ABOUT},
+	{[0.025, 0.900, 0], [0.325, 0.06, 0], "Back", -1, menu_bs, MENU_CLASSIC + MENU_NZP},
+	{[0.025, 0.175, 0], [0.425, 0.06, 0], "Call of Duty", -1, menu_classic, MENU_MAPS},
+	{[0.025, 0.250, 0], [0.425, 0.06, 0], "Nazi Zombies Portable", -1, menu_nzp, MENU_MAPS},
+	{[0.025, 0.175, 0], [0.350, 0.06, 0], "Nacht Der Untoten", -1, menu_loadndu, MENU_CLASSIC},
+	{[0.025, 0.250, 0], [0.350, 0.06, 0], "Kino Der Toten", -1, menu_loadkino, MENU_CLASSIC},
+	{[0.025, 0.175, 0], [0.350, 0.06, 0], "Warehouse", -1, menu_loadwh, MENU_NZP},
+	{[0.025, 0.250, 0], [0.350, 0.06, 0], "Woodhut", -1, menu_loadhut, MENU_NZP},
+	{[0.025, 0.325, 0], [0.350, 0.06, 0], "Christmas Special", -1, menu_loadcs, MENU_NZP},
+	{[0.025, 0.400, 0], [0.350, 0.06, 0], "Cavern", -1, menu_loadcve, MENU_NZP},
+	{[0.025, 0.475, 0], [0.350, 0.06, 0], "Farmhouse", -1, menu_loadfrm, MENU_NZP},
+	{[0.025, 0.550, 0], [0.350, 0.06, 0], "Corner", -1, menu_loadcrn, MENU_NZP},
 	{[0.475, 0.500, 0], [0.250, 0.05, 0], "Join", -1, game_join, MENU_JOIN},
 	{[0.475, 0.575, 0], [0.250, 0.05, 0], "Spectate", -1, game_spec, MENU_JOIN},
 	{[0.025, 0.500, 0], [0.250, 0.05, 0], "Resume", -1, menu_resume, MENU_PAUSE},
@@ -140,7 +217,7 @@ var struct
 };
 
 //REMEMBER TO UPDATE THIS CONST IF YOU ADD BUTTONS
-const float BUTTONS_COUNT = 17;
+const float BUTTONS_COUNT = 27;
 
 float mapdesc = 0;
 
@@ -174,9 +251,20 @@ void(float index) Update_Button =
 		drawfill(pos, scale, [0.6,0.6,0.6] + [0.15,0.15,0.15]*buttons[index].active, 0.3 * alphafactor); //Solid Background
 		drawline(1, pos, [pos_x + scale_x, pos_y, 0], [90,90,90], 1.5, 1); //top outline
 		drawline(1, [pos_x, pos_y + scale_y, 0], [pos_x + scale_x, pos_y + scale_y, 0], [90,90,90], 1.5, 1); //bottom outline
+		if (udplay == 0)
+		{
+			sound(self, 0, "sounds/menu/navigate.wav", 1, ATTN_NONE);
+			udplay = 1;
+		}
+		if (buttons[index].text == ""){
+			udplay = 0;
+		}
 	}
 	else
 		alphafactor = buttons[index].active + 1; //-1 invis, 0 normal
+
+	if (buttons[index].active < 0)
+		udplay = 0;
 	
 	if(cursor_pos_x > pos_x && cursor_pos_x < pos_x + scale_x && cursor_pos_y > pos_y && cursor_pos_y < pos_y + scale_y )
 		buttons[index].active = 1;
@@ -226,8 +314,9 @@ float songTime;
 void() Draw_Menu =
 {
 	precache_sound("sounds/menu/enter.wav");
+	precache_sound("sounds/menu/navigate.wav");
 
-	if (songTime < time && mapname == "menu") {
+	if (songTime < time && serverkey("constate") == "disconnected") {
 		sound(self, 0, "sounds/menu/theme.wav", 1, ATTN_NONE);
 		songTime = 196 + time;
 	}
@@ -258,7 +347,7 @@ void() Draw_Menu =
 			//drawfill ([0.025*g_width, 0.393*g_height + g_height*0.025 + 3, 0], [0.22*g_width, 0.0025*g_height, 0], [0.4, 0.4, 0.4], 1); //Achievements | Credits
 			//drawfill ([0.025*g_width, 0.463*g_height + g_height*0.025 + 3, 0], [0.22*g_width, 0.0025*g_height, 0], [0.4, 0.4, 0.4], 1); //Credits | Quit 
 			break;
-		case MENU_SINGLE:
+		case MENU_MAPS:
 			title = "SOLO";
 			break;
 		case MENU_MULTI:
@@ -279,8 +368,14 @@ void() Draw_Menu =
 		case MENU_RES:
 			title = "RESTART";
 			break;
-		default:
+		case MENU_CLASSIC:
+			title = "Call of Duty";
+			break;
+		case MENU_NZP:
 			title = "Nazi Zombies: Portable";
+			break;
+		default:
+			title = "NZ:P Requiem";
 	}
 
 	local float chars_to_keep;
