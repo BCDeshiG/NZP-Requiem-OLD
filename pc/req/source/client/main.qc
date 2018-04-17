@@ -2,7 +2,7 @@ void() ToggleMenu =
 {
 	if(serverkey("constate") != "disconnected")
 	{
-		//localcmd("cmd pause\n");
+		localcmd("cmd pause\n");
 		if(in_menu == MENU_NONE)
 		{
 			in_menu = MENU_PAUSE;
@@ -22,7 +22,9 @@ void() ToggleMenu =
 	}
 	else
 	{
-		localcmd("map menu\n");
+		in_menu = MENU_MAIN;
+		time_in_menu = 0;
+		setcursormode(TRUE,"menu/cursor");
 	}
 }
 
