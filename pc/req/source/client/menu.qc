@@ -32,7 +32,8 @@ void() menu_resn =
 
 void() menu_multi =
 {
-	in_menu = MENU_MAIN;
+	in_menu = MENU_MULTI;
+	time_in_menu = 0;
 	localcmd("echo Enter Console and type 'join <host ip>'\n");
 };
 
@@ -176,6 +177,16 @@ void() menu_bs =
 	time_in_menu = 0;
 }
 
+void() menu_newmatch =
+{
+	localcmd("menu_newmulti\n");
+}
+
+void() menu_joinmatch =
+{
+	localcmd("menu_slist\n");
+}
+
 //struct for all buttons, note pos and scale are going to be multiplied with width/height in draw step, so keep them between 0 and 1
 var struct
 {
@@ -196,7 +207,7 @@ var struct
 	{[0.025, 0.900, 0], [0.325, 0.06, 0], "Back", -1, menu_back, MENU_MAPS + MENU_MULTI + MENU_SETTINGS + MENU_ABOUT},
 	{[0.025, 0.900, 0], [0.325, 0.06, 0], "Back", -1, menu_bs, MENU_CLASSIC + MENU_NZP},
 	{[0.025, 0.175, 0], [0.425, 0.06, 0], "Call of Duty", -1, menu_classic, MENU_MAPS},
-	{[0.025, 0.250, 0], [0.425, 0.06, 0], "Nazi Zombies Portable", -1, menu_nzp, MENU_MAPS},
+	{[0.025, 0.250, 0], [0.425, 0.06, 0], "Nazi Zombies: Portable", -1, menu_nzp, MENU_MAPS},
 	{[0.025, 0.175, 0], [0.350, 0.06, 0], "Nacht Der Untoten", -1, menu_loadndu, MENU_CLASSIC},
 	{[0.025, 0.250, 0], [0.350, 0.06, 0], "Kino Der Toten", -1, menu_loadkino, MENU_CLASSIC},
 	{[0.025, 0.175, 0], [0.350, 0.06, 0], "Warehouse", -1, menu_loadwh, MENU_NZP},
@@ -207,6 +218,8 @@ var struct
 	{[0.025, 0.550, 0], [0.350, 0.06, 0], "Corner", -1, menu_loadcrn, MENU_NZP},
 	{[0.475, 0.500, 0], [0.250, 0.05, 0], "Join", -1, game_join, MENU_JOIN},
 	{[0.475, 0.575, 0], [0.250, 0.05, 0], "Spectate", -1, game_spec, MENU_JOIN},
+	{[0.025, 0.175, 0], [0.350, 0.06, 0], "Create Match", -1, menu_newmatch, MENU_MULTI},
+	{[0.025, 0.250, 0], [0.350, 0.06, 0], "Join Match", -1, menu_joinmatch, MENU_MULTI},
 	{[0.025, 0.500, 0], [0.250, 0.05, 0], "Resume", -1, menu_resume, MENU_PAUSE},
 	{[0.025, 0.575, 0], [0.250, 0.05, 0], "Restart", -1, menu_restart, MENU_PAUSE},
 	{[0.025, 0.650, 0], [0.250, 0.05, 0], "Settings", -1, menu_settings2, MENU_PAUSE},
@@ -217,7 +230,7 @@ var struct
 };
 
 //REMEMBER TO UPDATE THIS CONST IF YOU ADD BUTTONS
-const float BUTTONS_COUNT = 27;
+const float BUTTONS_COUNT = 29;
 
 float mapdesc = 0;
 
@@ -315,6 +328,7 @@ void() Draw_Menu =
 {
 	precache_sound("sounds/menu/enter.wav");
 	precache_sound("sounds/menu/navigate.wav");
+	localcmd("cl_cursor_scale 0.2\n");
 
 	if (songTime < time && serverkey("constate") == "disconnected") {
 		sound(self, 0, "sounds/menu/theme.wav", 1, ATTN_NONE);
