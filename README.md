@@ -1,3 +1,5 @@
+## Please note: Not in active development. Play the NZP Reboot here: https://github.com/thyjukki/NZP-Reboot
+
 # Nazi Zombies Portable
 * A quake mod.
 * We have zombies, they are nazis too.
